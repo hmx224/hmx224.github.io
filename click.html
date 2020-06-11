@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>纯css实现导航下拉菜单</title>
+    <style>
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav li {
+            display: block;
+            float: left;
+            width: 150px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: #000;
+            position: relative;
+        }
+
+        nav li a {
+            display: block;
+        }
+
+        nav li ul {
+            display: none;
+            width: 150px;
+            position: absolute;
+            left: 0;
+            top: 30px;
+            padding: 0;
+            margin: 0;
+            background-color: red;
+        }
+
+        nav li:hover ul {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <li><a href="">前端</a>
+        <ul>
+            <a href="">下拉菜单1</a>
+            <a href="">下拉菜单1</a>
+            <a href="">下拉菜单1</a>
+            <a href="">下拉菜单1</a>
+            <a href="">下拉菜单1</a>
+        </ul>
+    </li>
+    <li><a href="">后端</a>
+        <ul>
+            <a href="">下拉菜单2</a>
+            <a href="">下拉菜单2</a>
+            <a href="">下拉菜单2</a>
+            <a href="">下拉菜单2</a>
+            <a href="">下拉菜单2</a>
+        </ul>
+    </li>
+    <li><a href="">工具类</a></li>
+    <li><a href="">扩展类</a></li>
+    <li><a href="">go语言</a></li>
+</nav>
+</body>
+</html>
