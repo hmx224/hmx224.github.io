@@ -9,21 +9,20 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>Posts | 爱狂热博客</title>
-    <meta property="og:title" content="Posts - 爱狂热博客">
+    <title>搜索 | 爱狂热博客</title>
+    <meta property="og:title" content="搜索 - 爱狂热博客">
     <meta property="og:type" content="article">
         
         
     <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
-    <meta name="description" content="Posts">
+    <meta name="description" content="搜索页面">
         
     <meta name="author" content="爱狂热">
-    <meta property="og:url" content="http://hmx224.github.io/post/">
+    <meta property="og:url" content="http://hmx224.github.io/search/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
-    <link rel="alternate" type="application/rss+xml+xml" href="http://hmx224.github.io/post/index.xml" title="爱狂热博客" />
     <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     
@@ -53,7 +52,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="http://hmx224.github.io/">首页</a>
+                    <a class="" href="http://hmx224.github.io/">首页</a>
                     
                     <a  href="http://hmx224.github.io/tools/" title="工具">工具</a>
                     
@@ -76,39 +75,71 @@
                 <div class="col-8" id="main">
                     
 <div class="res-cons">
-    
-    
+    <h3 class="archive-title">
+        搜索
+        <span class="keyword">哈哈</span>
+        的结果
+    </h3>
+
     <article class="post">
         <header>
             <h1 class="post-title">
-                <a href="http://hmx224.github.io/first.md" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+                <a href="链接">标题</a>
             </h1>
         </header>
         <date class="post-meta meta-date">
-            2020年11月22日
+            2019年12月01日
         </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='/categories/jobs'>jobs</a></span>
-            
-        </div>
-        
         <div class="post-content">
-            知识图谱引导 记录起来,加油，奋进，努力！ 工具 pycharm 2018.03，有效期到：2100年,主要是注意流程点击这里 pycharm 破解流程,点击这里 phpstorm 2016.3.2,可使用百度云中的下载使用 goland 2019.01/2018.03(这个版本可以用),百度云下载使用 php校验身份证号,点击这里 html代码压缩……
+            概要……
+            <p class="readmore"><a href="链接">阅读全文</a></p>
         </div>
-        <p class="readmore"><a href="http://hmx224.github.io/first.md">阅读全文</a></p>
     </article>
-    
-    
-    
-
-
-
-
 
 </div>
+
+<script type="text/javascript">
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
+    $(document).ready(function () {
+        var q = getUrlParameter("q");
+        $("span.keyword").text(q);
+        $("article.post").remove();
+        $.ajax({
+            url: 'http:\/\/hmx224.github.io\/index.xml',
+            dataType: "xml",
+            success: function (data) {
+                $(data).find("item").each(function () {
+                    var item = $(this);
+                    var title = item.find("title").text();
+                    if (title.toLowerCase().indexOf(q.toLowerCase()) >= 0) {
+                        var url = item.find("link").text();
+                        var searchItem = `<article class="post"><header><h1 class="post-title"><a href="` + url + `">` + title + `</a></h1></header>`;
+                        var pubDate = new Date(item.find("pubDate").text())
+                        searchItem += `<date class="post-meta meta-date">` + pubDate.getFullYear() + `年` + (pubDate.getMonth() + 1) + `月` + pubDate.getDate() + `日</date>`;
+                        searchItem += `<div class="post-content">` + item.find("description").text() + `……<p class="readmore"><a href="` + url + `">阅读全文</a></p></div></article>`;
+
+                        $("div.res-cons").append(searchItem);
+                    }
+                });
+            }
+        });
+    });
+</script>
 
                     <footer id="footer">
     <div>
@@ -131,6 +162,16 @@
 </footer>
 
 
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>

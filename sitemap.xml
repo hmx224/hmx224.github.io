@@ -3,7 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hmx224.github.io/categories/</loc>
+    <lastmod>2020-11-22T09:15:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/tags/jobs/</loc>
+    <lastmod>2020-11-22T09:15:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/categories/jobs/</loc>
+    <lastmod>2020-11-22T09:15:46+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hmx224.github.io/post/</loc>
+    <lastmod>2020-11-22T09:15:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/tags/</loc>
     <lastmod>2020-11-22T09:15:46+08:00</lastmod>
   </url>
   
@@ -13,16 +33,25 @@
   </url>
   
   <url>
-    <loc>http://hmx224.github.io/post/first/</loc>
+    <loc>http://hmx224.github.io/first.md</loc>
     <lastmod>2020-11-22T09:15:46+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://hmx224.github.io/categories/</loc>
+    <loc>http://hmx224.github.io/about/</loc>
+    <lastmod>2020-11-22T09:11:04+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://hmx224.github.io/tags/</loc>
+    <loc>http://hmx224.github.io/tools/</loc>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/archives/</loc>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/search/</loc>
   </url>
   
 </urlset>

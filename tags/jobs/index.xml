@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on 爱狂热博客</title>
-    <link>http://hmx224.github.io/post/</link>
-    <description>Recent content in Posts on 爱狂热博客</description>
+    <title>jobs on 爱狂热博客</title>
+    <link>http://hmx224.github.io/tags/jobs/</link>
+    <description>Recent content in jobs on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Nov 2020 09:15:46 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 22 Nov 2020 09:15:46 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/tags/jobs/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记录早期爱狂热blog简介记录</title>
       <link>http://hmx224.github.io/first.md</link>

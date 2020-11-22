@@ -5,16 +5,51 @@
     <link>http://hmx224.github.io/</link>
     <description>Recent content on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>zh-CN</language>
     <lastBuildDate>Sun, 22 Nov 2020 09:15:46 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>记录早期爱狂热blog简介记录</title>
-      <link>http://hmx224.github.io/post/first/</link>
+      <link>http://hmx224.github.io/first.md</link>
       <pubDate>Sun, 22 Nov 2020 09:15:46 +0800</pubDate>
       
-      <guid>http://hmx224.github.io/post/first/</guid>
-      <description>知识图谱引导  记录起来,加油，奋进，努力！
- 工具  pycharm 2018.03，有效期到：2100年,主要是注意流程点击这里 pycharm 破解流程,点击这里 phpstorm 2016.3.2,可使用百度云中的下载使用 goland 2019.01/2018.03(这个版本可以用),百度云下载使用 php校验身份证号,点击这里 html代码压缩,点击这里  Go语言  go语言入门文档点击这里 在 Go 中恰到好处的内存对齐点击这里 go圣经点击这里 go学习文档点击这里 老男孩go入门到精通，B- 站有视频，Matt-Pei，文档地址：点击这里  PHP语言  php中安装swoole扩展点击这里 &amp;ldquo;说明：1. 停止命令 pkill php-fpm 2.重启或启动命令 php-fpm -R 3.php &amp;ndash;ri swoole 查看swoole安装情况&amp;rdquo; easySwoole文档点击这里 php包仓库点击这里  Python语言  python学习文档点击这里  ssl证书  acme.sh 非常简单的 从 letsencrypt 生成 ssl 证书的中文说明点击这里 ssl证书信息查询 https时效查询点击这里 https证书查询，更准确点点击这里  GIT工具  Git知识总览(一) 从 git clone 和 git status 谈起点击这里  前端  前端进阶之道点击这里  其他  定时任务详解：点击这里 查询本机ip地址：点击这里  友情链接 胡梦旭博客</description>
+      <guid>http://hmx224.github.io/first.md</guid>
+      <description>知识图谱引导 记录起来,加油，奋进，努力！ 工具 pycharm 2018.03，有效期到：2100年,主要是注意流程点击这里 pycharm 破解流程,点击这里 phpstorm 2016.3.2,可使用百度云中的下载使用 goland 2019.01/2018.03(这个版本可以用),百度云下载使用 php校验身份证号,点击这里 html代码压缩</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>http://hmx224.github.io/about/</link>
+      <pubDate>Sun, 22 Nov 2020 09:11:04 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/about/</guid>
+      <description>开发工程师 专攻PHP开发、Python开发、Go开发工程师，服务器运维等</description>
+    </item>
+    
+    <item>
+      <title>工具</title>
+      <link>http://hmx224.github.io/tools/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://hmx224.github.io/tools/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>归档</title>
+      <link>http://hmx224.github.io/archives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://hmx224.github.io/archives/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>搜索</title>
+      <link>http://hmx224.github.io/search/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://hmx224.github.io/search/</guid>
+      <description></description>
     </item>
     
   </channel>
