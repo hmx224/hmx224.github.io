@@ -5,11 +5,39 @@
     <link>http://hmx224.github.io/post/</link>
     <description>Recent content in Posts on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 24 Nov 2020 22:11:40 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PhpInterview2018</title>
+      <link>http://hmx224.github.io/post/phpInterview2018/</link>
+      <pubDate>Tue, 24 Nov 2020 22:11:40 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/phpInterview2018/</guid>
+      <description>PHP 高级工程面试题汇总 (2018.05) 1、给你四个坐标点，判断它们能不能组成一个矩形，如判断 ([0,0],[0,1],[1,1],[1,0]) 能组成一个矩形。 勾股定理，矩形是对角线相等的四边形。只要任意三点不在一条直线上，任选一点，求这一点到另外三点的长度的平方，两个短的之和如果等于最长的，那么这就是矩形。 2、写一段代码判断单向链表中有没有形</description>
+    </item>
+    
+    <item>
+      <title>Resume</title>
+      <link>http://hmx224.github.io/post/resume/</link>
+      <pubDate>Tue, 24 Nov 2020 16:00:16 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/resume/</guid>
+      <description>个人信息 胡梦旭/男/1993 工作年限：4年 手机：15321604680(同微信) Email：ifanaticfire@gmail.com 期望职位：PHP/Go开发 期望薪资：税前月薪25k~30k 工作经历 公司名称 时间 部门 职位 工作职责 北京基云惠康科技有限公司 2018.3 ~ 至今 IT业务部 IT主管</description>
+    </item>
+    
+    <item>
+      <title>Qrcode</title>
+      <link>http://hmx224.github.io/post/qrcode/</link>
+      <pubDate>Mon, 23 Nov 2020 14:27:30 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/qrcode/</guid>
+      <description>用户扫码绑定编号</description>
+    </item>
+    
     <item>
       <title>记录早期爱狂热blog简介记录</title>
       <link>http://hmx224.github.io/post/first/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Nov 2020 09:15:46 +0800</pubDate>
       
       <guid>http://hmx224.github.io/post/first/</guid>
       <description>知识图谱引导 记录起来,加油，奋进，努力！ 工具 pycharm 2018.03，有效期到：2100年,主要是注意流程点击这里 pycharm 破解流程,点击这里 phpstorm 2016.3.2,可使用百度云中的下载使用 goland 2019.01/2018.03(这个版本可以用),百度云下载使用 php校验身份证号,点击这里 html代码压缩</description>
