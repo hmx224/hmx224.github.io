@@ -4,7 +4,17 @@
   
   <url>
     <loc>http://hmx224.github.io/post/</loc>
-    <lastmod>2020-11-23T14:27:30+08:00</lastmod>
+    <lastmod>2020-11-24T16:00:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/post/resume/</loc>
+    <lastmod>2020-11-24T16:00:16+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/</loc>
+    <lastmod>2020-11-24T16:00:16+08:00</lastmod>
   </url>
   
   <url>
@@ -13,8 +23,8 @@
   </url>
   
   <url>
-    <loc>http://hmx224.github.io/</loc>
-    <lastmod>2020-11-23T14:27:30+08:00</lastmod>
+    <loc>http://hmx224.github.io/post/first/</loc>
+    <lastmod>2020-11-22T09:15:46+08:00</lastmod>
   </url>
   
   <url>
@@ -40,10 +50,6 @@
   
   <url>
     <loc>http://hmx224.github.io/search/</loc>
-  </url>
-  
-  <url>
-    <loc>http://hmx224.github.io/post/first/</loc>
   </url>
   
 </urlset>
