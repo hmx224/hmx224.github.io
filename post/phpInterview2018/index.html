@@ -404,7 +404,7 @@ $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 
 https://www.cnblogs.com/rendd/p/6183094.ht...
 </code></pre><h2 id="5nginx-的-log_format-配置如下">5、nginx 的 log_format 配置如下：</h2>
-<p>log_format main ‘remoteaddr−remote_user [timelocal]&ldquo;request”’
+<p>log_format main ‘remoteaddr−remote_user [timelocal]&ldquo;request”’ 
 ‘statusbody_bytes_sent “httpreferer&rdquo;″&ldquo;http_user_agent” “upstreamresponsetime&quot;&ldquo;request_time” “http_x_forwarded_for&rdquo;';
 从今天的 nginx log 文件 access.log 中：</p>
 <p>a、列出 “request_time” 最大的 20 行？
@@ -969,6 +969,10 @@ http://www.jb51.net/article/55853.htm
     <section class="widget">
         <h3 class="widget-title">最近文章</h3>
 <ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+    </li>
     
     <li>
         <a href="http://hmx224.github.io/post/phpInterview2018/" title="PhpInterview2018">PhpInterview2018</a>

@@ -6,7 +6,16 @@
     <description>Recent content on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 24 Nov 2020 22:11:40 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 25 Nov 2020 17:56:39 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SupervisorInfo</title>
+      <link>http://hmx224.github.io/post/supervisorInfo/</link>
+      <pubDate>Wed, 25 Nov 2020 17:56:39 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/supervisorInfo/</guid>
+      <description>一、supervisor简介 Supervisor是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。它是通过fork/exec的方式把这些被管理的进程当作supervisor的子进程来启动，这样只要在s</description>
+    </item>
+    
     <item>
       <title>PhpInterview2018</title>
       <link>http://hmx224.github.io/post/phpInterview2018/</link>
