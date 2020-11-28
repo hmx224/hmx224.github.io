@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Nov 2020 16:33:53 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Nov 2020 16:48:51 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux的启动流程</title>
+      <link>http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Sat, 28 Nov 2020 16:48:51 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+      <description>Linux 的启动流程 第一步、加载内核 第二步、启动初始化进程 第三步、确定运行级别 第四步、加载开机启动程序 第五步、用户登录 第六步、进入 login shell 第七步，打开 non-login shell 参考地址：http://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html</description>
+    </item>
+    
     <item>
       <title>Linux服务管理程序systemd</title>
       <link>http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/</link>
