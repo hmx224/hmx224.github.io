@@ -6,7 +6,16 @@
     <description>Recent content in Posts on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 28 Nov 2020 16:48:51 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 Nov 2020 21:51:13 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Centos中安装GUI</title>
+      <link>http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/</link>
+      <pubDate>Sun, 29 Nov 2020 21:51:13 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/</guid>
+      <description>[toc] CentOS中安装GUI界面 关于vnc模式登陆报错 这个报错是密码错误，需要先输入账户名（默认是root），在输入密码（密码默认不显示），才能进入系统 (1)安装GNOME yum groupinstall &amp;quot;GNOME Desktop&amp;quot; &amp;quot;Graphical Administration Tools&amp;quot; -y 卸载GNOME yum groupremove &amp;quot;GNOME Desktop&amp;quot; Centos7 yum groupinstall 报错的解决办法 Maybe run: yum groups mark install (see man yum) No packages in any requested group available to install or update 解决： yum groupinstall &amp;quot;Office</description>
+    </item>
+    
     <item>
       <title>Linux的启动流程</title>
       <link>http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>

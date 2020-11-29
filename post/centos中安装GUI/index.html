@@ -9,16 +9,20 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
 
-    <title>工具 | 爱狂热博客</title>
-    <meta property="og:title" content="工具 - 爱狂热博客">
+    <title>Centos中安装GUI | 爱狂热博客</title>
+    <meta property="og:title" content="Centos中安装GUI - 爱狂热博客">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content='2020-11-29T21:51:13&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-11-29T21:51:13&#43;08:00'>
         
     <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
-    <meta name="description" content="PHP开发者，Python开发、Go开发">
+    <meta name="description" content="Centos中安装GUI">
         
     <meta name="author" content="爱狂热">
-    <meta property="og:url" content="http://hmx224.github.io/tools/">
+    <meta property="og:url" content="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/">
     <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
 
     <link rel="stylesheet" href='/css/normalize.css'>
@@ -48,9 +52,9 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://hmx224.github.io/">首页</a>
+                    <a class="current" href="http://hmx224.github.io/">首页</a>
                     
-                    <a class="current" href="http://hmx224.github.io/tools/" title="工具">工具</a>
+                    <a  href="http://hmx224.github.io/tools/" title="工具">工具</a>
                     
                     <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
                     
@@ -135,7 +139,42 @@
 <div class="post-toc" style="position: absolute; top: 188px;">
     <h2 class="post-toc-title">文章目录</h2>
     <div class="post-toc-content">
-        <nav id="TableOfContents"></nav>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#关于vnc模式登陆报错">关于vnc模式登陆报错</a></li>
+    <li><a href="#1安装gnome">(1)安装GNOME</a>
+      <ul>
+        <li><a href="#查看yum安装的清单">查看yum安装的清单</a></li>
+      </ul>
+    </li>
+    <li><a href="#2startx-启动图形界面">(2)startx 启动图形界面</a></li>
+    <li><a href="#3系统切换形式">(3)系统切换形式</a>
+      <ul>
+        <li><a href="#获取默认target">获取默认target</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#安装图形界面">安装图形界面</a>
+      <ul>
+        <li><a href="#使用以下命令安装图形桌面的软件包">使用以下命令安装图形桌面的软件包。</a></li>
+        <li><a href="#使用以下命令设置图形模式为默认模式启动">使用以下命令设置图形模式为默认模式启动。</a></li>
+        <li><a href="#使用以下命令重启重启后即可通过阿里云网页控制台上的vnc连接看到图形界面">使用以下命令重启，重启后即可通过阿里云网页控制台上的VNC连接看到图形界面。</a></li>
+      </ul>
+    </li>
+    <li><a href="#安装vnc-server">安装VNC Server</a>
+      <ul>
+        <li><a href="#使用以下命令安装相关软件包">使用以下命令安装相关软件包。</a></li>
+        <li><a href="#使用以下命令设置vnc密码">使用以下命令设置vnc密码。</a></li>
+        <li><a href="#使用以下命令启动vnc-server">使用以下命令启动VNC Server。</a></li>
+        <li><a href="#232vnc密码">232vnc密码</a></li>
+      </ul>
+    </li>
+    <li><a href="#tcp测试ip的某个端口是否开启">tcp测试ip的某个端口是否开启</a></li>
+    <li><a href="#当starx-进入到图形化界面后右键open-in-terminal-失效问题">当starx 进入到图形化界面后，右键：open in terminal 失效问题</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 <script type="text/javascript">
@@ -167,10 +206,10 @@
 </script>
     <article class="post">
         <header>
-            <h1 class="post-title">工具</h1>
+            <h1 class="post-title">Centos中安装GUI</h1>
         </header>
         <date class="post-meta meta-date">
-            1年1月1日
+            2020年11月29日
         </date>
         
         
@@ -180,8 +219,100 @@
         </div>
         
         
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
         <div class="post-content">
-            
+            <p>[toc]</p>
+<h1 id="centos中安装gui界面">CentOS中安装GUI界面</h1>
+<h2 id="关于vnc模式登陆报错">关于vnc模式登陆报错</h2>
+<blockquote>
+<p>这个报错是密码错误，需要先输入账户名（默认是root），在输入密码（密码默认不显示），才能进入系统</p>
+</blockquote>
+<h2 id="1安装gnome">(1)安装GNOME</h2>
+<pre><code>yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot; -y
+</code></pre><p>卸载GNOME</p>
+<pre><code>yum groupremove &quot;GNOME Desktop&quot;
+</code></pre><ul>
+<li>Centos7 yum groupinstall 报错的解决办法</li>
+</ul>
+<pre><code>Maybe run: yum groups mark install (see man yum)
+No packages in any requested group available to install or update
+</code></pre><p>解决：</p>
+<pre><code>yum groupinstall &quot;Office Suite and Productivity&quot; --setopt=group_package_types=mandatory,default,optional
+
+</code></pre><ul>
+<li>xauth:  file /root/.serverauth.21702 does not exist</li>
+</ul>
+<pre><code>yum update
+yum groupinstall &quot;X Window System&quot;
+yum groupinstall &quot;Desktop&quot;
+</code></pre><h3 id="查看yum安装的清单">查看yum安装的清单</h3>
+<p>yum grouplist</p>
+<h2 id="2startx-启动图形界面">(2)startx 启动图形界面</h2>
+<p>我们可以通过命令 startx 进入图形界面，第一次进入会比较慢，请耐心等待。</p>
+<p>modeset(0): Initializing kms color map for depth 16, 6 bpc</p>
+<p>我的是腾讯云服务器，只需要切换登录服务器的方式（用VNC登录方式登录服务器），其他的方式登录默认是命令行界面</p>
+<h2 id="3系统切换形式">(3)系统切换形式</h2>
+<p>系统启动默认还是命令行页面的，需要我们进行切换。如果想要使系统启动即为图形化窗口，需要执行下面的命令</p>
+<p>ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target</p>
+<h3 id="获取默认target">获取默认target</h3>
+<p>systemctl get-default //获取当前的默认target</p>
+<h1 id="阿里云的ecs服务器中centos安装图形化界面-centos8系统">阿里云的ecs服务器中CentOS安装图形化界面-CentOS8系统</h1>
+<h2 id="安装图形界面">安装图形界面</h2>
+<h3 id="使用以下命令安装图形桌面的软件包">使用以下命令安装图形桌面的软件包。</h3>
+<pre><code># centos8
+yum groupinstall &quot;Server with GUI&quot; -y 
+
+# centos7
+yum groupinstall &quot;MATE Desktop&quot; -y 
+yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot; -y
+yum groupinstall &quot;X Window System&quot;
+
+</code></pre><h3 id="使用以下命令设置图形模式为默认模式启动">使用以下命令设置图形模式为默认模式启动。</h3>
+<pre><code># centos8
+systemctl set-default graphical
+
+# centos7
+systemctl set-default graphical.target
+
+结果
+Removed symlink /etc/systemd/system/default.target.
+Created symlink from /etc/systemd/system/default.target to /usr/lib/systemd/system/graphical.target.
+
+systemctl set-default multi-user.target  //设置成命令模式
+systemctl set-default graphical.target  //设置成图形模式
+
+
+</code></pre><h3 id="使用以下命令重启重启后即可通过阿里云网页控制台上的vnc连接看到图形界面">使用以下命令重启，重启后即可通过阿里云网页控制台上的VNC连接看到图形界面。</h3>
+<pre><code>reboot
+</code></pre><h2 id="安装vnc-server">安装VNC Server</h2>
+<h3 id="使用以下命令安装相关软件包">使用以下命令安装相关软件包。</h3>
+<pre><code>yum install tigervnc-server tigervnc-server-module -y
+</code></pre><h3 id="使用以下命令设置vnc密码">使用以下命令设置vnc密码。</h3>
+<pre><code>vncpasswd
+</code></pre><h3 id="使用以下命令启动vnc-server">使用以下命令启动VNC Server。</h3>
+<pre><code>vncserver :1
+</code></pre><p>说明：:1表示用6001端口，注意安全组记得放行端口。</p>
+<h3 id="232vnc密码">232vnc密码</h3>
+<pre><code>hmxMD3
+</code></pre><blockquote>
+<p>如果你的xshell是设置隧道关联xmanager，能展示图形桌面的话，说明ECS设置没问题，可在ECS管理控制台的管理终端下按Ctrl+Alt+F1，进入图形界面。</p>
+</blockquote>
+<blockquote>
+<p>图形化界面默认只能VNC方式连接，也可以搭配VNC server服务本地通过VNC viewer工具进行连接，具体VNC server服务配置方式可以外站搜索看下</p>
+</blockquote>
+<h2 id="tcp测试ip的某个端口是否开启">tcp测试ip的某个端口是否开启</h2>
+<p>tcping 120.78.237.232 6001</p>
+<p>netstat -anplt | grep 6001</p>
+<h2 id="当starx-进入到图形化界面后右键open-in-terminal-失效问题">当starx 进入到图形化界面后，右键：open in terminal 失效问题</h2>
+<pre><code>yum -y install nautilus-open-terminal
+
+reboot
+</code></pre>
         </div>
 
         
@@ -193,8 +324,6 @@
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/">Centos中安装GUI</a></li>
-        
         <li><a href="/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">Linux的启动流程</a></li>
         
         <li><a href="/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/">Linux服务管理程序systemd</a></li>
@@ -202,6 +331,8 @@
         <li><a href="/post/supervisorInfo/">SupervisorInfo</a></li>
         
         <li><a href="/post/phpInterview2018/">PhpInterview2018</a></li>
+        
+        <li><a href="/post/resume/">Resume</a></li>
         
     </ul>
 </div>
