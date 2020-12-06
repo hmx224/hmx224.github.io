@@ -6,7 +6,16 @@
     <description>Recent content on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 29 Nov 2020 21:51:13 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Dec 2020 15:25:27 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Laravel55博客项目说明xblog</title>
+      <link>http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/</link>
+      <pubDate>Sun, 06 Dec 2020 15:25:27 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/</guid>
+      <description>[toc] 文档地址 https://xblog.lufficc.com/blog/how-to-install-my-blog 环境要求 安装npm install过程会存在问题，以下的版本可以运行成功 npm版本 6.14.4 node版本 v10.21.0 composer 2.0.7 { &amp;quot;private&amp;quot;: true, &amp;quot;scripts&amp;quot;: { &amp;quot;dev&amp;quot;: &amp;quot;npm run development&amp;quot;, &amp;quot;development&amp;quot;: &amp;quot;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot;, &amp;quot;watch&amp;quot;: &amp;quot;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot;, &amp;quot;watch-poll&amp;quot;: &amp;quot;npm run watch -- --watch-poll&amp;quot;, &amp;quot;hot&amp;quot;: &amp;quot;cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot;, &amp;quot;prod&amp;quot;: &amp;quot;npm run production&amp;quot;, &amp;quot;production&amp;quot;: &amp;quot;cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot; }, &amp;quot;devDependencies&amp;quot;: { &amp;quot;autosize&amp;quot;: &amp;quot;^4.0.2&amp;quot;, &amp;quot;bootstrap&amp;quot;: &amp;quot;^4.1.1&amp;quot;, &amp;quot;chart.js&amp;quot;: &amp;quot;^2.7.2&amp;quot;, &amp;quot;clipboard&amp;quot;: &amp;quot;^1.7.1&amp;quot;, &amp;quot;cross-env&amp;quot;: &amp;quot;^5.1.6&amp;quot;, &amp;quot;font-awesome&amp;quot;: &amp;quot;^4.7.0&amp;quot;, &amp;quot;highlight.js&amp;quot;: &amp;quot;^9.12.0&amp;quot;, &amp;quot;jquery&amp;quot;: &amp;quot;^3.2&amp;quot;, &amp;quot;jquery-bridget&amp;quot;: &amp;quot;^2.0.1&amp;quot;, &amp;quot;laravel-mix&amp;quot;: &amp;quot;^1.0&amp;quot;, &amp;quot;magnific-popup&amp;quot;: &amp;quot;^1.1.0&amp;quot;, &amp;quot;masonry-layout&amp;quot;: &amp;quot;^4.2.0&amp;quot;, &amp;quot;node-sass&amp;quot;: &amp;quot;^4.9.0&amp;quot;, &amp;quot;popper.js&amp;quot;: &amp;quot;^1.14.3&amp;quot;, &amp;quot;simplemde&amp;quot;: &amp;quot;^1.11.2&amp;quot;, &amp;quot;smooth-scroll&amp;quot;: &amp;quot;^14.2.0&amp;quot;, &amp;quot;uppy&amp;quot;:</description>
+    </item>
+    
     <item>
       <title>Centos中安装GUI</title>
       <link>http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/</link>
