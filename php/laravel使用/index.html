@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>Laravel使用 | 爱狂热博客</title>
+    <meta property="og:title" content="Laravel使用 - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-12-08T22:21:56&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-12-08T22:21:56&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="Laravel使用">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/php/laravel%E4%BD%BF%E7%94%A8/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">首页</a>
+                    
+                    <a  href="http://hmx224.github.io/tools/" title="工具">工具</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1侧栏">1.侧栏</a></li>
+    <li><a href="#2善用路由别名">2.善用路由别名</a></li>
+    <li><a href="#3全局动态设置">3.全局动态设置</a></li>
+    <li><a href="#4数据库查询">4.数据库查询</a></li>
+    <li><a href="#5多态关联">5.多态关联</a></li>
+    <li><a href="#6缓存优化相关">6.缓存优化相关</a></li>
+    <li><a href="#7redis">7.Redis</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">Laravel使用</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月8日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="一些实用的-laravel-小技巧">一些实用的 Laravel 小技巧</h1>
+<p>Laravel 中一些常用的小技巧，额，说不定你就用上了。。。</p>
+<h2 id="1侧栏">1.侧栏</h2>
+<p>网站一般都有侧栏，用来显示分类，标签，热门文章，热门评论啥的，但是这些侧栏都是相对独立的模块，如果在每一个引入侧栏的视图中都单独导入与视图有关的数据的话，未免太冗余了。。。所以最佳的做法是：新建一个widgets视图文件夹，再利用Laravel 的ViewComposers单独为侧栏绑定数据，这样侧栏就可以随便引入而不用关心数据是否绑定啦~~~</p>
+<p>举个栗子？拿最常用的分类侧栏来说，在resources/views/widgets下新建你的分类侧栏视图文件categories.blade.php：</p>
+<pre><code>&lt;div class=&quot;widget widget-default&quot;&gt;
+    &lt;div class=&quot;widget-header&quot;&gt;&lt;h6&gt;&lt;i class=&quot;fa fa-folder fa-fw&quot;&gt;&lt;/i&gt;分类&lt;/h6&gt;&lt;/div&gt;
+    &lt;ul class=&quot;widget-body list-group&quot;&gt;
+        @forelse($categories as $category)
+            @if(str_contains(urldecode(request()-&gt;getPathInfo()),'category/'.$category-&gt;name))
+                &lt;li href=&quot;{{ route('category.show',$category-&gt;name) }}&quot;
+                    class=&quot;list-group-item active&quot;&gt;
+                    {{ $category-&gt;name }}
+                    &lt;span class=&quot;badge&quot;&gt;{{ $category-&gt;posts_count }}&lt;/span&gt;
+                &lt;/li&gt;
+            @else
+                &lt;a href=&quot;{{ route('category.show',$category-&gt;name) }}&quot;
+                   class=&quot;list-group-item&quot;&gt;
+                    {{ $category-&gt;name }}
+                    &lt;span class=&quot;badge&quot;&gt;{{ $category-&gt;posts_count }}&lt;/span&gt;
+                &lt;/a&gt;
+            @endif
+        @empty
+            &lt;p class=&quot;meta-item center-block&quot;&gt;No categories.&lt;/p&gt;
+        @endforelse
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre><p>新建app/Http/ViewComposers文件夹，然后创建CategoriesComposer.php：</p>
+<pre><code>&lt;?php
+namespace App\Http\ViewComposers;
+use App\Http\Repositories\CategoryRepository;
+use Illuminate\View\View;
+class CategoriesComposer
+{
+    public function __construct(CategoryRepository $categoryRepository)
+    {
+        $this-&gt;categoryRepository = $categoryRepository;
+    }
+
+    public function compose(View $view)
+    {
+        $categories = $this-&gt;categoryRepository-&gt;getAll()-&gt;reject(function ($category) {
+            return $category-&gt;posts_count == 0;
+        });
+        $view-&gt;with('categories', $categories);
+    }
+}
+</code></pre><p>再在app/Providers文件夹下新建ComposerServiceProvider.php文件：</p>
+<pre><code>&lt;?php
+namespace App\Providers;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+class ComposerServiceProvider extends ServiceProvider
+{
+
+    public function boot()
+    {
+        View::composer('widget.categories', 'App\Http\ViewComposers\CategoriesComposer');
+    }
+
+    public function register(){}
+}
+</code></pre><p>最后别忘了在config/app.php中的providers数组中添加App\Providers\ComposerServiceProvider::class啊。好了，现在你可以随时随地@include(&lsquo;widget.categories&rsquo;)了。对了，要善于在ViewComposer中利用Collection的强大方法进行数据处理幺~~</p>
+<h2 id="2善用路由别名">2.善用路由别名</h2>
+<p>Laravel 最让人喜欢的地方之一是可以给路由起一个别名，比如：</p>
+<pre><code>Route::get('user/profile', 'UserController@showProfile')-&gt;name('user.profile');
+// 等价于：
+Route::get('user/profile', ['uses' =&gt; 'UserController@showProfile' , 'as' =&gt; 'user.profile']);;
+</code></pre><p>然后，就可以在试图中就可以使用route()方法引用了：</p>
+<pre><code>// 例如：
+&lt;a href=&quot;{{ route('user.profile') }}&quot;&gt;ifanatic&lt;/a&gt;
+</code></pre><p>因为一个普通的项目路由至少也得有几十个，如果使用url()方法的话，你不但要记住具体的路由，更麻烦的是如果你将来想要改变某个路由（比如把&rsquo;user/profile&rsquo;改为&rsquo;u/profile'，或者加个前缀啥的），必须改变所有相关的视图文件，这。。。这。。。不敢相信，而使用命名路由的话，只要命名不变，毫不受影响。</p>
+<p>所以视图文件中尽量避免使用url()方法，为每一个路由命名，一个默认的命名规则为：资源名称.&lt;属性&gt;或者&lt;动作&gt;，如post.show，image.upload。</p>
+<h2 id="3全局动态设置">3.全局动态设置</h2>
+<p>仅仅是.env的配置还无法满足我们的需求，有时我们需要可以在后台动态的进行一些设置，比如网站的标题，网站的背景图片或者是否允许评论等等。那么实现这个的最佳实践是什么？</p>
+<p>熟悉wordpress的同学知道，wordpress可以进行很多自定义，因为wordpress有一张键值对数据库表，它就是靠这个实现个性化的。因此我们也可以参考这种思路，增加一个键值对表，以Xblog为例子，新建一个maps表：</p>
+<pre><code>Schema::create('maps', function (Blueprint $table) {
+       $table-&gt;increments('id');
+       $table-&gt;string('key')-&gt;unique();
+       $table-&gt;string('tag')-&gt;index();
+       $table-&gt;text('value')-&gt;nullable(true);
+});
+</code></pre><p>maps表的作用就是实现键值对key-value存储，tag的是为了可以有一个分类。然后后台进行存储的话，不要写死，这样就可以随时在变单中添加设置而无需更改代码：</p>
+<pre><code>$inputs = $request-&gt;except('_token');
+foreach ($inputs as $key =&gt; $value) {
+            $map = Map::firstOrNew([
+                'key' =&gt; $key,
+            ]);
+            $map-&gt;tag = 'settings';
+            $map-&gt;value = $value;
+            $map-&gt;save();
+}
+</code></pre><p>注意firstOrNew的用法：如果不存在这个选项我们就新增一个并保存，否则就更新它。然后我们就可以在视图中随便增加任意多个表单了（或者也可以用js动态生成表单）。有了数据，怎么在视图中利用呢？利用ViewComposer，新建一个SettingsComposer.php，然后将查询的数据以数组的形式传递给试图：</p>
+<pre><code>//在SettingsComposer.php的compose方法中绑定数据
+public function compose(View $view)
+{
+    $settings = Map::where('tag', 'settings')-&gt;get();
+    $arr = [];
+    foreach ($settings as $setting) {
+      $arr[$setting-&gt;key] = $setting-&gt;value;
+    }
+   $view-&gt;with($arr);
+}
+</code></pre><p>然后就可以在视图中随便引用了，如你表单新增加了一个description</p>
+<pre><code>&lt;input type=&quot;text&quot; name=&quot;description&quot; value=&quot;{{ $description or ''}}&quot;&gt;
+然后就可以在任何视图引用了:{{ $description or ''}}。另外还可以绑定一个单例Facades到容器，这样就可以在代码中随时获取配置信息啦~~~
+比如：
+</code></pre><p>//1.注册</p>
+<pre><code>public function register()
+{
+    $this-&gt;app-&gt;singleton('XblogConfig', function ($app) {
+       return new MapRepository();
+   });
+}
+//2.注册Facade
+class XblogConfig extends Facade
+{
+    public static function getFacadeAccessor()
+    {
+        return 'XblogConfig';
+    }
+}
+//3.添加到aliases数组
+
+'aliases' =&gt; [
+
+        *****************  省略  *************************
+        'XblogConfig' =&gt; App\Facades\XblogConfig::class,
+    ],
+
+//4.愉快的使用，可爽
+$page_size = XblogConfig::getValue('page_size', 7);
+</code></pre><h2 id="4数据库查询">4.数据库查询</h2>
+<p>怎么统计一篇文章有多少评论？最快的方法是：</p>
+<pre><code>$post = Post::where('id',1)-&gt;withCount('comments')-&gt;first();
+</code></pre><p>这样$post变量就有一个属性comments_count了：</p>
+<pre><code>$post-&gt;comments_count;
+</code></pre><p>如果想获取点赞数大于的100的评论个数怎么办？这样：</p>
+<pre><code>$post = Post::where('id',1)-&gt;withCount('comments',function($query){
+       $query-&gt;where('like', '&gt;', 100);
+   })-&gt;first();
+</code></pre><p>简单吧~~</p>
+<h2 id="5多态关联">5.多态关联</h2>
+<p>文章可以有评论，页面可以有评论，评论也可以有评论，但是总不能建三张评论表吧？如果自己写条件判断也太麻烦了吧。。。Laravel的多态关联上场了！！</p>
+<pre><code>//1.第一步在Comment模型中说明我是可以多态的
+public function commentable()
+{
+    return $this-&gt;morphTo();
+}
+
+//2.在想要评论的模型中增加comments方法，
+public function comments()
+{
+    return $this-&gt;morphMany(Comment::class, 'commentable');
+}
+
+//3.使用，就像普通的一对多关系一样：
+$model-&gt;comments;
+原理很简单，comments表中增加两个列就行：
+
+Schema::create('comments', function (Blueprint $table) {
+     ***************省略*******************
+     $table-&gt;morphs('commentable');
+     //等价于
+     $table-&gt;integer('commentable_id')-&gt;index();
+     $table-&gt;string('commentable_type')-&gt;index();
+    ****************省略******************
+});
+然后 laravel 会自动维持这些关系。注意，保存的评论的时候是有小技巧的，你的表单中至少要传两个参数：commentable_id和commentable_type：
+
+$comment = new Comment();
+
+$commentable_id = $request-&gt;get('commentable_id');
+//commentable_type取值例如：App\Post，App\Page等等
+$commentable = app($request-&gt;get('commentable_type'))-&gt;where('id', $commentable_id)-&gt;firstOrFail();
+
+****************省略******************
+
+$commentable-&gt;comments()-&gt;save($comment);
+保存评论的时候并不知道是谁的评论，而是使用容器根据commentable_type生成一个模型实例，这样也就和具体的模型解耦了，你可以让任何东西可以评论，而不需要修改代码。
+</code></pre><h2 id="6缓存优化相关">6.缓存优化相关</h2>
+<p>如果你想要在.env文件中添加自己的配置，记住一定要在config文件夹下某个配置文件的数组中添加对应的。记住，除了config文件夹下的配置文件，永远不要在其它地方使用env函数，因为部署到线上时，配置文件缓存（php artisan config:cache）后，env函数无法获得正确的值。</p>
+<p>另外注意的是，路由文件中尽量不使用闭包函数，统一使用控制器，因为缓存路由的时候php artisan route:cache，无法缓存闭包函数。</p>
+<h2 id="7redis">7.Redis</h2>
+<p>如果你缓存使用Redis，session也使用了Redis，队列已使用了Redis，这样没问题，速度很快，但是！！当你运行php artisan cache:clear清除缓存时，会把你的登录信息清除，也会把队列清除。。。这就不优雅了。解决办法很简单，为它们分配不同的连接即可。
+首先在config\database.php中增加连接，注意database序号：</p>
+<pre><code>'redis' =&gt; [
+
+        'cluster' =&gt; false,
+
+        'default' =&gt; [
+            'host' =&gt; env('REDIS_HOST', 'localhost'),
+            'password' =&gt; env('REDIS_PASSWORD', null),
+            'port' =&gt; env('REDIS_PORT', 6379),
+            'database' =&gt; 0,
+        ],
+        'session' =&gt; [
+            'host' =&gt; env('REDIS_HOST', 'localhost'),
+            'password' =&gt; env('REDIS_PASSWORD', null),
+            'port' =&gt; env('REDIS_PORT', 6379),
+            'database' =&gt; 1,
+        ],
+        'queue' =&gt; [
+            'host' =&gt; env('REDIS_HOST', 'localhost'),
+            'password' =&gt; env('REDIS_PASSWORD', null),
+            'port' =&gt; env('REDIS_PORT', 6379),
+            'database' =&gt; 2,
+        ],
+
+    ],
+</code></pre><p>然后分别为session和queue更换连接：</p>
+<pre><code>//queue.php中的connections数组中：
+'redis' =&gt; [
+            'driver' =&gt; 'redis',
+            'connection' =&gt; 'queue',
+            'queue' =&gt; 'default',
+            'retry_after' =&gt; 90,
+        ],
+
+//session.php中的connection选项：
+'connection' =&gt; 'session',
+</code></pre><p>这样他们就互不相干了~~</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/php/laravel%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">Laravel核心概念</a></li>
+        
+        <li><a href="/php/first/">深入理解php底层：php生命周期</a></li>
+        
+        <li><a href="/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/">Laravel55博客项目说明xblog</a></li>
+        
+        <li><a href="/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/">Centos中安装GUI</a></li>
+        
+        <li><a href="/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">Linux的启动流程</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2020 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/phpInterview2018/" title="PhpInterview2018">PhpInterview2018</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/first/" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

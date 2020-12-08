@@ -6,7 +6,34 @@
     <description>Recent content on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 06 Dec 2020 15:25:27 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 08 Dec 2020 22:21:56 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Laravel使用</title>
+      <link>http://hmx224.github.io/php/laravel%E4%BD%BF%E7%94%A8/</link>
+      <pubDate>Tue, 08 Dec 2020 22:21:56 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/php/laravel%E4%BD%BF%E7%94%A8/</guid>
+      <description>一些实用的 Laravel 小技巧 Laravel 中一些常用的小技巧，额，说不定你就用上了。。。 1.侧栏 网站一般都有侧栏，用来显示分类，标签，热门文章，热门评论啥的，但是这些侧栏都是相对独立的模块，如果在每一个引入侧栏的视图中都单独导入与视图有关的数据的话，未免太冗余了。。。所以最佳的做法是：新建一个widg</description>
+    </item>
+    
+    <item>
+      <title>Laravel核心概念</title>
+      <link>http://hmx224.github.io/php/laravel%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Tue, 08 Dec 2020 22:05:38 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/php/laravel%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/</guid>
+      <description>Laravel的核心概念 知道Laravel的核心概念之后，当你写起Laravel时，会变得一目了然胸有成竹。 PHP的生命周期 万物皆有他的生命周期，Laravel 也不例外，Laravel应用程序也有自己的生命周期。Laravel是什么？一个PHP框架。所以要想真正说清Laravel</description>
+    </item>
+    
+    <item>
+      <title>深入理解php底层：php生命周期</title>
+      <link>http://hmx224.github.io/php/first/</link>
+      <pubDate>Tue, 08 Dec 2020 21:48:16 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/php/first/</guid>
+      <description>深入理解php底层：php生命周期 1、PHP的运行模式： PHP两种运行模式是WEB模式、CLI模式。无论哪种模式，PHP工作原理都是一样的，作为一种SAPI运行。 1、当我们在终端敲入php这个命令的时候，它使用的是CLI。 它就像一个web服务器一样来支持php完成这个请求，请求完</description>
+    </item>
+    
     <item>
       <title>Laravel55博客项目说明xblog</title>
       <link>http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/</link>
