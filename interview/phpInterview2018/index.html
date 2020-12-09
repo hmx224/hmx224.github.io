@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>PhpInterview2018 | 爱狂热博客</title>
+    <meta property="og:title" content="PhpInterview2018 - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2020-11-24T22:11:40&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2020-11-24T22:11:40&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="PhpInterview2018">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interview/phpInterview2018/">
+    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">首页</a>
+                    
+                    <a  href="http://hmx224.github.io/tools/" title="工具">工具</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">文章目录</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1给你四个坐标点判断它们能不能组成一个矩形如判断-00011110-能组成一个矩形">1、给你四个坐标点，判断它们能不能组成一个矩形，如判断 ([0,0],[0,1],[1,1],[1,0]) 能组成一个矩形。</a></li>
+    <li><a href="#2写一段代码判断单向链表中有没有形成环如果形成环请找出环的入口处即-p-点">2、写一段代码判断单向链表中有没有形成环，如果形成环，请找出环的入口处，即 P 点</a></li>
+    <li><a href="#3写一个函数获取一篇文章内容中的全部图片并下载">3、写一个函数，获取一篇文章内容中的全部图片，并下载</a></li>
+    <li><a href="#4获取当前客户端的-ip-地址并判断是否在111111111111222222222222">4、获取当前客户端的 IP 地址，并判断是否在（111.111.111.111,222.222.222.222)</a></li>
+    <li><a href="#5nginx-的-log_format-配置如下">5、nginx 的 log_format 配置如下：</a></li>
+    <li><a href="#6什么是-csrf-攻击xss-攻击如何防范">6、什么是 CSRF 攻击？XSS 攻击？如何防范？</a></li>
+    <li><a href="#7应用中我们经常会遇到在-user-表随机调取-10-条数据来展示的情况简述你如何实现该功能">7、应用中我们经常会遇到在 user 表随机调取 10 条数据来展示的情况，简述你如何实现该功能。</a></li>
+    <li><a href="#8从扑克牌中随机抽-5-张牌判断是不是一个顺子即这-5-张牌是连续的">8、从扑克牌中随机抽 5 张牌，判断是不是一个顺子，即这 5 张牌是连续的</a></li>
+    <li><a href="#9两条相交的单向链表如何求它们的第一个公共节点">9、两条相交的单向链表，如何求它们的第一个公共节点</a></li>
+    <li><a href="#10最长公共子序列问题-lcs如有-12511321577-和-9932155177-两个数组找到它们共同都拥有的数写出时间复杂度最优的代码不能用-array_intersect这里有坑需要去研究一下动态规划">10、最长公共子序列问题 LCS，如有 [1,2,5,11,32,15,77] 和 [99,32,15,5,1,77] 两个数组，找到它们共同都拥有的数，写出时间复杂度最优的代码，不能用 array_intersect（这里有坑，需要去研究一下动态规划）。</a></li>
+    <li><a href="#11linux-的内存分配和多线程原理">11、linux 的内存分配和多线程原理</a></li>
+    <li><a href="#12mysql-中主键与唯一索引的区别">12、MYSQL 中主键与唯一索引的区别</a></li>
+    <li><a href="#13http-与-https-的主要区别">13、http 与 https 的主要区别</a></li>
+    <li><a href="#14http-状态码及其含意">14、http 状态码及其含意</a></li>
+    <li><a href="#15linux-中怎么查看系统资源占用情况">15、linux 中怎么查看系统资源占用情况</a></li>
+    <li><a href="#16sql-注入的原理是什么如何防止-sql-注入">16、SQL 注入的原理是什么？如何防止 SQL 注入</a></li>
+    <li><a href="#17isset-null-isset-false-empty-null-empty-false-输出">17、isset (null) isset (false) empty (null) empty (false) 输出</a></li>
+    <li><a href="#18优化-mysql-的方法">18、优化 MYSQL 的方法</a></li>
+    <li><a href="#19数据库中的事务是什么">19、数据库中的事务是什么？</a></li>
+    <li><a href="#20写一个函数尽可能高效的从一个标准-url-中取出文件的扩展名">20、写一个函数，尽可能高效的从一个标准 URL 中取出文件的扩展名</a></li>
+    <li><a href="#21参数为多个日期时间的数组返回离当前时间最近的那个时间">21、参数为多个日期时间的数组，返回离当前时间最近的那个时间</a></li>
+    <li><a href="#22echoprintprint_r-的区别">22、echo、print、print_r 的区别</a></li>
+    <li><a href="#23http-协议的-header-中有哪些-key-及含义">23、http 协议的 header 中有哪些 key 及含义</a></li>
+    <li><a href="#24二叉树前中后遍历代码">24、二叉树前中后遍历代码</a></li>
+    <li><a href="#25php-的数组和-c-语言的数组结构上有何区别">25、PHP 的数组和 C 语言的数组结构上有何区别？</a></li>
+    <li><a href="#26redis-的跳跃表怎么实现的">26、Redis 的跳跃表怎么实现的</a></li>
+    <li><a href="#27哈希是什么hash-冲突后数据怎么存">27、哈希是什么？hash 冲突后，数据怎么存？</a></li>
+    <li><a href="#28聚簇索引聚集索引的区别">28、聚簇索引，聚集索引的区别？</a></li>
+    <li><a href="#29btree-是怎么进行搜索的">29、B+Tree 是怎么进行搜索的</a></li>
+    <li><a href="#30数组和-hash-的区别是什么">30、数组和 hash 的区别是什么？</a></li>
+    <li><a href="#31写个函数判断下面扩号是否闭合左右对称即为闭合-">31、写个函数，判断下面扩号是否闭合，左右对称即为闭合： ((()))，)(())，(())))，(((((())，(()())，()()</a></li>
+    <li><a href="#32--找出数组中不重复的值-1233215">32、 ## 找出数组中不重复的值 [1,2,3,3,2,1,5]</a></li>
+    <li><a href="#3332-题你的时间复杂度是多少有的情况下你写了个算法然后面试官会让你把你的算法的时间复杂度表达式写出来">33、32 题你的时间复杂度是多少？有的情况下，你写了个算法，然后面试官会让你把你的算法的时间复杂度表达式写出来</a></li>
+    <li><a href="#34php-的的这种弱类型变量是怎么实现的">34、PHP 的的这种弱类型变量是怎么实现的？</a></li>
+    <li><a href="#35在-http-通讯过程中是客户端还是服务端主动断开连接">35、在 HTTP 通讯过程中，是客户端还是服务端主动断开连接？</a></li>
+    <li><a href="#36php-中发起-http-请求有哪几种方式它们有何区别">36、PHP 中发起 http 请求有哪几种方式？它们有何区别？</a></li>
+    <li><a href="#37有一颗二叉树写代码找出来从根节点到-flag-节点的最短路径并打印出来flag-节点有多个比如下图这个树中的-6-和-14-是-flag-节点请写代码打印-836-和-81014-两个路径">37、有一颗二叉树，写代码找出来从根节点到 flag 节点的最短路径并打印出来，flag 节点有多个。比如下图这个树中的 6 和 14 是 flag 节点，请写代码打印 8、3、6 和 8、10、14 两个路径</a></li>
+    <li><a href="#38有两个文件文件大小都超过了-1g一行一条数据每行数据不超过-500-字节两文件中有一部分内容是完全相同的请写代码找到相同的行并写到新文件中php-最大允许内内为-255m">38、有两个文件文件，大小都超过了 1G，一行一条数据，每行数据不超过 500 字节，两文件中有一部分内容是完全相同的，请写代码找到相同的行，并写到新文件中。PHP 最大允许内内为 255M。</a></li>
+    <li><a href="#39请写出自少两个支持回调处理的-php-函数并自己实现一个支持回调的-php-函数">39、请写出自少两个支持回调处理的 PHP 函数，并自己实现一个支持回调的 PHP 函数</a></li>
+    <li><a href="#40请写出自少两个获取指定文件夹下所有文件的方法代码或思路">40、请写出自少两个获取指定文件夹下所有文件的方法（代码或思路）。</a></li>
+    <li><a href="#41请写出自少三种截取文件名后缀的方法或函数php-原生函数和自己实现函数均可">41、请写出自少三种截取文件名后缀的方法或函数（PHP 原生函数和自己实现函数均可）</a></li>
+    <li><a href="#42php-如何实现不用自带的-cookie-函数为客户端下发-cookie对于分布式系统如何来保存-session-值">42、PHP 如何实现不用自带的 cookie 函数为客户端下发 cookie。对于分布式系统，如何来保存 session 值。</a></li>
+    <li><a href="#43请用-shell-统计-5-分钟内nginx-日志里访问最多的-url-地址对应的-ip-是哪些">43、请用 SHELL 统计 5 分钟内，nginx 日志里访问最多的 URL 地址，对应的 IP 是哪些？</a></li>
+    <li><a href="#44写一段-shell-脚本实现备份-mysql-指定库如-test-到指定文件夹并打包并删除-30-天前的备份然后将新的备份推送到远端服务器完成后送邮件通知">44、写一段 shell 脚本实现备份 mysql 指定库（如 test) 到指定文件夹并打包，并删除 30 天前的备份，然后将新的备份推送到远端服务器，完成后送邮件通知。</a></li>
+    <li><a href="#45mysql-数据库中-innodb-和-myisam-引擎的区别">45、mysql 数据库中 innodb 和 myisam 引擎的区别</a></li>
+    <li><a href="#46从用户在浏览器中输入网址并回车到看到完整的见面中间都经历了哪些过程">46、从用户在浏览器中输入网址并回车，到看到完整的见面，中间都经历了哪些过程。</a></li>
+    <li><a href="#47如何分析一条-sql-语句的性能">47、如何分析一条 sql 语句的性能。</a></li>
+    <li><a href="#48ping-一个服务器-ping-不通用哪个命令跟踪路由包">48、ping 一个服务器 ping 不通，用哪个命令跟踪路由包？</a></li>
+    <li><a href="#49a0123-b12345-ab-var_dump-a-等于多少">49、$a=[0,1,2,3]; $b=[1,2,3,4,5]; $a+=$b; var_dump ($a) 等于多少？</a></li>
+    <li><a href="#50a123-foreach-a-as-v-foreach-a-as-v-var_dump-a-等于多少">50、$a=[1,2,3]; foreach ($a as &amp;$v){} foreach ($a as $v){} var_dump ($a) 等于多少；</a></li>
+    <li><a href="#51数据库中的存放了用户-id-扣费很多行redis-中存放的是用户的钱包现在要写一个脚本将数据库中的扣费记录同步到-redis-中每-5-分钟执行一次请问要考虑哪些问题">51、数据库中的存放了用户 ID, 扣费很多行，redis 中存放的是用户的钱包，现在要写一个脚本，将数据库中的扣费记录同步到 redis 中，每 5 分钟执行一次。请问要考虑哪些问题？</a></li>
+    <li><a href="#52mysql-主从服务器如果主服务器是-innodb-引擎从服务器是-myisam-引擎在实际应用中会遇到什么问题">52、MYSQL 主从服务器，如果主服务器是 innodb 引擎，从服务器是 myisam 引擎，在实际应用中，会遇到什么问题？</a></li>
+    <li><a href="#53linux-中进程信号有哪些">53、linux 中进程信号有哪些？</a></li>
+    <li><a href="#54redis-的底层实现">54、redis 的底层实现</a></li>
+    <li><a href="#55异步模型">55、异步模型</a></li>
+    <li><a href="#5610g-文件用-php-查看它的行数">56、10g 文件，用 php 查看它的行数</a></li>
+    <li><a href="#57有-10-亿条订单数据属于-1000-个司机的请取出订单量前-20-的司机">57、有 10 亿条订单数据，属于 1000 个司机的，请取出订单量前 20 的司机</a></li>
+    <li><a href="#58设计一个微信红包的功能">58、设计一个微信红包的功能</a></li>
+    <li><a href="#59根据-accesslog-文件统计最近-5-秒的-qps并以如下格式显示01-1000难点在-01-序号">59、根据 access.log 文件统计最近 5 秒的 qps，并以如下格式显示，01 1000（难点在 01 序号）</a></li>
+    <li><a href="#60php7-性能为什么提升这么高">60、php7 性能为什么提升这么高</a></li>
+    <li><a href="#61遍历一个多维数组">61、遍历一个多维数组</a></li>
+    <li><a href="#62有这样一个字符串-abcdefgkbcdefab-随机长度写一个函数来求-bcde-在这个字符串中出现的次数">62、有这样一个字符串 abcdefgkbcdefab&hellip;&hellip; 随机长度，写一个函数来求 bcde 在这个字符串中出现的次数</a></li>
+    <li><a href="#63有一个-1g-大小的一个文件里面每一行是一个词词的大小不超过-16-个字节内存限制大小是-1m返回频数最高的-100-个词">63、有一个 1G 大小的一个文件，里面每一行是一个词，词的大小不超过 16 个字节，内存限制大小是 1M。返回频数最高的 100 个词</a></li>
+    <li><a href="#64十道海量数据处理面试题与十个方法大总结">64、十道海量数据处理面试题与十个方法大总结</a></li>
+    <li><a href="#65php-进程模型php-怎么支持多个并发">65、php 进程模型，php 怎么支持多个并发</a></li>
+    <li><a href="#66nginx-的进程模型怎么支持多个并发">66、nginx 的进程模型，怎么支持多个并发</a></li>
+    <li><a href="#67php-fpm-各配置含义fpm-的-daemonize-模式">67、php-fpm 各配置含义，fpm 的 daemonize 模式</a></li>
+    <li><a href="#68让你实现一个简单的架构并保持高可用两个接口一个上传一条文本一个获取上传的内容你怎么来设计要避免单机房故障同时要让代码层面无感">68、让你实现一个简单的架构，并保持高可用，两个接口，一个上传一条文本，一个获取上传的内容，你怎么来设计？要避免单机房故障，同时要让代码层面无感。</a></li>
+    <li><a href="#69两台-mysql-服务器其中一台挂了怎么让业务端无感切换并保证正常情况下讲台服务器的数据是一致的">69、两台 mysql 服务器，其中一台挂了，怎么让业务端无感切换，并保证正常情况下讲台服务器的数据是一致的</a></li>
+    <li><a href="#70http-协议具体的定义">70、http 协议具体的定义</a></li>
+    <li><a href="#71什么是锁怎么解决锁的问题">71、什么是锁，怎么解决锁的问题</a></li>
+    <li><a href="#72rand-与-mt_rand-的区别">72、rand 与 mt_rand 的区别</a></li>
+    <li><a href="#73mysql-事务隔离是怎么实现的">73、mysql 事务隔离是怎么实现的</a></li>
+    <li><a href="#74mysql-的锁怎么实现的">74、mysql 的锁怎么实现的</a></li>
+    <li><a href="#75对称加密和非对称加密的方式">75、对称加密和非对称加密的方式</a></li>
+    <li><a href="#7610-瓶水其中一瓶有毒小白鼠喝完有毒的水之后会在-24-小时后死亡问最少用几只小白鼠可以在-24-小时后找到具体是哪一瓶水有毒">76、10 瓶水，其中一瓶有毒，小白鼠喝完有毒的水之后，会在 24 小时后死亡，问：最少用几只小白鼠可以在 24 小时后找到具体是哪一瓶水有毒。</a></li>
+    <li><a href="#77redis-是如何进行同步的同步的方式同步回滚怎么办数据异常怎么办同时会问-mysql-的同步方式和相关异常情况">77、redis 是如何进行同步的，同步的方式，同步回滚怎么办，数据异常怎么办，同时会问 MYSQL 的同步方式和相关异常情况</a></li>
+    <li><a href="#78怎么解决跨域">78、怎么解决跨域</a></li>
+    <li><a href="#79json-和-xml-区别各有什么优缺点">79、json 和 xml 区别，各有什么优缺点</a></li>
+    <li><a href="#80trait-优先级">80、Trait 优先级</a></li>
+    <li><a href="#81a-引用-b报错-c-里面类重复定义循环引用会出现什么问题">81、a 引用 b，报错 c 里面类重复定义，循环引用会出现什么问题</a></li>
+    <li><a href="#82下面员工-3-的薪水大于其主管的薪水一条-sql-找到薪水比下属低的主管">82、下面员工 3 的薪水大于其主管的薪水，一条 SQL 找到薪水比下属低的主管</a></li>
+    <li><a href="#82在一个坐标系内有一个-n-个点组成的多边形现在有一个坐标点写代码或思路来判断这个点是否处于多边形内">82、在一个坐标系内有一个 N 个点组成的多边形，现在有一个坐标点，写代码或思路来判断这个点是否处于多边形内</a></li>
+    <li><a href="#83数据库如果出现了死锁你怎么排查怎么判断出现了死锁">83、数据库如果出现了死锁，你怎么排查，怎么判断出现了死锁？</a></li>
+    <li><a href="#84写一个一个程序来查找最长子串">84、写一个一个程序来查找最长子串</a></li>
+    <li><a href="#85分析一个问题php-fpm-的日志正常但客户端却超时了你认为可能是哪里出了问题怎么排查">85、分析一个问题:php-fpm 的日志正常，但客户端却超时了，你认为可能是哪里出了问题，怎么排查？</a></li>
+    <li><a href="#86nginx-的工作流程是什么样的可以画图描述">86、nginx 的工作流程是什么样的，可以画图描述</a></li>
+    <li><a href="#87进程间通信方式有哪些">87、进程间通信方式有哪些</a></li>
+    <li><a href="#88主从复制从服务器会读取到主服务器正在回滚的数据吗主数据库写成功从服务器因为一些原因写失败最后会出现什么情况主从复制如果键冲突怎么办">88、主从复制，从服务器会读取到主服务器正在回滚的数据吗？主数据库写成功，从服务器因为一些原因写失败，最后会出现什么情况？主从复制如果键冲突怎么办？</a></li>
+    <li><a href="#89事务有几种隔离级别事务的隔离级别是怎么实现的">89、事务有几种隔离级别？事务的隔离级别是怎么实现的？</a></li>
+    <li><a href="#90什么是-b--树请画-b--树的结构">90、什么是 B + 树，请画 b + 树的结构</a></li>
+    <li><a href="#91mysql-中的字符集客户端与数据库不一致怎么办mysql-中字符串到显示到界面字符转换的过程是怎样的数据库中的字符集是-latin1-你现在将-utf8-的字符串存到-latin1-字符集的数据库表你能将-utf8-的字符串存进去吗假如你说能存追问能否恢复假如能那怎么恢复">91、mysql 中的字符集，客户端与数据库不一致，怎么办？MYSQL 中字符串到显示到界面，字符转换的过程是怎样的？数据库中的字符集是 latin1, 你现在将 utf8 的字符串存到 latin1 字符集的数据库表，你能将 utf8 的字符串存进去吗？假如你说能存，追问：能否恢复？假如能，那怎么恢复？</a></li>
+    <li><a href="#92写一段代码找到所有子集合如-abc-的子集合有-abcabacabc">92、写一段代码，找到所有子集合，如 [a,b,c] 的子集合有 {},{a},{b},{c},{ab},{ac},{abc}</a></li>
+    <li><a href="#93a200b100c100-写一个自定义排序函数按值降序如果值一样按键排序">93、[&lsquo;a&rsquo;=&gt;200,&lsquo;b&rsquo;=&gt;100,&lsquo;c&rsquo;=&gt;100], 写一个自定义排序函数，按值降序，如果值一样，按键排序</a></li>
+    <li><a href="#94设计一个缓存系统可以定期或空间占满之后自动删除长期不用的数据不能使用用遍历">94、设计一个缓存系统，可以定期或空间占满之后自动删除长期不用的数据，不能使用用遍历。</a></li>
+    <li><a href="#95-和--的区别写出以下输出aa1bb011">95、== 和 === 的区别，写出以下输出：&ldquo;aa&rdquo;==1,&ldquo;bb&rdquo;==0，1==&ldquo;1&rdquo;</a></li>
+    <li><a href="#96一个排序好的数组将它从中间任意一个位置切分成两个数组然后交换它们的位置并合并合并后新数组元素如20212225301235678151819-写一个查询函数来查找某个值是否存在">96、一个排序好的数组，将它从中间任意一个位置切分成两个数组，然后交换它们的位置并合并，合并后新数组元素如：20,21,22,25,30,1,2,3,5,6,7,8,15,18,19, 写一个查询函数来查找某个值是否存在。</a></li>
+    <li><a href="#97设计一个树形结构再写一个函数对它进行层序遍历">97、设计一个树形结构，再写一个函数对它进行层序遍历</a></li>
+    <li><a href="#98var-和-var-的区别">98、'$var' 和 &ldquo;$var&rdquo; 的区别</a></li>
+    <li><a href="#99self-和-static-的区别">99、self 和 static 的区别</a></li>
+    <li><a href="#100php-的协程以及用途">100、PHP 的协程以及用途</a></li>
+    <li><a href="#101描述-autoload-的机制">101、描述 autoload 的机制</a></li>
+    <li><a href="#102mysql-中字段类型各占几个字节smallintintbigintdatetimevarchar-8">102、mysql 中字段类型各占几个字节：smallint、int、bigint、datetime、varchar (8)</a></li>
+    <li><a href="#103哪些属性唯一确定一条-tcp-连接">103、哪些属性唯一确定一条 TCP 连接</a></li>
+    <li><a href="#104myisam-和-innodb-的区别为什么-myisam-比-innodb-快myisam-和-innodb-的索引数据结构是什么样的innodb-主键索引和非主键索引的区别其索引上存放的数据是什么样的">104、myisam 和 innodb 的区别，为什么 myisam 比 innodb 快，myisam 和 innodb 的索引数据结构是什么样的？innodb 主键索引和非主键索引的区别？其索引上存放的数据是什么样的？</a></li>
+    <li><a href="#105断开-tcp-连接时timewait-状态会出现在发起分手的一端还是被分手的一端">105、断开 TCP 连接时，timewait 状态会出现在发起分手的一端还是被分手的一端</a></li>
+    <li><a href="#heading"></a></li>
+    <li><a href="#106awk-各种数据分析考得非常多要多练习题目不再一一写了">106、AWK 各种数据分析考得非常多，要多练习，题目不再一一写了</a></li>
+    <li><a href="#107redis-中集合有序集合hyperloghash-的数据结构是啥样的">107、redis 中集合、有序集合、hyperLog、hash 的数据结构是啥样的</a></li>
+    <li><a href="#108描述一下一个请求到达-nginx-的全部处理过程nginx-自身会调用哪些逻辑然后怎么与-php-通信中间的流程是什么样的等等">108、描述一下：一个请求到达 nginx 的全部处理过程（nginx 自身会调用哪些逻辑）、然后怎么与 php 通信，中间的流程是什么样的等等？</a></li>
+    <li><a href="#109nginx-和-php-fpm-的相关配置随便问里面各种参数啥意思">109、nginx 和 php-fpm 的相关配置，随便问里面各种参数啥意思</a></li>
+    <li><a href="#110假如有一张地图如下图--代表海洋-代表陆地用你最擅长的方式取出陆地的坐标">110、假如有一张地图，如下图，&quot;-&rdquo; 代表海洋、&quot;+&quot; 代表陆地，用你最擅长的方式，取出陆地的坐标。</a></li>
+    <li><a href="#111jsonp-的实现原理你还知道哪些跨域方式">111、Jsonp 的实现原理，你还知道哪些跨域方式？</a></li>
+    <li><a href="#112如果某个博客通过判断-referer-方式来进行图片防盗链如何破解">112、如果某个博客通过判断 referer 方式来进行图片防盗链，如何破解？</a></li>
+    <li><a href="#heading-1"></a></li>
+    <li><a href="#113简述-mysql-查询优化的本质并举-2-个例子">113、简述 mysql 查询优化的本质，并举 2 个例子</a></li>
+    <li><a href="#114设计一个秒杀系统如何保证商品不超卖">114、设计一个秒杀系统，如何保证商品不超卖？</a></li>
+    <li><a href="#115单例模式的优点是什么抽象类是什么-还了解哪些设计模式">115、单例模式的优点是什么？抽象类是什么？ 还了解哪些设计模式？</a></li>
+    <li><a href="#116斗地主中地主比农民得到王炸的概率多多少">116、斗地主中，地主比农民得到王炸的概率多多少？</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if(leftPos<220){
+                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">PhpInterview2018</h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月24日
+        </date>
+        
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
+                    阅读</span></span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">文章目录</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            <h1 id="php-高级工程面试题汇总-201805">PHP 高级工程面试题汇总 (2018.05)</h1>
+<h2 id="1给你四个坐标点判断它们能不能组成一个矩形如判断-00011110-能组成一个矩形">1、给你四个坐标点，判断它们能不能组成一个矩形，如判断 ([0,0],[0,1],[1,1],[1,0]) 能组成一个矩形。</h2>
+<p>勾股定理，矩形是对角线相等的四边形。只要任意三点不在一条直线上，任选一点，求这一点到另外三点的长度的平方，两个短的之和如果等于最长的，那么这就是矩形。</p>
+<h2 id="2写一段代码判断单向链表中有没有形成环如果形成环请找出环的入口处即-p-点">2、写一段代码判断单向链表中有没有形成环，如果形成环，请找出环的入口处，即 P 点</h2>
+<pre><code class="language-cgo" data-lang="cgo">/*
+ *单链表的结点类
+ */
+class LNode{
+    //为了简化访问单链表,结点中的数据项的访问权限都设为public
+    public int data;
+    public LNode next;
+}
+
+class LinkListUtli {
+    //当单链表中没有环时返回null，有环时返回环的入口结点
+    public static LNode searchEntranceNode(LNode L)
+    {
+        LNode slow=L;//p表示从头结点开始每次往后走一步的指针
+        LNode fast=L;//q表示从头结点开始每次往后走两步的指针
+        while(fast !=null &amp;&amp; fast.next !=null) 
+        {
+            if(slow==fast) break;//p与q相等，单链表有环
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        if(fast==null || fast.next==null) return null;
+
+        // 重新遍历，寻找环的入口点
+        slow=L;
+        while(slow!=fast)
+        {
+            slow=slow.next;
+            fast=fast.next;
+        }
+
+        return slow;
+    }
+}
+</code></pre><h2 id="3写一个函数获取一篇文章内容中的全部图片并下载">3、写一个函数，获取一篇文章内容中的全部图片，并下载</h2>
+<pre><code class="language-cgo" data-lang="cgo">function download_images($article_url = '', $image_path = 'tmp'){
+
+    // 获取文章类容
+    $content = file_get_contents($article_url);
+
+    // 利用正则表达式得到图片链接
+    $reg_tag = '/&lt;img.*?\&quot;([^\&quot;]*(jpg|bmp|jpeg|gif|png)).*?&gt;/';
+    $ret = preg_match_all($reg_tag, $content, $match_result); 
+    $pic_url_array = array_unique($match_result1[1]);
+
+    // 创建路径
+    $dir = getcwd() . DIRECTORY_SEPARATOR .$image_path;
+    mkdir(iconv(&quot;UTF-8&quot;, &quot;GBK&quot;, $dir), 0777, true);
+
+    foreach($pic_url_array as $pic_url){
+        // 获取文件信息
+        $ch = curl_init($pic_url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_NOBODY, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE );
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE );
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $fileInfo = curl_exec($ch);
+        $httpinfo = curl_getinfo($ch);
+        curl_close($ch);
+
+        // 获取图片文件后缀
+        $ext = strrchr($pic_url, '.');
+        $filename = $dir . '/' . uniqid() . $ext; 
+
+        // 保存图片信息到文件
+        $local_file = fopen($filename, 'w');
+        if(false !== $local_file){
+            if( false !== fwrite($local_file, $filecontent) ){
+            fclose($local_file);
+            }
+        }
+    }
+
+}
+</code></pre><h2 id="4获取当前客户端的-ip-地址并判断是否在111111111111222222222222">4、获取当前客户端的 IP 地址，并判断是否在（111.111.111.111,222.222.222.222)</h2>
+<p>如果没有使用代理服务器：</p>
+<pre><code>$ip = $_SERVER['REMOTE_ADDR'];
+
+使用透明代理
+
+$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+参考文章
+
+https://www.cnblogs.com/rendd/p/6183094.ht...
+</code></pre><h2 id="5nginx-的-log_format-配置如下">5、nginx 的 log_format 配置如下：</h2>
+<p>log_format main ‘remoteaddr−remote_user [timelocal]&ldquo;request”’
+‘statusbody_bytes_sent “httpreferer&rdquo;″&ldquo;http_user_agent” “upstreamresponsetime&quot;&ldquo;request_time” “http_x_forwarded_for&rdquo;';
+从今天的 nginx log 文件 access.log 中：</p>
+<p>a、列出 “request_time” 最大的 20 行？
+b、列出早上 10 点访问量做多的 20 个 url 地址？</p>
+<h2 id="6什么是-csrf-攻击xss-攻击如何防范">6、什么是 CSRF 攻击？XSS 攻击？如何防范？</h2>
+<p>CSRF：跨站请求伪造，可以通过通过判断来源和加 Token 的方式来防范。</p>
+<p>XSS：跨站脚本攻击，可以通过对内容转义和过滤来防范，还有 CSP</p>
+<h2 id="7应用中我们经常会遇到在-user-表随机调取-10-条数据来展示的情况简述你如何实现该功能">7、应用中我们经常会遇到在 user 表随机调取 10 条数据来展示的情况，简述你如何实现该功能。</h2>
+<p>SELECT * FROM <code>table</code> WHERE id &gt;= (SELECT FLOOR( MAX(id) * RAND()) FROM <code>table</code> ) ORDER BY id LIMIT 1;
+参考文章：</p>
+<p><a href="https://www.cnblogs.com/riasky/p/3367558.h..">https://www.cnblogs.com/riasky/p/3367558.h..</a>.</p>
+<p><a href="http://www.jb51.net/article/48801.htm">http://www.jb51.net/article/48801.htm</a></p>
+<h2 id="8从扑克牌中随机抽-5-张牌判断是不是一个顺子即这-5-张牌是连续的">8、从扑克牌中随机抽 5 张牌，判断是不是一个顺子，即这 5 张牌是连续的</h2>
+<p>这个问题有个关键点，扑克牌，1-13 不能再多了。这就很简单了。用 PHP 来做，定义一个数组分别存着 1 到 13, 拿出一个，置空一个，最后看下 这五个置空的 是不是连续的。这种情况不考虑抽出的顺序。</p>
+<h2 id="9两条相交的单向链表如何求它们的第一个公共节点">9、两条相交的单向链表，如何求它们的第一个公共节点</h2>
+<p>思想：</p>
+<p>如果两个链表相交，则从相交点开始，后面的节点都相同，即最后一个节点肯定相同；
+从头到尾遍历两个链表，并记录链表长度，当二者的尾节点不同，则二者肯定不相交；
+尾节点相同，如果 A 长为 LA，B 为 LB，如果 LA&gt;LB, 则 A 前 LA-LB 个先跳过
+如果两个单向链表有公共的结点，也就是说两个链表从某一结点开始，它们的 m_pNext 都指向同一个结点。但由于是单向链表的结点，每个结点只有一个 m_pNext，因此从第一个公共结点开始，之后它们所有结点都是重合的，不可能再出现分叉。所以，两个有公共结点而部分重合的链表，拓扑形状看起来像一个 Y，而不可能像 X。</p>
+<p>参考文献：</p>
+<p><a href="https://blog.csdn.net/wcyoot/article/detai..">https://blog.csdn.net/wcyoot/article/detai..</a>.</p>
+<p><a href="https://blog.csdn.net/Lieacui/article/deta..">https://blog.csdn.net/Lieacui/article/deta..</a>.</p>
+<h2 id="10最长公共子序列问题-lcs如有-12511321577-和-9932155177-两个数组找到它们共同都拥有的数写出时间复杂度最优的代码不能用-array_intersect这里有坑需要去研究一下动态规划">10、最长公共子序列问题 LCS，如有 [1,2,5,11,32,15,77] 和 [99,32,15,5,1,77] 两个数组，找到它们共同都拥有的数，写出时间复杂度最优的代码，不能用 array_intersect（这里有坑，需要去研究一下动态规划）。</h2>
+<h2 id="11linux-的内存分配和多线程原理">11、linux 的内存分配和多线程原理</h2>
+<h2 id="12mysql-中主键与唯一索引的区别">12、MYSQL 中主键与唯一索引的区别</h2>
+<p>主键：绝对不能有空值。唯一索引：可以有空值</p>
+<p>参考：https://www.cnblogs.com/lonelyxmas/p/45946&hellip;</p>
+<h2 id="13http-与-https-的主要区别">13、http 与 https 的主要区别</h2>
+<p>关键是 S 上。简而言之，https 建立连接后要先把 SSL 的证书发下去，有了公钥和私钥，就可以解密了。</p>
+<p>参考：https://www.cnblogs.com/zyl-Tara/p/7079696&hellip;</p>
+<h2 id="14http-状态码及其含意">14、http 状态码及其含意</h2>
+<pre><code class="language-cgo" data-lang="cgo">200 请求已成功，请求所希望的响应头或数据体将随此响应返回。
+301 被请求的资源已永久移动到新位置。
+302 请求的资源现在临时从不同的 URI 响应请求。
+400 1、语义有误，当前请求无法被服务器理解。2、请求参数有误。
+401 当前请求需要用户验证。
+403 服务器已经理解请求，但是拒绝执行它。
+404 请求失败，请求所希望得到的资源未被在服务器上发现。
+500 服务器遇到了一个未曾预料的状况，无法完成对请求的处理，会在程序码出错时出现。
+501 服务器不支持当前请求所需要的某个功能。无法识别请求的方法。
+502 作为网关或者代理工作的服务器尝试执行请求时，从上游服务器接收到无效的响应。
+503 由于临时的服务器维护或者过载，服务器当前无法处理请求。
+参考：http://tool.oschina.net/commons?type=5
+</code></pre><h2 id="15linux-中怎么查看系统资源占用情况">15、linux 中怎么查看系统资源占用情况</h2>
+<p>top、htop、free、uptime</p>
+<h2 id="16sql-注入的原理是什么如何防止-sql-注入">16、SQL 注入的原理是什么？如何防止 SQL 注入</h2>
+<p>原理：第一 SQL 本身有问题（这个不是主要问题）。第二你写的 SQL 很有问题（这是最主要的）</p>
+<p>防范：第一，绝对不要相信用户输入的任何东西。第二，预编译。现在的框架一般都会有 SQL 过滤的。</p>
+<h2 id="17isset-null-isset-false-empty-null-empty-false-输出">17、isset (null) isset (false) empty (null) empty (false) 输出</h2>
+<p>PHP 入门问题，isset 和 empty 的区别</p>
+<p>分别是 false, true, true, true</p>
+<h2 id="18优化-mysql-的方法">18、优化 MYSQL 的方法</h2>
+<p>第一，数据超过一定数量或者体积，请拆分表，垂直或者水平分（最有效果的优化）</p>
+<p>第二，务必有自增主键。通过自增主键来查数据是最快的。</p>
+<p>第三，常用的查询字段建立联合索引，写 SQL 一定要尊从最左原则，用到这个索引。</p>
+<p>第四，不要把逻辑运算放到 sql 里。言外之意是，不要写太复杂的 SQL，你能写复杂的 SQL 你肯定也能通过 PHP 实现。</p>
+<p>参考：https://cloud.tencent.com/developer/articl&hellip;</p>
+<h2 id="19数据库中的事务是什么">19、数据库中的事务是什么？</h2>
+<p>事务（transaction）是作为一个单元的一组有序的数据库操作。如果组中的所有操作都成功，则认为事务成功，即使只有一个操作失败，事务也不成功。如果所有操作完成，</p>
+<p>事务则提交，其修改将作用于所有其他数据库进程。如果一个操作失败，则事务将回滚，该事务所有操作的影响都将取消。</p>
+<h2 id="20写一个函数尽可能高效的从一个标准-url-中取出文件的扩展名">20、写一个函数，尽可能高效的从一个标准 URL 中取出文件的扩展名</h2>
+<p>会 写正则最好。我反正不会正则，需要用的时候就百度。</p>
+<h2 id="21参数为多个日期时间的数组返回离当前时间最近的那个时间">21、参数为多个日期时间的数组，返回离当前时间最近的那个时间</h2>
+<p>遍历数组，求当前时间差，和第一个进行对比，小于第一个交换位置。最后取第一个即可。</p>
+<h2 id="22echoprintprint_r-的区别">22、echo、print、print_r 的区别</h2>
+<p>这三个放在一起，回答的点在于，print_r 是函数，echo、print 是结构语言。</p>
+<p>至于他们具体的区别参考：https://www.cnblogs.com/xiaotaoing/p/66873&hellip;</p>
+<h2 id="23http-协议的-header-中有哪些-key-及含义">23、http 协议的 header 中有哪些 key 及含义</h2>
+<p>这个问题，很难。一会半会说不清楚。如果做过 PHP restful 接口开发，也踩过这里面的坑，那应该是可以答出来常用的几个 KEY 的。</p>
+<p>参考：https://blog.csdn.net/u014175572/article/d&hellip;</p>
+<h2 id="24二叉树前中后遍历代码">24、二叉树前中后遍历代码</h2>
+<ol>
+<li>层序遍历</li>
+<li>先序遍历</li>
+<li>中序遍历</li>
+<li>后序遍历</li>
+</ol>
+<p>参考：https://blog.csdn.net/wk199351/article/det&hellip;</p>
+<h2 id="25php-的数组和-c-语言的数组结构上有何区别">25、PHP 的数组和 C 语言的数组结构上有何区别？</h2>
+<p>但从 PHP 来讲，考的是 PHP 数组的实现。可以简单的认为，PHP 的数组是 hash 桶 + 十字链表（实际上是数列 Array，列表 List，散列表 / 关联数组 / 字典 Hashtable 的聚合体）。优点是查询效率很高，遍历很方便，缺点是，占内存较多。（还是空间换时间的思路，毕竟现在内存又不值钱）</p>
+<p>C 语言的数组，就是定长定类型的数列。</p>
+<h2 id="26redis-的跳跃表怎么实现的">26、Redis 的跳跃表怎么实现的</h2>
+<p>跳跃表 (skiplist) 是一种有序数据结构，它通过在每个节点中维持多个指向其他节点的指针，从而达到快速访问节点的目的。</p>
+<p>参考：https://blog.csdn.net/universe_ant/article&hellip;</p>
+<h2 id="27哈希是什么hash-冲突后数据怎么存">27、哈希是什么？hash 冲突后，数据怎么存？</h2>
+<h2 id="28聚簇索引聚集索引的区别">28、聚簇索引，聚集索引的区别？</h2>
+<h2 id="29btree-是怎么进行搜索的">29、B+Tree 是怎么进行搜索的</h2>
+<h2 id="30数组和-hash-的区别是什么">30、数组和 hash 的区别是什么？</h2>
+<h2 id="31写个函数判断下面扩号是否闭合左右对称即为闭合-">31、写个函数，判断下面扩号是否闭合，左右对称即为闭合： ((()))，)(())，(())))，(((((())，(()())，()()</h2>
+<h2 id="32--找出数组中不重复的值-1233215">32、 ## 找出数组中不重复的值 [1,2,3,3,2,1,5]</h2>
+<p>用普通方法，肯定很容易的。</p>
+<h2 id="3332-题你的时间复杂度是多少有的情况下你写了个算法然后面试官会让你把你的算法的时间复杂度表达式写出来">33、32 题你的时间复杂度是多少？有的情况下，你写了个算法，然后面试官会让你把你的算法的时间复杂度表达式写出来</h2>
+<h2 id="34php-的的这种弱类型变量是怎么实现的">34、PHP 的的这种弱类型变量是怎么实现的？</h2>
+<p>考 zval 的，PHP 的八种类型，本质只有一个结构。</p>
+<p>参考：https://blog.csdn.net/ohmygirl/article/det&hellip;</p>
+<h2 id="35在-http-通讯过程中是客户端还是服务端主动断开连接">35、在 HTTP 通讯过程中，是客户端还是服务端主动断开连接？</h2>
+<p>三次握手和四次挥手，以及他们每步的状态。</p>
+<p>这个问题最好能一步到位回答的全面的。一般都是有客户端告诉服务端，我这边东西发完了，可以断连接了么。但是如果客户端发完 FIN 服务端没有回复，就会重试，直到超过超时时间，就断了。服务端也一样，超过时间，服务端就断了。</p>
+<h2 id="36php-中发起-http-请求有哪几种方式它们有何区别">36、PHP 中发起 http 请求有哪几种方式？它们有何区别？</h2>
+<p>GET
+POST
+HEAD
+PUT
+DELETE
+OPTIONS
+TRACE
+CONNECT</p>
+<h2 id="37有一颗二叉树写代码找出来从根节点到-flag-节点的最短路径并打印出来flag-节点有多个比如下图这个树中的-6-和-14-是-flag-节点请写代码打印-836-和-81014-两个路径">37、有一颗二叉树，写代码找出来从根节点到 flag 节点的最短路径并打印出来，flag 节点有多个。比如下图这个树中的 6 和 14 是 flag 节点，请写代码打印 8、3、6 和 8、10、14 两个路径</h2>
+<p>典型的二叉搜索树。大学数据结构的基础题。</p>
+<p>参考：https://blog.csdn.net/BaiHuaXiu123/article&hellip;</p>
+<h2 id="38有两个文件文件大小都超过了-1g一行一条数据每行数据不超过-500-字节两文件中有一部分内容是完全相同的请写代码找到相同的行并写到新文件中php-最大允许内内为-255m">38、有两个文件文件，大小都超过了 1G，一行一条数据，每行数据不超过 500 字节，两文件中有一部分内容是完全相同的，请写代码找到相同的行，并写到新文件中。PHP 最大允许内内为 255M。</h2>
+<p>将文件拆分成若干个小文件，根据内容计算 hash 值，分散到不同文件。</p>
+<h2 id="39请写出自少两个支持回调处理的-php-函数并自己实现一个支持回调的-php-函数">39、请写出自少两个支持回调处理的 PHP 函数，并自己实现一个支持回调的 PHP 函数</h2>
+<p>array_map,array_filter, array_walk</p>
+<h2 id="40请写出自少两个获取指定文件夹下所有文件的方法代码或思路">40、请写出自少两个获取指定文件夹下所有文件的方法（代码或思路）。</h2>
+<p>核心方法是 scandir, 核心思想是递归。</p>
+<h2 id="41请写出自少三种截取文件名后缀的方法或函数php-原生函数和自己实现函数均可">41、请写出自少三种截取文件名后缀的方法或函数（PHP 原生函数和自己实现函数均可）</h2>
+<pre><code class="language-cgo" data-lang="cgo">echo substr(strrchr($file, '.'), 1);
+
+echo substr($file, strrpos($file, '.')+1);
+
+$arr=explode('.', $file);
+echo $arr[count($arr)-1];
+
+$arr=explode('.', $file);
+echo end($arr);
+
+echo strrev(explode('.', strrev($file))[0]);
+
+echo pathinfo($file)['extension'];
+
+echo pathinfo($file, PATHINFO_EXTENSION);
+</code></pre><h2 id="42php-如何实现不用自带的-cookie-函数为客户端下发-cookie对于分布式系统如何来保存-session-值">42、PHP 如何实现不用自带的 cookie 函数为客户端下发 cookie。对于分布式系统，如何来保存 session 值。</h2>
+<p>这个题有点绕。考的还是 COOKIE 和 SESSION 的基础知识。服务端通过 set-cookie 命令来通知客户端保存 cookie。</p>
+<p>只要按照 domain path 过期时间等规则 用 header 函数就可以实现。</p>
+<p>分布式系统 session，集中处理。按我们公司的架构，为了实现高可用和高容灾，提供一个分布式的验签服务。具体的可以看下 redis 的分布式服务架构。</p>
+<h2 id="43请用-shell-统计-5-分钟内nginx-日志里访问最多的-url-地址对应的-ip-是哪些">43、请用 SHELL 统计 5 分钟内，nginx 日志里访问最多的 URL 地址，对应的 IP 是哪些？</h2>
+<h2 id="44写一段-shell-脚本实现备份-mysql-指定库如-test-到指定文件夹并打包并删除-30-天前的备份然后将新的备份推送到远端服务器完成后送邮件通知">44、写一段 shell 脚本实现备份 mysql 指定库（如 test) 到指定文件夹并打包，并删除 30 天前的备份，然后将新的备份推送到远端服务器，完成后送邮件通知。</h2>
+<h2 id="45mysql-数据库中-innodb-和-myisam-引擎的区别">45、mysql 数据库中 innodb 和 myisam 引擎的区别</h2>
+<p>区别主要在数据和索引的存储结构和存储方式上，以及对于事务的支持。</p>
+<p>参考：https://blog.csdn.net/chajinglong/article/&hellip;</p>
+<h2 id="46从用户在浏览器中输入网址并回车到看到完整的见面中间都经历了哪些过程">46、从用户在浏览器中输入网址并回车，到看到完整的见面，中间都经历了哪些过程。</h2>
+<p>入门问题。这个问题有一个很大的坑，面试官可能会从这个问题下手问你一大堆问题。</p>
+<p>以 PHP 为例：通常最简单的回答，从用户的电脑找到最近的 DNS 服务，然后解析到对应的 IP 然后双方开始 HTTP 连接，然后发送请求信息，服务器拿到请求信息就开始准备回应的信息，中间要经过 nginx 转发到 frstCGI (PHP-FPM), 然后 PHP 开始解析框架，解析请求头部，找到对应的 API，该查数据库查数据，该组装 HTML 组装 HTML，完事了就重新返回给用户。用户拿到返回数据，浏览器开始渲染页面，JS 开始加载。</p>
+<h2 id="47如何分析一条-sql-语句的性能">47、如何分析一条 sql 语句的性能。</h2>
+<p>explain，具体的请百度。（基本很少用性能分析语句。MYSQL 的表设计上尽量冗余一部分字段，避免在 MYSQL 里处理大量的逻辑运算。我们是做 PHP 服务开发的，mysql 语句能简单尽量简单。逻辑运算的地方可以在 PHP 里做。）</p>
+<h2 id="48ping-一个服务器-ping-不通用哪个命令跟踪路由包">48、ping 一个服务器 ping 不通，用哪个命令跟踪路由包？</h2>
+<p>linux:traceroute,windows:tracert</p>
+<h2 id="49a0123-b12345-ab-var_dump-a-等于多少">49、$a=[0,1,2,3]; $b=[1,2,3,4,5]; $a+=$b; var_dump ($a) 等于多少？</h2>
+<p>基础问题。本质还是考 PHP 数组的结构和特点。</p>
+<p>结果是 01235。PHP 用数字索引和 STRING 索引差别还是很大的</p>
+<p>参考：http://www.jb51.net/article/38593.htm</p>
+<h2 id="50a123-foreach-a-as-v-foreach-a-as-v-var_dump-a-等于多少">50、$a=[1,2,3]; foreach ($a as &amp;$v){} foreach ($a as $v){} var_dump ($a) 等于多少；</h2>
+<p>122
+此处有一坑。foreach 完之后，$index , $value 并不会消失保留最后一次赋值。
+这里的第一次 foreach 之后，数组中最后一个元素变成引用，引用变量 $v 继续存在且指向数组的最后一个元素。第二次遍历，因为遍历变量名是 $v , 所以等于说每次遍历都将此次遍历的值修改成最后元素的值，直至到遍历最后一个元素（引用元素），因为此时数组的最后一个元素已被修改成上一个元素的值，最后一次赋值就是 自己 == 自己。 故最后一个等于倒数第二个</p>
+<p>博客：【PHP ## 雷】foreach 與 reference 的雷</p>
+<h2 id="51数据库中的存放了用户-id-扣费很多行redis-中存放的是用户的钱包现在要写一个脚本将数据库中的扣费记录同步到-redis-中每-5-分钟执行一次请问要考虑哪些问题">51、数据库中的存放了用户 ID, 扣费很多行，redis 中存放的是用户的钱包，现在要写一个脚本，将数据库中的扣费记录同步到 redis 中，每 5 分钟执行一次。请问要考虑哪些问题？</h2>
+<p>思路：生产者和消费者模式。这个问题也没有说其他的状态，比如数据库的数据会实时增加么？redis 中每个钱包是否有其他服务在读取或者写入啊。什么的。数据库和 REDIS 放一起，要么考数据一致性，要么考出现锁，导致效率降低。</p>
+<h2 id="52mysql-主从服务器如果主服务器是-innodb-引擎从服务器是-myisam-引擎在实际应用中会遇到什么问题">52、MYSQL 主从服务器，如果主服务器是 innodb 引擎，从服务器是 myisam 引擎，在实际应用中，会遇到什么问题？</h2>
+<p>不知道，没用过，为什么这么设计？故意给自己找不愉快？</p>
+<h2 id="53linux-中进程信号有哪些">53、linux 中进程信号有哪些？</h2>
+<p>kill -l 很少用</p>
+<h2 id="54redis-的底层实现">54、redis 的底层实现</h2>
+<p>面试官这么样问你，你就反问他，你要的底层实现是字段的设计？内存分配管理？网络模型？数据同步？还是分布式的实现？（TIPS: 面试就是两个人的博弈。面试官给出一个描述不清晰的问题，我们没必要回答。让他把问题讲清楚再思考怎么回复）</p>
+<p>参考：https://cloud.tencent.com/developer/articl&hellip;</p>
+<p>这篇文章 要多读几遍。</p>
+<h2 id="55异步模型">55、异步模型</h2>
+<p>问清楚是 IO 异步模型。还是 AJAX 这类的异步请求模型。差别非常大的。</p>
+<p>参考：https://cloud.tencent.com/developer/articl&hellip;</p>
+<p>狗东某风控研发必考题。</p>
+<h2 id="5610g-文件用-php-查看它的行数">56、10g 文件，用 php 查看它的行数</h2>
+<p>粗暴一点的方法 ini_set (&lsquo;memory_limit&rsquo;,'-1'); 先把当前内存限制解除了 然后直接逐行统计。时间会非常的久。</p>
+<p>有更好的方法请留言。</p>
+<h2 id="57有-10-亿条订单数据属于-1000-个司机的请取出订单量前-20-的司机">57、有 10 亿条订单数据，属于 1000 个司机的，请取出订单量前 20 的司机</h2>
+<p>（TIPS）不要中招。不要用常用思路来处理，10 亿数据 你再怎么优化，全表求和，都是要死人的。</p>
+<p>我们从设计上解决这个问题。只有一千个司机。我们可以做个简单哈希，分库分表，% 求余数。保证这一千个司机分在一千个表里，每个人有每个人的单独表。引擎用 MYSAIM，求表中数据的总数，效率飞快，遍历一千张表，求最大前二十即可。</p>
+<h2 id="58设计一个微信红包的功能">58、设计一个微信红包的功能</h2>
+<p>没做过。其实题目表达不清楚。如果做过微信公众号开发，知道微信事件模型的 XML 数据结构，应该会好做一点。</p>
+<h2 id="59根据-accesslog-文件统计最近-5-秒的-qps并以如下格式显示01-1000难点在-01-序号">59、根据 access.log 文件统计最近 5 秒的 qps，并以如下格式显示，01 1000（难点在 01 序号）</h2>
+<p>tail -f access.log | awk -F &lsquo;[&rsquo; &lsquo;{print $2}&rsquo; | awk &lsquo;{print $1}&rsquo; | uniq -c
+参考：https://blog.csdn.net/dong_007_007/article&hellip;</p>
+<h2 id="60php7-性能为什么提升这么高">60、php7 性能为什么提升这么高</h2>
+<p>不逼逼，直接参考：http://www.laruence.com/php-internal</p>
+<p>鸟哥的文章要多读，多读。</p>
+<h2 id="61遍历一个多维数组">61、遍历一个多维数组</h2>
+<p>递归。array_map 传入一个回调函数。</p>
+<h2 id="62有这样一个字符串-abcdefgkbcdefab-随机长度写一个函数来求-bcde-在这个字符串中出现的次数">62、有这样一个字符串 abcdefgkbcdefab&hellip;&hellip; 随机长度，写一个函数来求 bcde 在这个字符串中出现的次数</h2>
+<p>substr_count（）；</p>
+<h2 id="63有一个-1g-大小的一个文件里面每一行是一个词词的大小不超过-16-个字节内存限制大小是-1m返回频数最高的-100-个词">63、有一个 1G 大小的一个文件，里面每一行是一个词，词的大小不超过 16 个字节，内存限制大小是 1M。返回频数最高的 100 个词</h2>
+<p>方法太多了，但是实现起来 各有各的问题。</p>
+<p>我可能只会用 HASH 映射做。其他的，不会。</p>
+<p>参考：第 64 题。</p>
+<h2 id="64十道海量数据处理面试题与十个方法大总结">64、十道海量数据处理面试题与十个方法大总结</h2>
+<blockquote>
+<p><a href="https://blog.csdn.net/v_JULY_v/article/details/6279498">https://blog.csdn.net/v_JULY_v/article/details/6279498</a></p>
+</blockquote>
+<h2 id="65php-进程模型php-怎么支持多个并发">65、php 进程模型，php 怎么支持多个并发</h2>
+<p>守护进程模型（需要知道 php-fpm 的各种配置了）</p>
+<p>参考：https://www.jianshu.com/p/542935a3bfa8</p>
+<h2 id="66nginx-的进程模型怎么支持多个并发">66、nginx 的进程模型，怎么支持多个并发</h2>
+<p>这个三言两语说不清楚。</p>
+<p>参考：https://www.zhihu.com/question/22062795</p>
+<h2 id="67php-fpm-各配置含义fpm-的-daemonize-模式">67、php-fpm 各配置含义，fpm 的 daemonize 模式</h2>
+<p>php-fpm 的配置并不多，常用的就更少了。</p>
+<p>参考：http://www.4wei.cn/archives/1002061</p>
+<p>static ## 子进程的数量是固定的（pm.max_children）
+ondemand ## 进程在有需求时才产生（当请求时，与 dynamic 相反，pm.start_servers 在服务启动时即启动
+dynamic ## 子进程的数量在下面配置的基础上动态设置：pm.max_children，pm.start_servers，pm.min_spare_servers，pm.max_spare_servers</p>
+<h2 id="68让你实现一个简单的架构并保持高可用两个接口一个上传一条文本一个获取上传的内容你怎么来设计要避免单机房故障同时要让代码层面无感">68、让你实现一个简单的架构，并保持高可用，两个接口，一个上传一条文本，一个获取上传的内容，你怎么来设计？要避免单机房故障，同时要让代码层面无感。</h2>
+<p>参考：分布式架构设计必备 CAP 原理。</p>
+<h2 id="69两台-mysql-服务器其中一台挂了怎么让业务端无感切换并保证正常情况下讲台服务器的数据是一致的">69、两台 mysql 服务器，其中一台挂了，怎么让业务端无感切换，并保证正常情况下讲台服务器的数据是一致的</h2>
+<p>不是核心业务的话，先停写，把备机拉起来，查看两台机器的日志，进行数据补偿，开写。</p>
+<p>如果是核心业务的话，现在所有的写操作都在正常的状态机器上。把好的这台机器的备机拉起来，当主机。</p>
+<p>以上全是应急操作。实际上数据库的容灾设计要复杂的多。</p>
+<p>面试官要是问你，备机的数据不一致怎么办，你要勇敢怼回去，你们每秒多少写入操作。按照百万级表，每秒 1000 的写入效率，正常的设计是，分布在 2 台机器上每台 500。这个级别的数据同步，出现差异的概率 可以忽略不计的。有一台出现问题，另一台也可以抗住。</p>
+<p>（正常的操作，还是先停写，等数据一致，切换，开写。我们公司搞这些切换都是在凌晨 4.00 左右，核心业务的每秒写操作，只有十几个。前后耽搁不到 20 秒）。</p>
+<h2 id="70http-协议具体的定义">70、http 协议具体的定义</h2>
+<p>这种题 有是很难回答的。太宽泛了，我们面试早就不问这种问题了。</p>
+<p>参考：日本人写的《图解 HTTP》</p>
+<h2 id="71什么是锁怎么解决锁的问题">71、什么是锁，怎么解决锁的问题</h2>
+<p>计算机原理学的，生产者消费者模型，银行家模型，都可以解决锁的问题。</p>
+<h2 id="72rand-与-mt_rand-的区别">72、rand 与 mt_rand 的区别</h2>
+<p>我实习的时候遇到这个坑。</p>
+<p>说是 mt_rand 比 rand 快 4 倍。</p>
+<p>在随机数区间不大的情况下并没有很大的效率差距。但是出现重复数的几率，rand 要比 mt_rand 高很多。</p>
+<h2 id="73mysql-事务隔离是怎么实现的">73、mysql 事务隔离是怎么实现的</h2>
+<p>通过各种行锁表锁，各种乐观锁悲观锁，排他锁实现的呀。</p>
+<h2 id="74mysql-的锁怎么实现的">74、mysql 的锁怎么实现的</h2>
+<p><a href="https://blog.csdn.net/alexdamiao/article/d..">https://blog.csdn.net/alexdamiao/article/d..</a>.</p>
+<p><a href="https://www.cnblogs.com/luyucheng/p/629775..">https://www.cnblogs.com/luyucheng/p/629775..</a>.</p>
+<p><a href="https://blog.csdn.net/tangkund3218/article..">https://blog.csdn.net/tangkund3218/article..</a>.</p>
+<h2 id="75对称加密和非对称加密的方式">75、对称加密和非对称加密的方式</h2>
+<p>对称加密：我们俩共用一个秘钥，你加密，我解密。</p>
+<p>非对称加密：我给你一个公钥，你加密完了，我还能有我的私钥把密文解开。但是你没有我的私钥。</p>
+<p>扩展：椭圆加密算法。</p>
+<h2 id="7610-瓶水其中一瓶有毒小白鼠喝完有毒的水之后会在-24-小时后死亡问最少用几只小白鼠可以在-24-小时后找到具体是哪一瓶水有毒">76、10 瓶水，其中一瓶有毒，小白鼠喝完有毒的水之后，会在 24 小时后死亡，问：最少用几只小白鼠可以在 24 小时后找到具体是哪一瓶水有毒。</h2>
+<p>四只</p>
+<pre><code class="language-cgo" data-lang="cgo">二进制问题。薛定谔的老鼠。
+
+一只老鼠有两个状态，死活，对应 01。假设老鼠的个数为 A，则有 2^A&gt;=10; A=4；
+
+思路很简单，十瓶药编号：0,1,10,11....1001;
+
+0 不喝。第一只老鼠喝所有个位是 1 的：13579，第二只喝十位是 1 的，第三只和百位是 1 的，第四只喝千位是 1 的。
+
+24 小时后，看下死了的是 1，活着的是 0。按老鼠的顺序乖乖站好…… 假如第一只和第三只死了，那就是 0101，就是 5 有问题。
+
+</code></pre><h2 id="77redis-是如何进行同步的同步的方式同步回滚怎么办数据异常怎么办同时会问-mysql-的同步方式和相关异常情况">77、redis 是如何进行同步的，同步的方式，同步回滚怎么办，数据异常怎么办，同时会问 MYSQL 的同步方式和相关异常情况</h2>
+<p>redis 集群主从同步的简单原理</p>
+<p>　　Redis 的复制功能是基于内存快照的持久化策略基础上的，也就是说无论你的持久化策略选择的是什么，只要用到了 Redis 的复制功能，就一定会有内存快照发生。</p>
+<p>　　当 Slave 启动并连接到 Master 之后，它将主动发送一个 SYNC 命令 (首先 Master 会启动一个后台进程，将数据快照保存到文件中 [rdb 文件] Master 会给 Slave 发送一个</p>
+<p>Ping 命令来判断 Slave 的存活状态 当存活时 Master 会将数据文件发送给 Slave 并将所有写命令发送到 Slave )。</p>
+<p>　　Slave 首先会将数据文件保存到本地 之后再将 数据 加载到内存中。</p>
+<p>　　当第一次链接 或者是 故障后 重新连接 都会先判断 Slave 的存活状态 在做全部数据的同步 ， 之后只会同步 Master 的写操作 (将命令发送给 Slave)</p>
+<p>问题：</p>
+<p>　　当 Master 同步数据时 若数据量较大 而 Master 本身只会启用一个后台进程 来对多个 Slave 进行同步 ， 这样 Master 就会压力过大 ， 而且 Slave 恢复的时间也会很慢！</p>
+<p>redis 主从复制的优点：</p>
+<p>(1)在一个Redis集群中，master负责写请求，slave负责读请求，这么做一方面通过将读请求分散到其他机器从而大大减少了master服务器的压力，另一方面slave专注于提供
+读服务从而提高了响应和读取速度。</p>
+<p>　　(2) 在一个 Redis 集群中，如果 master 宕机，slave 可以介入并取代 master 的位置，因此对于整个 Redis 服务来说不至于提供不了服务，这样使得整个 Redis 服务足够安全。</p>
+<p>　　(3) 水平增加 Slave 机器可以提高性能</p>
+<p>参考：</p>
+<p><a href="https://blog.csdn.net/hxpjava1/article/det..">https://blog.csdn.net/hxpjava1/article/det..</a>.
+<a href="https://www.cnblogs.com/zhao-blog/p/613152..">https://www.cnblogs.com/zhao-blog/p/613152..</a>.</p>
+<h2 id="78怎么解决跨域">78、怎么解决跨域</h2>
+<p>JSONP
+添加响应头，允许跨域
+代理的方式</p>
+<h2 id="79json-和-xml-区别各有什么优缺点">79、json 和 xml 区别，各有什么优缺点</h2>
+<p>（1）可读性方面：基本相同，XML 的可读性比较好；</p>
+<p>（2）可扩展性方面：都具有良好的扩展性；</p>
+<p>（3）编码难度方面：相对而言，JSON 的编码比较容易；</p>
+<p>（4）解码难度：JSON 的解码难度基本为零，XML 需要考虑子节点和父节点；</p>
+<p>（5）数据体积方面：JSON 相对于 XML 来讲，数据体积小，传递的速度比较快；</p>
+<p>（6）数据交互方面：JSON 与 javascript 的交互更加方便，更容易解析处理，更好的数据交互；</p>
+<p>（7）数据描述方面：XML 对数据描述性比较好；</p>
+<p>（8）传输速度方面：JSON 的速度远远快于 XML。</p>
+<p>参考：https://blog.csdn.net/java19880223/article&hellip;</p>
+<h2 id="80trait-优先级">80、Trait 优先级</h2>
+<p>在 trait 继承中，优先顺序依次是：来自当前类的成员覆盖了 trait 的方法，而 trait 则覆盖了被继承的方法</p>
+<h2 id="81a-引用-b报错-c-里面类重复定义循环引用会出现什么问题">81、a 引用 b，报错 c 里面类重复定义，循环引用会出现什么问题</h2>
+<h2 id="82下面员工-3-的薪水大于其主管的薪水一条-sql-找到薪水比下属低的主管">82、下面员工 3 的薪水大于其主管的薪水，一条 SQL 找到薪水比下属低的主管</h2>
+<pre><code class="language-cgo" data-lang="cgo">id	username	salary	pid
+1	a	3000	null
+2	b	8000	null
+3	c	5000	1
+4	d	6000	3
+SELECT a.*, b.*
+FROM `user` as a
+LEFT JOIN `user` as b ON a.pid = b.id AND a.salary &gt; b.salary
+WHERE b.id &gt; 0;
+</code></pre><h2 id="82在一个坐标系内有一个-n-个点组成的多边形现在有一个坐标点写代码或思路来判断这个点是否处于多边形内">82、在一个坐标系内有一个 N 个点组成的多边形，现在有一个坐标点，写代码或思路来判断这个点是否处于多边形内</h2>
+<h2 id="83数据库如果出现了死锁你怎么排查怎么判断出现了死锁">83、数据库如果出现了死锁，你怎么排查，怎么判断出现了死锁？</h2>
+<p><a href="https://www.cnblogs.com/huanyou/p/5775965...">https://www.cnblogs.com/huanyou/p/5775965...</a>.</p>
+<h2 id="84写一个一个程序来查找最长子串">84、写一个一个程序来查找最长子串</h2>
+<p><a href="http://www.jb51.net/article/128449.htm">http://www.jb51.net/article/128449.htm</a></p>
+<h2 id="85分析一个问题php-fpm-的日志正常但客户端却超时了你认为可能是哪里出了问题怎么排查">85、分析一个问题:php-fpm 的日志正常，但客户端却超时了，你认为可能是哪里出了问题，怎么排查？</h2>
+<p>检查 nginx log，请求是否达到 nginx 和是否正常转发给 php-fpm</p>
+<h2 id="86nginx-的工作流程是什么样的可以画图描述">86、nginx 的工作流程是什么样的，可以画图描述</h2>
+<h2 id="87进程间通信方式有哪些">87、进程间通信方式有哪些</h2>
+<ol>
+<li>
+<p>管道
+管道分为有名管道和无名管道
+无名管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系一般指的是父子关系。无名管道一般用于两个不同进程之间的通信。当一个进程创建了一个管道，并调用 fork 创建自己的一个子进程后，父进程关闭读管道端，子进程关闭写管道端，这样提供了两个进程之间数据流动的一种方式。
+有名管道也是一种半双工的通信方式，但是它允许无亲缘关系进程间的通信。</p>
+</li>
+<li>
+<p>信号量
+信号量是一个计数器，可以用来控制多个线程对共享资源的访问., 它不是用于交换大批数据，而用于多线程之间的同步。它常作为一种锁机制，防止某进程在访问资源时其它进程也访问该资源。因此，主要作为进程间以及同一个进程内不同线程之间的同步手段.</p>
+</li>
+<li>
+<p>信号
+信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生.</p>
+</li>
+<li>
+<p>消息队列
+消息队列是消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少，管道只能承载无格式字节流以及缓冲区大小受限等特点。消息队列是 UNIX 下不同进程之间可实现共享资源的一种机制，UNIX 允许不同进程将格式化的数据流以消息队列形式发送给任意进程。对消息队列具有操作权限的进程都可以使用 msget 完成对消息队列的操作控制。通过使用消息类型，进程可以按任何顺序读信息，或为消息安排优先级顺序.</p>
+</li>
+<li>
+<p>共享内存
+共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC (进程间通信) 方式，它是针对其它进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步与通信.</p>
+</li>
+<li>
+<p>套接字：可用于不同及其间的进程通信</p>
+</li>
+</ol>
+<h2 id="88主从复制从服务器会读取到主服务器正在回滚的数据吗主数据库写成功从服务器因为一些原因写失败最后会出现什么情况主从复制如果键冲突怎么办">88、主从复制，从服务器会读取到主服务器正在回滚的数据吗？主数据库写成功，从服务器因为一些原因写失败，最后会出现什么情况？主从复制如果键冲突怎么办？</h2>
+<p>不会；主从数据不一致；正常是不会出现这种情景，具体看情况，是否可以修复，恢复到之前的时间点，然后追回同步。</p>
+<h2 id="89事务有几种隔离级别事务的隔离级别是怎么实现的">89、事务有几种隔离级别？事务的隔离级别是怎么实现的？</h2>
+<pre><code class="language-cgo" data-lang="cgo">读未提交（read-uncommitted）
+不可重复读（read-committed）
+可重复读（repeatable-read）
+串行化（serializable）
+https://www.cnblogs.com/huanongying/p/7021...
+</code></pre><h2 id="90什么是-b--树请画-b--树的结构">90、什么是 B + 树，请画 b + 树的结构</h2>
+<p><a href="https://blog.csdn.net/qq_23217629/article/..">https://blog.csdn.net/qq_23217629/article/..</a>.</p>
+<h2 id="91mysql-中的字符集客户端与数据库不一致怎么办mysql-中字符串到显示到界面字符转换的过程是怎样的数据库中的字符集是-latin1-你现在将-utf8-的字符串存到-latin1-字符集的数据库表你能将-utf8-的字符串存进去吗假如你说能存追问能否恢复假如能那怎么恢复">91、mysql 中的字符集，客户端与数据库不一致，怎么办？MYSQL 中字符串到显示到界面，字符转换的过程是怎样的？数据库中的字符集是 latin1, 你现在将 utf8 的字符串存到 latin1 字符集的数据库表，你能将 utf8 的字符串存进去吗？假如你说能存，追问：能否恢复？假如能，那怎么恢复？</h2>
+<h2 id="92写一段代码找到所有子集合如-abc-的子集合有-abcabacabc">92、写一段代码，找到所有子集合，如 [a,b,c] 的子集合有 {},{a},{b},{c},{ab},{ac},{abc}</h2>
+<h2 id="93a200b100c100-写一个自定义排序函数按值降序如果值一样按键排序">93、[&lsquo;a&rsquo;=&gt;200,&lsquo;b&rsquo;=&gt;100,&lsquo;c&rsquo;=&gt;100], 写一个自定义排序函数，按值降序，如果值一样，按键排序</h2>
+<p>冒泡排序</p>
+<h2 id="94设计一个缓存系统可以定期或空间占满之后自动删除长期不用的数据不能使用用遍历">94、设计一个缓存系统，可以定期或空间占满之后自动删除长期不用的数据，不能使用用遍历。</h2>
+<p>我当时的答案是用链表来存，缓存命中就将该缓存移到链表头，然后链表尾就都是冷数据了。
+我记得之前是在哪里看过这个设计，但我忘记在连接了，请知道朋友的把连接贴上来。</p>
+<h2 id="95-和--的区别写出以下输出aa1bb011">95、== 和 === 的区别，写出以下输出：&ldquo;aa&rdquo;==1,&ldquo;bb&rdquo;==0，1==&ldquo;1&rdquo;</h2>
+<p>== 等于，不需要对比数据类型
+=== 全等，需要对比类型
+false, true, true</p>
+<h2 id="96一个排序好的数组将它从中间任意一个位置切分成两个数组然后交换它们的位置并合并合并后新数组元素如20212225301235678151819-写一个查询函数来查找某个值是否存在">96、一个排序好的数组，将它从中间任意一个位置切分成两个数组，然后交换它们的位置并合并，合并后新数组元素如：20,21,22,25,30,1,2,3,5,6,7,8,15,18,19, 写一个查询函数来查找某个值是否存在。</h2>
+<h2 id="97设计一个树形结构再写一个函数对它进行层序遍历">97、设计一个树形结构，再写一个函数对它进行层序遍历</h2>
+<h2 id="98var-和-var-的区别">98、'$var' 和 &ldquo;$var&rdquo; 的区别</h2>
+<p>双引号串中的内容可以被解释而且替换，而单引号串中的内容总被认为是普通字符。</p>
+<p>在单引号串中甚至反斜杠也失去了他的扩展含义（除了插入反斜杠 \ 和插入单引号 '）。所以，当你想在字串中进行变量代换和包 含 \n（换行符）等转义序列时，你应该使用双引号。单引号串可以用在其他任何地方，脚本中使用单引号串处理速度会更快些。</p>
+<h2 id="99self-和-static-的区别">99、self 和 static 的区别</h2>
+<p>static：如果在子类中重写了父类中的 static 方法、属性，父类就会去访问了子类的 static 方法</p>
+<p>self: 是类内指针，不管子类有没有重写过父类中的方法、属性都指向本类的静态方法、属性</p>
+<h2 id="100php-的协程以及用途">100、PHP 的协程以及用途</h2>
+<p><a href="http://www.laruence.com/2015/05/28/3038.ht..">http://www.laruence.com/2015/05/28/3038.ht..</a>.</p>
+<p><a href="https://blog.csdn.net/gavin_new/article/de..">https://blog.csdn.net/gavin_new/article/de..</a>.</p>
+<h2 id="101描述-autoload-的机制">101、描述 autoload 的机制</h2>
+<p><a href="https://blog.csdn.net/zhihua_w/article/det..">https://blog.csdn.net/zhihua_w/article/det..</a>.</p>
+<h2 id="102mysql-中字段类型各占几个字节smallintintbigintdatetimevarchar-8">102、mysql 中字段类型各占几个字节：smallint、int、bigint、datetime、varchar (8)</h2>
+<pre><code class="language-cgo" data-lang="cgo">smallint 2 字节
+int 4 字节
+bigint 8 字节
+datetime 8 字节
+varchar (8) 8*3 字节
+http://www.jb51.net/article/55853.htm
+
+</code></pre><h2 id="103哪些属性唯一确定一条-tcp-连接">103、哪些属性唯一确定一条 TCP 连接</h2>
+<h2 id="104myisam-和-innodb-的区别为什么-myisam-比-innodb-快myisam-和-innodb-的索引数据结构是什么样的innodb-主键索引和非主键索引的区别其索引上存放的数据是什么样的">104、myisam 和 innodb 的区别，为什么 myisam 比 innodb 快，myisam 和 innodb 的索引数据结构是什么样的？innodb 主键索引和非主键索引的区别？其索引上存放的数据是什么样的？</h2>
+<p>区别主要在数据和索引的存储结构和存储方式上，以及对于事务的支持。</p>
+<p>参考：https://blog.csdn.net/chajinglong/article/&hellip;</p>
+<h2 id="105断开-tcp-连接时timewait-状态会出现在发起分手的一端还是被分手的一端">105、断开 TCP 连接时，timewait 状态会出现在发起分手的一端还是被分手的一端</h2>
+<h2 id="heading"></h2>
+<p>为什么建立 TCP 连接需要三次握手？
+原因：为了应对网络中存在的延迟的重复数组的问题
+例子：
+假设 client 发起连接的连接请求报文段在网络中没有丢失，而是在某个网络节点长时间滞留了，导致延迟到达 server。本来这是一个已经失效的连接报文，但是 server 接收到这个连接报文之后，误认为 client 发起了新的连接，于是向 client 发送确认报文段。此时因为没有了连接的 3 次握手，client 不会对 server 的确认报文作出回应，也不会向 server 发送数据，server 就以为连接已经建立，一直在空等 client 的数据，这样 server 的这一部分网络资源就被浪费了。</p>
+<p>为什么断开 TCP 连接需要进行四次握手 ？
+因为 TCP 连接是全双工的网络协议，允许同时通信的双方同时进行数据的收发，同样也允许收发两个方向的连接被独立关闭，以避免 client 数据发送完毕，向 server 发送 FIN 关闭连接，而 server 还有发送到 client 的数据没有发送完毕的情况。所以关闭 TCP 连接需要进行四次握手，每次关闭一个方向上的连接需要 FIN 和 ACK 两次握手。</p>
+<p>TIME_WAIT 状态的意义</p>
+<p>在 TCP 连接中，当被动关闭连接的一方 (图中 client) 发送的 FIN 报文到达时，被动关闭连接的一方会发送 ACK 确认报文，并且进入 TIME_WAIT 状态，并且等待 2MSL 时间段 (MSL:maximum segment life)。这么做有下述两个原因：</p>
+<p>被动关闭连接的一方 (图中的 server) 在一段时间内没有收到对方的 ACK 确认数据包，会重新发送 FIN 数据包，因而主动关闭连接的一方需要停留在等待状态以处理对方重新发送的 FIN 数据包。否则他会回应一个 RST 数据包给被动关闭连接的一方，使得对方莫名其妙。</p>
+<p>在 TIME_WAIT 状态下，不允许应用程序在当前 ip 和端口上和之前通信的 client (这个 client 的 ip 和端口号不变) 建立一个新的连接。这样就能避免新的连接收到之前的 ip 和端口一致的连接残存在网络中的数据包。这也是 TIME_WAIT 状态的等待时间被设置为 2MSL 的原因，以确保网络上当前连接两个方向上尚未接收的 TCP 报文已经全部消失。</p>
+<p><a href="https://www.cnblogs.com/zhoudayang/p/60122..">https://www.cnblogs.com/zhoudayang/p/60122..</a>.</p>
+<h2 id="106awk-各种数据分析考得非常多要多练习题目不再一一写了">106、AWK 各种数据分析考得非常多，要多练习，题目不再一一写了</h2>
+<h2 id="107redis-中集合有序集合hyperloghash-的数据结构是啥样的">107、redis 中集合、有序集合、hyperLog、hash 的数据结构是啥样的</h2>
+<p>key value</p>
+<h2 id="108描述一下一个请求到达-nginx-的全部处理过程nginx-自身会调用哪些逻辑然后怎么与-php-通信中间的流程是什么样的等等">108、描述一下：一个请求到达 nginx 的全部处理过程（nginx 自身会调用哪些逻辑）、然后怎么与 php 通信，中间的流程是什么样的等等？</h2>
+<p><a href="https://www.jianshu.com/p/df89b530db89">https://www.jianshu.com/p/df89b530db89</a></p>
+<p><a href="https://blog.csdn.net/xiajun07061225/artic..">https://blog.csdn.net/xiajun07061225/artic..</a>.</p>
+<h2 id="109nginx-和-php-fpm-的相关配置随便问里面各种参数啥意思">109、nginx 和 php-fpm 的相关配置，随便问里面各种参数啥意思</h2>
+<p>php-fpm 可以通过 tcp socket 和 unix socket 两种方式实现。</p>
+<p><a href="https://blog.csdn.net/koastal/article/deta..">https://blog.csdn.net/koastal/article/deta..</a>.</p>
+<h2 id="110假如有一张地图如下图--代表海洋-代表陆地用你最擅长的方式取出陆地的坐标">110、假如有一张地图，如下图，&quot;-&rdquo; 代表海洋、&quot;+&quot; 代表陆地，用你最擅长的方式，取出陆地的坐标。</h2>
+<p>&ndash;++&mdash;-++&ndash;+++&mdash;
+-++++&mdash;-+++++++&ndash;
+-+++&mdash;-++++&mdash;&mdash;
+&mdash;&ndash;++&mdash;&mdash;++++-
+&mdash;++++++&mdash;&ndash;+++-
+&mdash;&ndash;+++&mdash;&mdash;+++-
+比如上图在数组中表示成，1 表示成陆地，0 表示海洋:</p>
+<p>[
+[0,0,1,1,0,0,0,1,1&hellip;.],
+[0,1,1,1&hellip;..],
+]
+写个算法取出所有陆地的坐标，并按块放到一起，如地图上左上角第一个陆地的坐标是:</p>
+<p>[
+[0,2],[0,3],
+[1,1],[1,2],[1,3],[1,4],
+[2,1],[2,2],[2,3]
+]</p>
+<h2 id="111jsonp-的实现原理你还知道哪些跨域方式">111、Jsonp 的实现原理，你还知道哪些跨域方式？</h2>
+<p>JSONP
+添加响应头，允许跨域
+代理的方式</p>
+<h2 id="112如果某个博客通过判断-referer-方式来进行图片防盗链如何破解">112、如果某个博客通过判断 referer 方式来进行图片防盗链，如何破解？</h2>
+<h2 id="heading-1"></h2>
+<p>curl 设置来源地址来欺骗对方服务器验证</p>
+<h2 id="113简述-mysql-查询优化的本质并举-2-个例子">113、简述 mysql 查询优化的本质，并举 2 个例子</h2>
+<h2 id="114设计一个秒杀系统如何保证商品不超卖">114、设计一个秒杀系统，如何保证商品不超卖？</h2>
+<p><a href="https://blog.csdn.net/zhoudaxia/article/de..">https://blog.csdn.net/zhoudaxia/article/de..</a>.</p>
+<h2 id="115单例模式的优点是什么抽象类是什么-还了解哪些设计模式">115、单例模式的优点是什么？抽象类是什么？ 还了解哪些设计模式？</h2>
+<p>单例模式又称为职责模式，它用来在程序中创建一个单一功能的访问点，通俗地说就是实例化出来的对象是唯一的。
+所有的单例模式至少拥有以下三种公共元素：</p>
+<p>它们必须拥有一个构造函数，并且必须被标记为 private
+它们拥有一个保存类的实例的静态成员变量
+它们拥有一个访问这个实例的公共的静态方法
+单例类不能再其它类中直接实例化，只能被其自身实例化。它不会创建实例副本，而是会向单例类内部存储的实例返回一个引用。
+抽象的类不能被实例化。任何一个类，如果它里面至少有一个方法是被声明为抽象的，那么这个类就必须被声明为抽象的。被定义为抽象的方法只是声明了其调用方式（参数），不能定义其具体的功能实现。</p>
+<p><a href="https://www.cnblogs.com/kangxl/p/6347179.h..">https://www.cnblogs.com/kangxl/p/6347179.h..</a>.</p>
+<p>工厂模式
+适配器模式</p>
+<h2 id="116斗地主中地主比农民得到王炸的概率多多少">116、斗地主中，地主比农民得到王炸的概率多多少？</h2>
+<p>转自链接：https://learnku.com/articles/20714</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/post/resume/">Resume</a></li>
+        
+        <li><a href="/post/qrcode/">Qrcode</a></li>
+        
+        <li><a href="/post/first/">记录早期爱狂热blog简介记录</a></li>
+        
+        <li><a href="/about/">关于我</a></li>
+        
+        <li><a href="/tools/">工具</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            没有标签
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2020 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/first/" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+<ul class="widget-list">
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+<div class="tagcloud">
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">友情链接</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">文章 RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
