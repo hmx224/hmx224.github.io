@@ -6,7 +6,16 @@
     <description>Recent content in Interviews on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 09 Dec 2020 21:59:26 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/interviews/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Dec 2020 19:49:18 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/interviews/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tcpip</title>
+      <link>http://hmx224.github.io/interviews/tcpip/</link>
+      <pubDate>Thu, 10 Dec 2020 19:49:18 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/interviews/tcpip/</guid>
+      <description>http和https的区别 HTTPS和HTTP的区别主要如下： https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。 http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。 http和https使用的是完全不同的连接方式，用的端口也不</description>
+    </item>
+    
     <item>
       <title>php面试题汇总</title>
       <link>http://hmx224.github.io/interviews/first/</link>
