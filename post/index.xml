@@ -6,7 +6,43 @@
     <description>Recent content in Posts on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 25 Nov 2020 17:56:39 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 06 Dec 2020 15:25:27 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Laravel55博客项目说明xblog</title>
+      <link>http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/</link>
+      <pubDate>Sun, 06 Dec 2020 15:25:27 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/</guid>
+      <description>[toc] 文档地址 https://xblog.lufficc.com/blog/how-to-install-my-blog 环境要求 安装npm install过程会存在问题，以下的版本可以运行成功 npm版本 6.14.4 node版本 v10.21.0 composer 2.0.7 { &amp;quot;private&amp;quot;: true, &amp;quot;scripts&amp;quot;: { &amp;quot;dev&amp;quot;: &amp;quot;npm run development&amp;quot;, &amp;quot;development&amp;quot;: &amp;quot;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot;, &amp;quot;watch&amp;quot;: &amp;quot;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot;, &amp;quot;watch-poll&amp;quot;: &amp;quot;npm run watch -- --watch-poll&amp;quot;, &amp;quot;hot&amp;quot;: &amp;quot;cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot;, &amp;quot;prod&amp;quot;: &amp;quot;npm run production&amp;quot;, &amp;quot;production&amp;quot;: &amp;quot;cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&amp;quot; }, &amp;quot;devDependencies&amp;quot;: { &amp;quot;autosize&amp;quot;: &amp;quot;^4.0.2&amp;quot;, &amp;quot;bootstrap&amp;quot;: &amp;quot;^4.1.1&amp;quot;, &amp;quot;chart.js&amp;quot;: &amp;quot;^2.7.2&amp;quot;, &amp;quot;clipboard&amp;quot;: &amp;quot;^1.7.1&amp;quot;, &amp;quot;cross-env&amp;quot;: &amp;quot;^5.1.6&amp;quot;, &amp;quot;font-awesome&amp;quot;: &amp;quot;^4.7.0&amp;quot;, &amp;quot;highlight.js&amp;quot;: &amp;quot;^9.12.0&amp;quot;, &amp;quot;jquery&amp;quot;: &amp;quot;^3.2&amp;quot;, &amp;quot;jquery-bridget&amp;quot;: &amp;quot;^2.0.1&amp;quot;, &amp;quot;laravel-mix&amp;quot;: &amp;quot;^1.0&amp;quot;, &amp;quot;magnific-popup&amp;quot;: &amp;quot;^1.1.0&amp;quot;, &amp;quot;masonry-layout&amp;quot;: &amp;quot;^4.2.0&amp;quot;, &amp;quot;node-sass&amp;quot;: &amp;quot;^4.9.0&amp;quot;, &amp;quot;popper.js&amp;quot;: &amp;quot;^1.14.3&amp;quot;, &amp;quot;simplemde&amp;quot;: &amp;quot;^1.11.2&amp;quot;, &amp;quot;smooth-scroll&amp;quot;: &amp;quot;^14.2.0&amp;quot;, &amp;quot;uppy&amp;quot;:</description>
+    </item>
+    
+    <item>
+      <title>Centos中安装GUI</title>
+      <link>http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/</link>
+      <pubDate>Sun, 29 Nov 2020 21:51:13 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/</guid>
+      <description>[toc] CentOS中安装GUI界面 关于vnc模式登陆报错 这个报错是密码错误，需要先输入账户名（默认是root），在输入密码（密码默认不显示），才能进入系统 (1)安装GNOME yum groupinstall &amp;quot;GNOME Desktop&amp;quot; &amp;quot;Graphical Administration Tools&amp;quot; -y 卸载GNOME yum groupremove &amp;quot;GNOME Desktop&amp;quot; Centos7 yum groupinstall 报错的解决办法 Maybe run: yum groups mark install (see man yum) No packages in any requested group available to install or update 解决： yum groupinstall &amp;quot;Office</description>
+    </item>
+    
+    <item>
+      <title>Linux的启动流程</title>
+      <link>http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</link>
+      <pubDate>Sat, 28 Nov 2020 16:48:51 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/</guid>
+      <description>Linux 的启动流程 第一步、加载内核 第二步、启动初始化进程 第三步、确定运行级别 第四步、加载开机启动程序 第五步、用户登录 第六步、进入 login shell 第七步，打开 non-login shell 参考地址：http://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html</description>
+    </item>
+    
+    <item>
+      <title>Linux服务管理程序systemd</title>
+      <link>http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/</link>
+      <pubDate>Sat, 28 Nov 2020 16:33:53 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/</guid>
+      <description>linux服务管理程序systemd Systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置 systemd 是一个类似 supervisor 的守护进程 systemd是Linux操作系统的系统和管理服务程序，作为系统启动的第一个进程（进程id为1)，用于初始化系统，启动和维护用户空间服务。 Linux 的启动流程 http://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html Systemd 入门</description>
+    </item>
+    
     <item>
       <title>SupervisorInfo</title>
       <link>http://hmx224.github.io/post/supervisorInfo/</link>
@@ -14,15 +50,6 @@
       
       <guid>http://hmx224.github.io/post/supervisorInfo/</guid>
       <description>一、supervisor简介 Supervisor是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。它是通过fork/exec的方式把这些被管理的进程当作supervisor的子进程来启动，这样只要在s</description>
-    </item>
-    
-    <item>
-      <title>PhpInterview2018</title>
-      <link>http://hmx224.github.io/post/phpInterview2018/</link>
-      <pubDate>Tue, 24 Nov 2020 22:11:40 +0800</pubDate>
-      
-      <guid>http://hmx224.github.io/post/phpInterview2018/</guid>
-      <description>PHP 高级工程面试题汇总 (2018.05) 1、给你四个坐标点，判断它们能不能组成一个矩形，如判断 ([0,0],[0,1],[1,1],[1,0]) 能组成一个矩形。 勾股定理，矩形是对角线相等的四边形。只要任意三点不在一条直线上，任选一点，求这一点到另外三点的长度的平方，两个短的之和如果等于最长的，那么这就是矩形。 2、写一段代码判断单向链表中有没有形</description>
     </item>
     
     <item>

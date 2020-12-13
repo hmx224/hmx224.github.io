@@ -54,7 +54,11 @@
                     
                     <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
                     
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
                     <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
                     
                     <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
                     
@@ -75,6 +79,70 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年12月6日
+        </date>
+        
+        <div class="post-content">
+            [toc] 文档地址 https://xblog.lufficc.com/blog/how-to-install-my-blog 环境要求 安装npm install过程会存在问题，以下的版本可以运行成功 npm版本 6.14.4 node版本 v10.21.0 composer 2.0.7 { &quot;private&quot;: true, &quot;scripts&quot;: { &quot;dev&quot;: &quot;npm run development&quot;, &quot;development&quot;: &quot;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&quot;, &quot;watch&quot;: &quot;cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&quot;, &quot;watch-poll&quot;: &quot;npm run watch -- --watch-poll&quot;, &quot;hot&quot;: &quot;cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js&quot;, &quot;prod&quot;: &quot;npm run production&quot;, &quot;production&quot;: &quot;cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js&quot; }, &quot;devDependencies&quot;: { &quot;autosize&quot;: &quot;^4.0.2&quot;, &quot;bootstrap&quot;: &quot;^4.1.1&quot;, &quot;chart.js&quot;: &quot;^2.7.2&quot;, &quot;clipboard&quot;: &quot;^1.7.1&quot;, &quot;cross-env&quot;: &quot;^5.1.6&quot;, &quot;font-awesome&quot;: &quot;^4.7.0&quot;, &quot;highlight.js&quot;: &quot;^9.12.0&quot;, &quot;jquery&quot;: &quot;^3.2&quot;, &quot;jquery-bridget&quot;: &quot;^2.0.1&quot;, &quot;laravel-mix&quot;: &quot;^1.0&quot;, &quot;magnific-popup&quot;: &quot;^1.1.0&quot;, &quot;masonry-layout&quot;: &quot;^4.2.0&quot;, &quot;node-sass&quot;: &quot;^4.9.0&quot;, &quot;popper.js&quot;: &quot;^1.14.3&quot;, &quot;simplemde&quot;: &quot;^1.11.2&quot;, &quot;smooth-scroll&quot;: &quot;^14.2.0&quot;, &quot;uppy&quot;:……
+        </div>
+        <p class="readmore"><a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月29日
+        </date>
+        
+        <div class="post-content">
+            [toc] CentOS中安装GUI界面 关于vnc模式登陆报错 这个报错是密码错误，需要先输入账户名（默认是root），在输入密码（密码默认不显示），才能进入系统 (1)安装GNOME yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot; -y 卸载GNOME yum groupremove &quot;GNOME Desktop&quot; Centos7 yum groupinstall 报错的解决办法 Maybe run: yum groups mark install (see man yum) No packages in any requested group available to install or update 解决： yum groupinstall &quot;Office……
+        </div>
+        <p class="readmore"><a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月28日
+        </date>
+        
+        <div class="post-content">
+            Linux 的启动流程 第一步、加载内核 第二步、启动初始化进程 第三步、确定运行级别 第四步、加载开机启动程序 第五步、用户登录 第六步、进入 login shell 第七步，打开 non-login shell 参考地址：http://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html……
+        </div>
+        <p class="readmore"><a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2020年11月28日
+        </date>
+        
+        <div class="post-content">
+            linux服务管理程序systemd Systemd 是 Linux 系统工具，用来启动守护进程，已成为大多数发行版的标准配置 systemd 是一个类似 supervisor 的守护进程 systemd是Linux操作系统的系统和管理服务程序，作为系统启动的第一个进程（进程id为1)，用于初始化系统，启动和维护用户空间服务。 Linux 的启动流程 http://www.ruanyifeng.com/blog/2013/08/linux_boot_process.html Systemd 入门……
+        </div>
+        <p class="readmore"><a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/">阅读全文</a></p>
+    </article>
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
             </h1>
         </header>
@@ -86,22 +154,6 @@
             一、supervisor简介 Supervisor是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。它是通过fork/exec的方式把这些被管理的进程当作supervisor的子进程来启动，这样只要在s……
         </div>
         <p class="readmore"><a href="http://hmx224.github.io/post/supervisorInfo/">阅读全文</a></p>
-    </article>
-    
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="http://hmx224.github.io/post/phpInterview2018/" title="PhpInterview2018">PhpInterview2018</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2020年11月24日
-        </date>
-        
-        <div class="post-content">
-            PHP 高级工程面试题汇总 (2018.05) 1、给你四个坐标点，判断它们能不能组成一个矩形，如判断 ([0,0],[0,1],[1,1],[1,0]) 能组成一个矩形。 勾股定理，矩形是对角线相等的四边形。只要任意三点不在一条直线上，任选一点，求这一点到另外三点的长度的平方，两个短的之和如果等于最长的，那么这就是矩形。 2、写一段代码判断单向链表中有没有形……
-        </div>
-        <p class="readmore"><a href="http://hmx224.github.io/post/phpInterview2018/">阅读全文</a></p>
     </article>
     
     <article class="post">
@@ -210,11 +262,23 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/phpInterview2018/" title="PhpInterview2018">PhpInterview2018</a>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
     </li>
     
     <li>
