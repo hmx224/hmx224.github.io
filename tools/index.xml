@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tools on 爱狂热博客</title>
+    <link>http://hmx224.github.io/tools/</link>
+    <description>Recent content in Tools on 爱狂热博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 15 Dec 2020 09:15:46 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/tools/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工具</title>
+      <link>http://hmx224.github.io/tools/first/</link>
+      <pubDate>Tue, 15 Dec 2020 09:15:46 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/tools/first/</guid>
+      <description>工具实例</description>
+    </item>
+    
+  </channel>
+</rss>

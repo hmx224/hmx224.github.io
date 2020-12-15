@@ -6,7 +6,16 @@
     <description>Recent content on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 10 Dec 2020 19:49:18 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Dec 2020 09:15:46 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工具</title>
+      <link>http://hmx224.github.io/tools/first/</link>
+      <pubDate>Tue, 15 Dec 2020 09:15:46 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/tools/first/</guid>
+      <description>工具实例</description>
+    </item>
+    
     <item>
       <title>Tcpip</title>
       <link>http://hmx224.github.io/interviews/tcpip/</link>
@@ -140,15 +149,6 @@
       
       <guid>http://hmx224.github.io/about/</guid>
       <description>开发工程师 专攻PHP开发、Python开发、Go开发工程师，服务器运维等</description>
-    </item>
-    
-    <item>
-      <title>工具</title>
-      <link>http://hmx224.github.io/tools/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://hmx224.github.io/tools/</guid>
-      <description></description>
     </item>
     
     <item>
