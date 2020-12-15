@@ -5,6 +5,16 @@
     <link>http://hmx224.github.io/categories/</link>
     <description>Recent content in Categories on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language><atom:link href="http://hmx224.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 22 Nov 2020 09:15:46 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>tools</title>
+      <link>http://hmx224.github.io/categories/tools/</link>
+      <pubDate>Sun, 22 Nov 2020 09:15:46 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/categories/tools/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

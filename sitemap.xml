@@ -14,7 +14,7 @@
   
   <url>
     <loc>http://hmx224.github.io/</loc>
-    <lastmod>2020-12-10T19:49:18+08:00</lastmod>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -49,7 +49,7 @@
   
   <url>
     <loc>http://hmx224.github.io/post/</loc>
-    <lastmod>2020-12-06T15:25:27+08:00</lastmod>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -88,21 +88,33 @@
   </url>
   
   <url>
-    <loc>http://hmx224.github.io/post/first/</loc>
-    <lastmod>2020-11-22T09:15:46+08:00</lastmod>
+    <loc>http://hmx224.github.io/categories/</loc>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/tags/php/</loc>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/tags/</loc>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/categories/tools/</loc>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hmx224.github.io/post/ifanatic-blog-introduce/</loc>
+    <lastmod>2020-12-15T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>http://hmx224.github.io/about/</loc>
     <lastmod>2020-11-22T09:11:04+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hmx224.github.io/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>http://hmx224.github.io/tags/</loc>
   </url>
   
   <url>
