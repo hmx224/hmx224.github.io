@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on 爱狂热博客</title>
+    <link>http://hmx224.github.io/categories/go/</link>
+    <description>Recent content in go on 爱狂热博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 18 Dec 2020 14:14:21 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>github中资料汇集</title>
+      <link>http://hmx224.github.io/go/blog-golang/</link>
+      <pubDate>Fri, 18 Dec 2020 14:14:21 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/go/blog-golang/</guid>
+      <description>记录golang中优质资料github go-extend 收集一些常用的操作函数，辅助更快的完成开发工作，并减少重复代码。 https://github.com/thinkeridea/go-extend.git</description>
+    </item>
+    
+  </channel>
+</rss>
