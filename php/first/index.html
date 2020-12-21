@@ -301,7 +301,7 @@
 5、关闭模块(Module shutdown)     ：
 Web服务器退出或者命令行脚本执行完毕退出会调用拓展源码中的PHP_MSHUTDOWN_FUNCTION 方法
 </code></pre><h2 id="4单进程sapi生命周期">4、单进程SAPI生命周期</h2>
-<p>CLI/CGI模式的PHP属于单进程的SAPI模式。这类的请求在处理一次请求后就关闭。也就是只会经过如下几个环节：
+<p>CLI/CGI模式的PHP属于单进程的SAPI模式。这类的请求在处理一次请求后就关闭。也就是只会经过如下几个环节： 
 开始 - 请求开始 - 请求关闭 - 结束 SAPI接口实现就完成了其生命周期。如图所示：
 
         <img class="mx-auto" alt="single" src="/images/php/single.gif" />   
