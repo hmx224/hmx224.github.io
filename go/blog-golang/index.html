@@ -37,7 +37,6 @@
     
 </head>
 
-
 <body>
     <header id="header" class="clearfix">
     <div class="container">
@@ -145,7 +144,11 @@
     <div class="post-toc-content">
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#记录golang中优质资料github">记录golang中优质资料github</a></li>
+    <li><a href="#记录golang中优质资料github">记录golang中优质资料github</a>
+      <ul>
+        <li><a href="#面试题汇总">面试题汇总</a></li>
+      </ul>
+    </li>
   </ul>
 </nav>
     </div>
@@ -155,8 +158,8 @@
         var postToc = $(".post-toc");
         if (postToc.length) {
             var leftPos = $("#main").offset().left;
-            if(leftPos<220){
-                postToc.css({"width":leftPos-10,"margin-left":(0-leftPos)})
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
             }
 
             var t = postToc.offset().top - 20,
@@ -174,6 +177,10 @@
                 var e = $(window).scrollTop();
                 e < t ? postToc.css(a.start) : postToc.css(a.process)
             })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
         }
     })
 </script>
@@ -211,6 +218,7 @@
 <p>go-extend 收集一些常用的操作函数，辅助更快的完成开发工作，并减少重复代码。
 <a href="https://github.com/thinkeridea/go-extend.git">https://github.com/thinkeridea/go-extend.git</a></p>
 </blockquote>
+<h3 id="面试题汇总">面试题汇总</h3>
 
         </div>
 
@@ -285,9 +293,9 @@
 
                     <footer id="footer">
     <div>
-        &copy; 2017 - 2020 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+        &copy; 2017 - 2022 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
 
-        | 版权所有 - <a href="http://www.beian.miit.gov.cn" target="_blank">京ICP备16009734号-2 </a>
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
         
     </div>
     <br />
