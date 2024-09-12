@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>模拟面试｜消息队列面试思路一图懂 | 爱狂热博客</title>
+    <meta property="og:title" content="模拟面试｜消息队列面试思路一图懂 - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="模拟面试｜消息队列面试思路一图懂">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/%E6%A8%A1%E6%8B%9F%E9%9D%A2%E8%AF%95%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E4%B8%80%E5%9B%BE%E6%87%82/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#模拟面试-消息队列面试思路一图懂">模拟面试｜消息队列面试思路一图懂</a>
+<ul>
+<li>
+<ul>
+<li><a href="#22-消息队列-消息队列可以用来解决什么问题">22｜消息队列：消息队列可以用来解决什么问题？</a></li>
+<li><a href="#23-延迟消息-怎么在-kafka-上支持延迟消息">23｜延迟消息：怎么在 Kafka 上支持延迟消息？</a></li>
+<li><a href="#24-消息积压-业务突然增长-导致消息消费不过来怎么办">24｜消息积压：业务突然增长，导致消息消费不过来怎么办？</a></li>
+<li><a href="#25-消息顺序-保证消息有序-一个-topic-只能有一个-partition-吗">25｜消息顺序：保证消息有序，一个 topic 只能有一个 partition 吗？</a></li>
+<li><a href="#26-消息不丢失-生产者收到写入成功响应后消息一定不会丢失吗">26｜消息不丢失：生产者收到写入成功响应后消息一定不会丢失吗？</a></li>
+<li><a href="#27-重复消费-高并发场景下怎么保证消息不会重复消费">27｜重复消费：高并发场景下怎么保证消息不会重复消费？</a></li>
+<li><a href="#28-架构设计-如果让你设计一个消息队列-你会怎么设计架构">28｜架构设计：如果让你设计一个消息队列，你会怎么设计架构</a></li>
+<li><a href="#29-高性能-kafka-为什么性能那么好">29｜高性能：Kafka 为什么性能那么好</a></li>
+<li><a href="#30-kafka-综合运用-怎么在实践中保证-kafka-高性能">30｜Kafka 综合运用：怎么在实践中保证 Kafka 高性能？</a></li>
+<li><a href="#消息队列面试一图懂">消息队列面试一图懂</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">模拟面试｜消息队列面试思路一图懂</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="模拟面试-消息队列面试思路一图懂">模拟面试｜消息队列面试思路一图懂</h1>
+
+<p>你好，我是大明，恭喜你学完第三章的内容，又到了要验收成果的时刻了。消息队列这一章的内容很重要，知识也很系统，所以为了帮助你更好地掌握这部分内容，我们在这里设置了面试题。</p>
+
+<p>你在回答的时候，最好是能够写成一个个文档，至少也要口头上说一遍。千万不要仅仅在脑海里面回忆一遍。因为在真正面试的时候，脑海中的记忆到嘴里说出的话，还需要一个转换。</p>
+
+<h3 id="22-消息队列-消息队列可以用来解决什么问题">22｜消息队列：消息队列可以用来解决什么问题？</h3>
+
+<ol>
+<li>你用过消息队列吗？主要用来解决什么问题？异步、削峰和解耦你能各举一个例子吗？</li>
+<li>你用的是哪个消息队列？为什么使用它而不用别的消息队列？</li>
+<li>为什么你一定要用消息队列？不用行不行？不用有什么缺点？</li>
+<li>在对接多个下游的时候，直接用 RPC 调用行不行？为什么？</li>
+<li>为什么说使用消息队列可以提高性能？</li>
+<li>为什么说使用消息队列可以提高扩展性？</li>
+<li>为什么说使用消息队列可以提高可用性？</li>
+<li>为什么秒杀场景中经常用消息队列？怎么用的？</li>
+<li>订单超时取消可以怎么实现？</li>
+<li>你了解事件驱动吗？</li>
+<li>什么是 SAGA 事务？怎么利用事件驱动来设计一个 SAGA 事务框架？</li>
+</ol>
+
+<h3 id="23-延迟消息-怎么在-kafka-上支持延迟消息">23｜延迟消息：怎么在 Kafka 上支持延迟消息？</h3>
+
+<ol>
+<li>什么是延迟消息？你有没有用过？可以用来解决什么问题？</li>
+<li>Kafka 支不支持延迟消息？为什么 Kafka 不支持？</li>
+<li>RabbitMQ 支不支持延迟消息？怎么支持的？</li>
+<li>RabbitMQ 的延迟消息解决方案有什么缺点？让你来改进，你会怎么办？</li>
+<li>什么是死信队列？什么是消息 ttl？</li>
+<li>如果要让 Kafka 支持延迟消息你会怎么做？你有几种方案？各有什么优缺点？</li>
+<li>在你的延迟消息队列方案里面，时间有多精确？比如说我希望在 10:00:00 发出来，你能保证这个一定恰好在这个时刻发出来吗？误差有多大？你能进一步提高时间精确性吗？</li>
+<li>在分区设置不同延迟时间的方案里，能不能支持随机延迟时间？</li>
+<li>在分区设置不同延迟时间的方案里，如果要是发生了 rebalance，会有什么后果？</li>
+<li>当你从准备转发消息到业务 topic（biz_topic）的时候失败了，有什么后果？怎么办？</li>
+<li>在你使用 MySQL 支持延迟消息的方案里，你怎么解决性能问题？</li>
+<li>如果要分库分表来解决 MYSQL 的性能问题，你会怎么分库分表？是分库还是分表？</li>
+<li>如果要是不同业务 topic 的并发量有区别，你分库分表怎么解决这种负载不均匀的问题？</li>
+<li>如果延迟消息还要求有序性，该怎么办？</li>
+<li>如果你已经将消息转发到了 biz_topic 上，但是更新数据库状态失败了怎么办？</li>
+<li>除了用 MySQL，可以考虑用别的中间件来实现延迟消息吗？</li>
+</ol>
+
+<h3 id="24-消息积压-业务突然增长-导致消息消费不过来怎么办">24｜消息积压：业务突然增长，导致消息消费不过来怎么办？</h3>
+
+<ol>
+<li>一个分区可以有多个消费者吗？一个消费者可以消费多个分区吗？</li>
+<li>你业务里面的消息有多少个分区？你怎么计算出来的？它能撑住多大的读写压力？</li>
+<li>你遇到过消息积压吗？怎么发现的？为什么会积压？最后怎么解决的？</li>
+<li>为什么会出现消息积压？只要我容量规划好，肯定不会有消息积压，对不对？</li>
+<li>消息积压可以考虑怎么解决？</li>
+<li>增加消费者数量能不能解决消息积压问题？</li>
+<li>能不能通过限制发送者，让他们少发一点来解决消息积压问题？</li>
+<li>现在我发现分区数量不够了，但是运维又不准我增加新的分区，该怎么办？</li>
+<li>异步消费有什么缺陷？</li>
+<li>你怎么解决异步消费的消息丢失问题？你的方案会引起重复消费吗？</li>
+<li>在异步消费一批消息的时候，要是有部分消费失败了，怎么办？要不要提交？</li>
+</ol>
+
+<h3 id="25-消息顺序-保证消息有序-一个-topic-只能有一个-partition-吗">25｜消息顺序：保证消息有序，一个 topic 只能有一个 partition 吗？</h3>
+
+<ol>
+<li>消息在Kafka 分区上是怎么存储的？</li>
+<li>什么是有序消息？用于解决什么问题？</li>
+<li>Kafka 上的消息是有序的吗？为什么？</li>
+<li>要想在 Kafka 上保证消息有序，应该怎么做？</li>
+<li>什么是全局有序？要保证全局有序，在 Kafka 上可以怎么做？</li>
+<li>要保证消息有序，一个 topic 只能有一个 partition 吗？</li>
+<li>异步消费的时候怎么保证消息有序？</li>
+<li>在你使用的多分区方案中，有没有可能出现分区间负载不均衡的问题？怎么解决？</li>
+<li>增加分区有可能让你的消息失序吗？怎么解决？</li>
+<li>你还知道哪些消息队列是支持有序消息的？</li>
+<li>要做到跨 topic 的消息也有序，难点在哪里？</li>
+</ol>
+
+<h3 id="26-消息不丢失-生产者收到写入成功响应后消息一定不会丢失吗">26｜消息不丢失：生产者收到写入成功响应后消息一定不会丢失吗？</h3>
+
+<ol>
+<li>什么是 ISR？什么是 OSR？</li>
+<li>一个分区什么情况下会被挪进去 ISR，什么时候又会被挪出 ISR？</li>
+<li>生产者的 acks 参数有什么含义？你用的是多少？</li>
+<li>怎么感觉业务选择合适的 acks 参数？</li>
+<li>消息丢失的场景有哪些？</li>
+<li>你遇到过消息丢失的问题吗？是什么原因引起的？你怎么排查的？最终怎么解决的？</li>
+<li>当生产者收到发送成功的响应之后，消息就肯定不会丢失吗？</li>
+<li>acks 设置为 all，消息就一定不会丢失吗？</li>
+<li>什么是事务消息？Kafka 支持事务消息吗？</li>
+<li>怎么在 Kafka 上支持事务消息？</li>
+<li>什么是本地消息表？拿来做什么的？</li>
+<li>你是怎么保证你在执行了业务操作之后，消息一定发出去了？</li>
+<li>怎么保证生产者收到发送成功的响应之后，消息一定不会丢失？需要调整哪些参数？</li>
+<li>什么是 unclean 选举？有什么问题？你用的 Kafka 允许 unclean 选举吗？</li>
+<li>在你设计的回查方案里面，你怎么知道应该回查哪个接口？你这个能同时支持 HTTP 和 RPC 吗？能方便扩展到别的协议吗？</li>
+<li>你的回查机制有没有可能先收到提交消息？再收到准备消息？怎么保证两者的顺序？</li>
+<li>如果你已经把消息发到了业务 topic 上，但是你标记已发送失败了，怎么办？</li>
+</ol>
+
+<h3 id="27-重复消费-高并发场景下怎么保证消息不会重复消费">27｜重复消费：高并发场景下怎么保证消息不会重复消费？</h3>
+
+<ol>
+<li>什么是布隆过滤器？</li>
+<li>什么是 bit array？</li>
+<li>为什么说尽量把消费者设计成幂等的？</li>
+<li>什么场景会造成重复消费？</li>
+<li>什么是恰好一次语义，Kafka 支持恰好一次语义吗？</li>
+<li>利用唯一索引来实现幂等的方案里，你是先插入数据到唯一索引，还是先执行业务？为什么</li>
+<li>如果先插入唯一索引成功了，但是业务执行失败了，怎么办？</li>
+<li>如果不能使用本地事务，你怎么利用唯一索引来实现幂等？中间可能会有什么问题？你怎么解决？</li>
+<li>利用唯一索引来解决幂等问题，有什么缺陷？</li>
+<li>高并发场景下，怎么解决幂等问题？</li>
+<li>在你的高并发幂等方案里面，为什么要引入 Redis？</li>
+<li>Redis 里面的 Key 过期时间该怎么确定？</li>
+<li>布隆过滤器 + Redis + 唯一索引里面，去掉布隆过滤器行不行？去掉 Redis 呢？去掉唯一索引呢？</li>
+<li>布隆过滤器 + Redis + 唯一索引方案中能不能使用本地布隆过滤器？怎么用？</li>
+<li>布隆过滤器 + Redis + 唯一索引有什么缺陷？</li>
+</ol>
+
+<h3 id="28-架构设计-如果让你设计一个消息队列-你会怎么设计架构">28｜架构设计：如果让你设计一个消息队列，你会怎么设计架构</h3>
+
+<ol>
+<li>Kafka 为什么要引入分区？只有 topic 行不行？</li>
+<li>Kafka 为什么要强调把 topic 的分区分散在不同的 broker 上？</li>
+<li>Kafka 为什么要引入消费者组概念？只有消费者行不行？</li>
+<li>Kafka 为什么要引入 topic？</li>
+<li>如果让你来设计一个消息队列，你会怎么设计架构？</li>
+<li>在你的设计里面，你能支持延迟消息吗？</li>
+<li>在你的设计里面，怎么保证消息有序？</li>
+<li>在你的设计里面，会出现消息丢失的问题吗？</li>
+<li>在你的设计里面，什么场景会引起重复消息？</li>
+<li>在你的设计里面，你觉得性能瓶颈可能出现在哪里？</li>
+<li>在你的设计里面，你还可以考虑怎么提高性能？</li>
+</ol>
+
+<h3 id="29-高性能-kafka-为什么性能那么好">29｜高性能：Kafka 为什么性能那么好</h3>
+
+<ol>
+<li>为什么 Kafka 性能那么好？</li>
+<li>为什么零拷贝性能那么好？</li>
+<li>写磁盘一定很慢吗？顺序写为什么很快？</li>
+<li>批量操作为什么快？节省了什么资源？</li>
+<li>什么是上下文切换？为什么上下文切换慢？</li>
+<li>分区过多有什么问题？topic 过多有什么问题？</li>
+<li>分区有什么好处？</li>
+<li>实际中使用批量发送之类的技术，可能出现什么问题？怎么解决？</li>
+<li>什么是 page cache ？为什么要引入 page cache？</li>
+</ol>
+
+<h3 id="30-kafka-综合运用-怎么在实践中保证-kafka-高性能">30｜Kafka 综合运用：怎么在实践中保证 Kafka 高性能？</h3>
+
+<ol>
+<li>什么是交换区？</li>
+<li>如果来不及发送，那么性能瓶颈可能在哪里？</li>
+<li>怎么优化发送者的发送性能？</li>
+<li>批次发送的时候，多大的批次才是最合适的？</li>
+<li>使用压缩有什么优缺点？怎么选择合适的压缩算法？</li>
+<li>怎么优化 broker？</li>
+<li>怎么优化 broker 所在的操作系统?</li>
+<li>什么是 TCP 读写缓冲区？怎么调优？</li>
+<li>哪些参数可以影响 Kafka 的主从同步？你优化过吗？</li>
+<li>你有优化过 Kafka 的 JVM 吗？怎么优化的？</li>
+</ol>
+
+<h3 id="消息队列面试一图懂">消息队列面试一图懂</h3>
+
+<p><img src="/images/interviews/689793/9c75c2faf5905eaa5e92d0e4e2792eaf.jpg" alt="图片" /></p>
+
+<p>最后我将这一章的内容整理成了一张图片，图片能够更好地展现知识点之间的联系，你可以参考，如果你觉得有用的话，可以把这节课的内容分享给身边的朋友，邀他一起学习，共同进步。好了，我们下一章再见吧！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

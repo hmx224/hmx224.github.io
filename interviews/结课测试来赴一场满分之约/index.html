@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>结课测试｜来赴一场满分之约！ | 爱狂热博客</title>
+    <meta property="og:title" content="结课测试｜来赴一场满分之约！ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="结课测试｜来赴一场满分之约！">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/%E7%BB%93%E8%AF%BE%E6%B5%8B%E8%AF%95%E6%9D%A5%E8%B5%B4%E4%B8%80%E5%9C%BA%E6%BB%A1%E5%88%86%E4%B9%8B%E7%BA%A6/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#结课测试-来赴一场满分之约">结课测试｜来赴一场满分之约！</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">结课测试｜来赴一场满分之约！</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="结课测试-来赴一场满分之约">结课测试｜来赴一场满分之约！</h1>
+
+<p>你好，我是邓明。</p>
+
+<p>《后端工程师的高阶面经》的更新告一段落，非常开心能和你交流技术、共同进步，为认真学习的你点赞！为了帮你检验自己的学习成果，我特意准备了一套期末测试题。题目共有 20 道，11 道单选题，9 道多选题，满分 100 分，快来挑战一下吧！</p>
+
+<p><a href="http://time.geekbang.org/quiz/intro?act_id=6359&amp;exam_id=13739"><img src="/images/interviews/708341/28d1be62669b4f3cc01c36466bf811a4.png" alt="" /></a></p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

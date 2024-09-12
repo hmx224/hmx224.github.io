@@ -23,7 +23,10 @@
         
     <meta name="author" content="爱狂热">
     <meta property="og:url" content="http://hmx224.github.io/interviews/first/">
-    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
@@ -36,6 +39,7 @@
     
     
 </head>
+
 
 <body>
     <header id="header" class="clearfix">
@@ -51,7 +55,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://hmx224.github.io/">首页</a>
+                    <a class="" href="http://hmx224.github.io/">Home</a>
                     
                     <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
                     
@@ -140,40 +144,41 @@
     }
 </style>
 <div class="post-toc" style="position: absolute; top: 188px;">
-    <h2 class="post-toc-title">文章目录</h2>
+    <h2 class="post-toc-title">Table of Contents</h2>
     <div class="post-toc-content">
         <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1getpost-的区别">1.get,post 的区别</a></li>
-    <li><a href="#2requireinclude-区别">2.require,include 区别</a></li>
-    <li><a href="#3php-的垃圾回收机制">3.PHP 的垃圾回收机制</a></li>
-    <li><a href="#4常见的排序算法">4.常见的排序算法</a>
-      <ul>
-        <li><a href="#1-冒泡排序">1. 冒泡排序</a></li>
-        <li><a href="#2-选择排序">2. 选择排序</a></li>
-        <li><a href="#3插入排序">3.插入排序</a></li>
-        <li><a href="#4快速排序">4.快速排序</a></li>
-        <li><a href="#5给出一个字符串返回里面连续字母的个数比如abbcddde返回-1a2b1c3de">5、给出一个字符串，返回里面连续字母的个数，比如：abbcddde,返回 1a2b1c3de;</a></li>
-        <li><a href="#6约瑟夫环问题猴子选大王">6、约瑟夫环问题，猴子选大王</a></li>
-      </ul>
-    </li>
-    <li><a href="#5什么是-cgi什么是-fastcgiphp-fpmfastcginginx-之间是什么关系">5.什么是 CGI？什么是 FastCGI？php-fpm，FastCGI，Nginx 之间是什么关系？</a></li>
-    <li><a href="#6memcache-和-redis-的区别">6.memcache 和 Redis 的区别</a></li>
-    <li><a href="#7什么是-redis-穿透和雪崩">7.什么是 Redis 穿透和雪崩</a></li>
-    <li><a href="#8redis-消息队列先进先出需要注意什么">8.redis 消息队列先进先出需要注意什么？</a></li>
-    <li><a href="#9redis-如何防止高并发">9.Redis 如何防止高并发？</a></li>
-    <li><a href="#10数据库层面">10.数据库层面</a>
-      <ul>
-        <li><a href="#说说对-sql-语句优化有哪些方法">说说对 SQL 语句优化有哪些方法？</a></li>
-        <li><a href="#对关系型数据库而言索引是相当重要的概念请回答有关索引几个问题">对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:</a></li>
-        <li><a href="#mysql数据库中的字段类型varchar和char的主要区别是什么那种字段的查找效率要高为什么">MySQL数据库中的字段类型varchar和char的主要区别是什么？那种字段的查找效率要高，为什么?</a></li>
-        <li><a href="#数据库三范式">数据库三范式</a></li>
-        <li><a href="#mysql-中有哪几种锁">Mysql 中有哪几种锁</a></li>
-        <li><a href="#什么是存储过程">什么是存储过程</a></li>
-        <li><a href="#如何处理负载高并发">如何处理负载、高并发</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li><a href="#php层面">php层面</a>
+<ul>
+<li><a href="#1-get-post-的区别">1.get,post 的区别</a></li>
+<li><a href="#2-require-include-区别">2.require,include 区别</a></li>
+<li><a href="#3-php-的垃圾回收机制">3.PHP 的垃圾回收机制</a></li>
+<li><a href="#4-常见的排序算法">4.常见的排序算法</a>
+<ul>
+<li><a href="#1-冒泡排序">1. 冒泡排序</a></li>
+<li><a href="#2-选择排序">2. 选择排序</a></li>
+<li><a href="#3-插入排序">3.插入排序</a></li>
+<li><a href="#4-快速排序">4.快速排序</a></li>
+<li><a href="#5-给出一个字符串-返回里面连续字母的个数-比如-abbcddde-返回-1a2b1c3de">5、给出一个字符串，返回里面连续字母的个数，比如：abbcddde,返回 1a2b1c3de;</a></li>
+<li><a href="#6-约瑟夫环问题-猴子选大王">6、约瑟夫环问题，猴子选大王</a></li>
+</ul></li>
+<li><a href="#5-什么是-cgi-什么是-fastcgi-php-fpm-fastcgi-nginx-之间是什么关系">5.什么是 CGI？什么是 FastCGI？php-fpm，FastCGI，Nginx 之间是什么关系？</a></li>
+<li><a href="#6-memcache-和-redis-的区别">6.memcache 和 Redis 的区别</a></li>
+<li><a href="#7-什么是-redis-穿透和雪崩">7.什么是 Redis 穿透和雪崩</a></li>
+<li><a href="#8-redis-消息队列先进先出需要注意什么">8.redis 消息队列先进先出需要注意什么？</a></li>
+<li><a href="#9-redis-如何防止高并发">9.Redis 如何防止高并发？</a></li>
+<li><a href="#10-数据库层面">10.数据库层面</a>
+<ul>
+<li><a href="#说说对-sql-语句优化有哪些方法">说说对 SQL 语句优化有哪些方法？</a></li>
+<li><a href="#对关系型数据库而言-索引是相当重要的概念-请回答有关索引几个问题">对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:</a></li>
+<li><a href="#mysql数据库中的字段类型varchar和char的主要区别是什么-那种字段的查找效率要高-为什么">MySQL数据库中的字段类型varchar和char的主要区别是什么？那种字段的查找效率要高，为什么?</a></li>
+<li><a href="#数据库三范式">数据库三范式</a></li>
+<li><a href="#mysql-中有哪几种锁">Mysql 中有哪几种锁</a></li>
+<li><a href="#什么是存储过程">什么是存储过程</a></li>
+<li><a href="#如何处理负载-高并发">如何处理负载、高并发</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
     </div>
 </div>
@@ -212,28 +217,37 @@
         <header>
             <h1 class="post-title">php面试题汇总</h1>
         </header>
-        <date class="post-meta meta-date">
-            2020年12月9日
-        </date>
         
+  <time datetime="2020-12-09T13:59:26Z" class="post-meta meta-date dt-published">
+    2020-12-09
+  </time>
+
+
+
         
         <div class="post-meta">
-            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                    阅读</span></span>
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
         </div>
         
         
         <div class="clear" style="display: none">
             <div class="toc-article">
-                <div class="toc-title">文章目录</div>
+                <div class="toc-title">Table of Contents</div>
             </div>
         </div>
         
         <div class="post-content">
-            <h1 id="php层面">php层面</h1>
+            
+
+<h1 id="php层面">php层面</h1>
+
 <p>请用最简单的语言告诉我PHP是什么？
 回答：PHP全称：Hypertext Preprocessor，是一种用来开发动态网站的服务器脚本语言。</p>
-<h2 id="1getpost-的区别">1.get,post 的区别</h2>
+
+<h2 id="1-get-post-的区别">1.get,post 的区别</h2>
+
 <blockquote>
 <p>1、GET在浏览器回退时是无害的，而POST会再次提交请求。
 2、GET产生的URL地址可以被Bookmark，而POST不可以。
@@ -246,20 +260,29 @@
 9、GET参数通过URL传递，POST放在Request body中。
 10、GET产生一个TCP数据包，POST产生两个TCP数据包</p>
 </blockquote>
-<h2 id="2requireinclude-区别">2.require,include 区别</h2>
+
+<h2 id="2-require-include-区别">2.require,include 区别</h2>
+
 <blockquote>
 <p>require是无条件包含也就是如果一个流程里加入require,无论条件成立与否都会先执行require include有返回值，而require没有(可能因为如此require的速度比include快) 包含文件不存在或者语法错误的时候require是致命的错误终止执行,include不是</p>
 </blockquote>
-<h2 id="3php-的垃圾回收机制">3.PHP 的垃圾回收机制</h2>
+
+<h2 id="3-php-的垃圾回收机制">3.PHP 的垃圾回收机制</h2>
+
 <blockquote>
 <p>PHP 可以自动进行内存管理，清除不需要的对象。
 PHP 使用了引用计数 (reference counting) GC 机制。
 每个对象都内含一个引用计数器 refcount，每个 reference 连接到对象，计数器加 1。当 reference 离开生存空间或被设为 NULL，计数器减 1。当某个对象的引用计数器为零时，PHP 知道你将不再需要使用这个对象，释放其所占的内存空间。</p>
 </blockquote>
-<h2 id="4常见的排序算法">4.常见的排序算法</h2>
+
+<h2 id="4-常见的排序算法">4.常见的排序算法</h2>
+
 <h3 id="1-冒泡排序">1. 冒泡排序</h3>
+
 <p>思路分析：在要排序的一组数中，对当前还未排好的序列，从前往后对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即，每当两相邻的数比较后发现它们的排序与排序要求相反时，就将它们互换。</p>
+
 <p>代码实现：</p>
+
 <pre><code>$arr=array(1,43,54,62,21,66,32,78,36,76,39);  
 function bubbleSort($arr)
 {  
@@ -279,9 +302,14 @@ function bubbleSort($arr)
   }
   return $arr;
 }
-</code></pre><h3 id="2-选择排序">2. 选择排序</h3>
+</code></pre>
+
+<h3 id="2-选择排序">2. 选择排序</h3>
+
 <p>思路分析：在要排序的一组数中，选出最小的一个数与第一个位置的数交换。然后在剩下的数当中再找最小的与第二个位置的数交换，如此循环到倒数第二个数和最后一个数比较为止。</p>
+
 <p>代码实现：</p>
+
 <pre><code>function selectSort($arr) {
 //双重循环完成，外层控制轮数，内层控制比较次数
  $len=count($arr);
@@ -306,9 +334,14 @@ function bubbleSort($arr)
     //返回最终结果
     return $arr;
 }
-</code></pre><h3 id="3插入排序">3.插入排序</h3>
+</code></pre>
+
+<h3 id="3-插入排序">3.插入排序</h3>
+
 <p>思路分析：在要排序的一组数中，假设前面的数已经是排好顺序的，现在要把第n个数插到前面的有序数中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。</p>
+
 <p>代码实现：</p>
+
 <pre><code>function insertSort($arr) {
     $len=count($arr); 
     for($i=1, $i&lt;$len; $i++) {
@@ -327,9 +360,14 @@ function bubbleSort($arr)
     }
     return $arr;
 }
-</code></pre><h3 id="4快速排序">4.快速排序</h3>
+</code></pre>
+
+<h3 id="4-快速排序">4.快速排序</h3>
+
 <p>思路分析：选择一个基准元素，通常选择第一个元素或者最后一个元素。通过一趟扫描，将待排序列分成两部分，一部分比基准元素小，一部分大于等于基准元素。此时基准元素在其排好序后的正确位置，然后再用同样的方法递归地排序划分的两部分。</p>
+
 <p>代码实现：</p>
+
 <pre><code>function quickSort($arr) {
     //先判断是否需要继续进行
     $length = count($arr);
@@ -357,8 +395,12 @@ function bubbleSort($arr)
     //合并
     return array_merge($left_array, array($base_num), $right_array);
 }
-</code></pre><h3 id="5给出一个字符串返回里面连续字母的个数比如abbcddde返回-1a2b1c3de">5、给出一个字符串，返回里面连续字母的个数，比如：abbcddde,返回 1a2b1c3de;</h3>
+</code></pre>
+
+<h3 id="5-给出一个字符串-返回里面连续字母的个数-比如-abbcddde-返回-1a2b1c3de">5、给出一个字符串，返回里面连续字母的个数，比如：abbcddde,返回 1a2b1c3de;</h3>
+
 <p>代码实现：</p>
+
 <pre><code> public function str($str)
     {
         $re = '';
@@ -376,8 +418,12 @@ function bubbleSort($arr)
 
         return $re;
     }
-</code></pre><h3 id="6约瑟夫环问题猴子选大王">6、约瑟夫环问题，猴子选大王</h3>
+</code></pre>
+
+<h3 id="6-约瑟夫环问题-猴子选大王">6、约瑟夫环问题，猴子选大王</h3>
+
 <p>一群猴子排成一圈，按1,2,…,n依次编号。然后从第1只开始数，数到第m只,把它踢出圈，从它后面再开始数，再数到第m只，在把它踢出去…，如此不停的进行下去，直到最后只剩下一只猴子为止，那只猴子就叫做大王。要求编程模拟此过程，输入m、n, 输出最后那个大王的编号。用程序模拟该过程。</p>
+
 <pre><code>function mk($n ,$m){
         $arr = range(1,$n);//构造一个数组
         $i = 1; //从第一个开始循环
@@ -389,19 +435,27 @@ function bubbleSort($arr)
         return $arr[$i-1]; //直至最后剩下一个为大王 
 }
 print_r(mk(6,8));   //第3只为大王
-</code></pre><h2 id="5什么是-cgi什么是-fastcgiphp-fpmfastcginginx-之间是什么关系">5.什么是 CGI？什么是 FastCGI？php-fpm，FastCGI，Nginx 之间是什么关系？</h2>
+</code></pre>
+
+<h2 id="5-什么是-cgi-什么是-fastcgi-php-fpm-fastcgi-nginx-之间是什么关系">5.什么是 CGI？什么是 FastCGI？php-fpm，FastCGI，Nginx 之间是什么关系？</h2>
+
 <blockquote>
 <p>CGI，通用网关接口，用于WEB服务器和应用程序间的交互，定义输入输出规范，用户的请求通过WEB服务器转发给FastCGI进程，FastCGI进程再调用应用程序进行处理，如php解析器，应用程序的处理结果如html返回给FastCGI，FastCGI返回给Nginx 进行输出。假设这里WEB服务器是Nginx，应用程序是 PHP，而 php-fpm 是管理 FastCGI 的，这也就是 php-fpm，FastCGI，和 Nginx 之间的关系。
 FastCGI 用来提高 cgi 程序性能，启动一个master，再启动多个 worker，不需要每次解析 php.ini. 而 php-fpm 实现了 FastCGI 协议，是 FastCGI 的进程管理器，支持平滑重启，可以启动的时候预先生成多个进程。</p>
 </blockquote>
-<h2 id="6memcache-和-redis-的区别">6.memcache 和 Redis 的区别</h2>
+
+<h2 id="6-memcache-和-redis-的区别">6.memcache 和 Redis 的区别</h2>
+
 <p>数据结构：memcache仅支持简单的key-value形式，Redis支持的数据更多（string字符串，set集合，list列表，hash散列，zset有序集合）；</p>
+
 <ul>
 <li>多线程：memcache支持多线程，Redis支持单线程</li>
 <li>持久化：Redis支持持久化，memcache不支持持久化</li>
 <li>分布式：Redis做主从结构，memcache服务器需要通过hash一致化来支撑主从结构</li>
 </ul>
+
 <p>实际运用中可以redis，memcache结合，memcache可作为session存储的方式，session都是KV类型键值对。</p>
+
 <ul>
 <li>Redis中，并不是所有的数据都一直存储在内存中的，这是和Memcache相比一个最大的区别。</li>
 <li>Redis在很多方面具备数据库的特征，或者说就是一个数据库系统，而Memcache只是简单的K/V缓存。</li>
@@ -410,37 +464,48 @@ FastCGI 用来提高 cgi 程序性能，启动一个master，再启动多个 wor
 <li>如果要说内存使用效率，使用简单的key-value存储的话，Memcached的内存利用率更高，而如果Redis采用hash结构来做key-value存储，由于其组合式的压缩，其内存利用率会高于Memcache。当然，这和你的应用场景和数据特性有关</li>
 <li>如果你对数据持久化和数据同步有所要求，那么推荐你选择Redis，因为这两个特性Memcache都不具备。即使你只是希望在升级或者重启系统后缓存数据不会丢失，选择Redis也是明智的。</li>
 <li>Redis和Memcache在写入性能上面差别不大，读取性能上面尤其是批量读取性能上面Memcache更强</li>
-<li>Redis 提供了多种不同级别的持久化方式：</li>
+<li>Redis 提供了多种不同级别的持久化方式：
+&gt; RDB 持久化可以在指定的时间间隔内生成数据集的时间点快照（point-in-time snapshot）。
+&gt; AOF 持久化记录服务器执行的所有写操作命令，并在服务器启动时，通过重新执行这些命令来还原数据集。 AOF 文件中的命令全部以 Redis 协议的格式来保存，新命令会被追加到文件的末尾。 Redis 还可以在后台对 AOF 文件进行重写（rewrite），使得 AOF 文件的体积不会超出保存数据集状态所需的实际大小。
+&gt; Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， 因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。
+你甚至可以关闭持久化功能，让数据只在服务器运行时存在。</li>
 </ul>
-<blockquote>
-<p>RDB 持久化可以在指定的时间间隔内生成数据集的时间点快照（point-in-time snapshot）。
-AOF 持久化记录服务器执行的所有写操作命令，并在服务器启动时，通过重新执行这些命令来还原数据集。 AOF 文件中的命令全部以 Redis 协议的格式来保存，新命令会被追加到文件的末尾。 Redis 还可以在后台对 AOF 文件进行重写（rewrite），使得 AOF 文件的体积不会超出保存数据集状态所需的实际大小。
-Redis 还可以同时使用 AOF 持久化和 RDB 持久化。 在这种情况下， 当 Redis 重启时， 它会优先使用 AOF 文件来还原数据集， 因为 AOF 文件保存的数据集通常比 RDB 文件所保存的数据集更完整。
-你甚至可以关闭持久化功能，让数据只在服务器运行时存在。</p>
-</blockquote>
-<h2 id="7什么是-redis-穿透和雪崩">7.什么是 Redis 穿透和雪崩</h2>
+
+<h2 id="7-什么是-redis-穿透和雪崩">7.什么是 Redis 穿透和雪崩</h2>
+
 <ul>
 <li>缓存穿透</li>
 </ul>
+
 <p>当访问redis中一个不存在的key的时候,会直接穿过缓存,去数据库中进行查询.</p>
+
 <p>如果是黑客,进行恶意攻击的时候,每次都请求超过2000个/秒的时候,这个时候mysql基本上就挂了.</p>
+
 <p>解决办法是：每次从数据库中查询到一个不存在的key的时候,就写一个空值到缓存库中,有恶意攻击的时候,直接从缓存中取到这个空值.</p>
+
 <ul>
 <li>缓存雪崩</li>
 </ul>
+
 <p>假设每秒有5000个请求过来时候,redis缓存库崩了,然后这些请求瞬间落在了mysql数据库上,直接导致数据库死机.</p>
+
 <p>解决方案就是:</p>
+
 <ul>
 <li>事前：提高缓存库的高可用, 使用主从结构加哨兵 cluster集群</li>
 <li>事中：使用ehcache+hystrix限流组件(当请求量非常巨大的时候,就调用自己开发好的一个降级饿组件,返回一些默认值,如友情提示,或者空白值)</li>
 <li>事后：做持久化,尽快恢复缓存集群,一旦恢复,自动从磁盘上读取数据,恢复内存中的数据。</li>
 </ul>
-<h2 id="8redis-消息队列先进先出需要注意什么">8.redis 消息队列先进先出需要注意什么？</h2>
+
+<h2 id="8-redis-消息队列先进先出需要注意什么">8.redis 消息队列先进先出需要注意什么？</h2>
+
 <p>通常使用一个list来实现队列操作，这样有一个小限制，所以的任务统一都是先进先出，如果想优先处理某个任务就不太好处理了，这就需要让队列有优先级的概念，我们就可以优先处理高级别的任务，实现方式有以下几种方式：</p>
+
 <ul>
 <li>单一列表实现：队列正常的操作是 左进右出（lpush,rpop）为了先处理高优先级任务，在遇到高级别任务时，可以直接插队，直接放入队列头部（rpush），这样，从队列头部（右侧）获取任务时，取到的就是高优先级的任务（rpop）</li>
-<li>使用两个队列，一个普通队列，一个高级队列，针对任务的级别放入不同的队列，获取任务时也很简单，redis的BRPOP命令可以按顺序从多个队列中取值，BRPOP会按照给出的 key 顺序查看，并在找到的第一个非空 list 的尾部弹出一个元素，</li>
-</ul>
+
+<li><p>使用两个队列，一个普通队列，一个高级队列，针对任务的级别放入不同的队列，获取任务时也很简单，redis的BRPOP命令可以按顺序从多个队列中取值，BRPOP会按照给出的 key 顺序查看，并在找到的第一个非空 list 的尾部弹出一个元素，</p>
+
 <pre><code>redis&gt; BRPOP list1 list2 0
 
 list1 做为高优先级任务队列
@@ -448,18 +513,31 @@ list2 做为普通任务队列
 这样就实现了先处理高优先级任务，当没有高优先级任务时，就去获取普通任务
 方式1最简单，但实际应用比较局限，方式3可以实现复杂优先级，但实现比较复杂，不利于维护
 方式2是推荐用法，实际应用最为合适
-</code></pre><h2 id="9redis-如何防止高并发">9.Redis 如何防止高并发？</h2>
+</code></pre></li>
+</ul>
+
+<h2 id="9-redis-如何防止高并发">9.Redis 如何防止高并发？</h2>
+
 <p>其实redis是不会存在并发问题的，因为他是单进程的，再多的命令都是一个接一个地执行的。我们使用的时候，之所以可能会出现并发问题，比如获得和设定这一对。</p>
+
 <p>Redis的为什么会有高并发问题？</p>
+
 <p>【Redis的的出身决定】</p>
+
 <p>Redis是一种单线程机制的nosql数据库，基于key-value，数据可持久化落盘。由于单线程所以redis本身并没有锁的概念，多个客户端连接并不存在竞争关系，但是利用jedis等客户端对redis进行并发访问时会出现问题。发生连接超时、数据转换错误、阻塞、客户端关闭连接等问题，这些问题均是由于客户端连接混乱造成。</p>
+
 <p>同时，单线程的天性决定，高并发对同一个键的操作会排队处理，如果并发量很大，可能造成后来的请求超时。
 在远程访问redis的时候，因为网络等原因造成高并发访问延迟返回的问题。</p>
+
 <p>解决办法
 在客户端将连接进行池化，同时对客户端读写Redis操作采用内部锁synchronized。</p>
+
 <p>服务器角度，利用setnx变向实现锁机制。</p>
-<h2 id="10数据库层面">10.数据库层面</h2>
+
+<h2 id="10-数据库层面">10.数据库层面</h2>
+
 <h3 id="说说对-sql-语句优化有哪些方法">说说对 SQL 语句优化有哪些方法？</h3>
+
 <ul>
 <li>Where子句中：where表之间的连接必须写在其他Where条件之前，那些可以过滤掉最大数量记录的条件必须写在Where子句的末尾.HAVING最后。</li>
 <li>用EXISTS替代IN、用NOT EXISTS替代NOT IN。</li>
@@ -469,83 +547,128 @@ list2 做为普通任务队列
 <li>应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描</li>
 <li>应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描</li>
 </ul>
-<h3 id="对关系型数据库而言索引是相当重要的概念请回答有关索引几个问题">对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:</h3>
+
+<h3 id="对关系型数据库而言-索引是相当重要的概念-请回答有关索引几个问题">对关系型数据库而言，索引是相当重要的概念，请回答有关索引几个问题:</h3>
+
 <ul>
 <li>a) 索引的目的是什么?</li>
 </ul>
+
 <p>1、快速访问数据表中的特定信息，提高检索速度</p>
+
 <p>2、创建唯一性索引，保证数据库表中每一行数据的唯一性</p>
+
 <p>3、加速表和表之间的连接</p>
+
 <p>4、使用分组和排序子句进行数据检索时，可以显著减少查询中分组和排序的时间</p>
+
 <ul>
 <li>b) 索引对数据库系统的负面影响是什么?</li>
 </ul>
+
 <p>负面影响：创建索引和维护索引需要耗费时间，这个时间随着数据量的增加而增加；索引需要占用物理空间，不光是表需要占用数据空间，每个索引也需要占用物理空间；当对表进行增、删、改的时候索引也要动态维护，这样就降低了数据的维护速度。</p>
+
 <ul>
 <li>c) 为数据表建立索引的原则有哪些?</li>
 </ul>
+
 <p>1、在最频繁使用的、用以缩小查询范围的字段上建立索引</p>
+
 <p>2、在平频繁使用的、需要排序的字段上建立索引</p>
+
 <ul>
 <li>d) 什么情况下不宜建立索引?</li>
 </ul>
+
 <p>1、对于查询中很少涉及的列或者重复值比较多的列，不宜建立索引</p>
+
 <p>2、对于一些特殊的数据类型，不宜建立索引，比如文本字段(text)，值范围较少的知道等。</p>
-<h3 id="mysql数据库中的字段类型varchar和char的主要区别是什么那种字段的查找效率要高为什么">MySQL数据库中的字段类型varchar和char的主要区别是什么？那种字段的查找效率要高，为什么?</h3>
+
+<h3 id="mysql数据库中的字段类型varchar和char的主要区别是什么-那种字段的查找效率要高-为什么">MySQL数据库中的字段类型varchar和char的主要区别是什么？那种字段的查找效率要高，为什么?</h3>
+
 <p>Varchar是变长，节省存储空间，char是固定长度。查找效率要varchar型快，因为varchar是非定长，必须先查找长度，然后进行数据的提取，比char定长类型多了一个步骤，所以效率低一些</p>
+
 <h3 id="数据库三范式">数据库三范式</h3>
+
 <ul>
 <li>第一范式：1NF是对属性的原子性约束，要求属性具有原子性，不可再分解；</li>
 <li>第二范式：2NF是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性；</li>
 <li>第三范式：3NF是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。</li>
 </ul>
+
 <p>范式化设计优缺点:</p>
+
 <blockquote>
 <p>优点:</p>
 </blockquote>
+
 <p>可以尽量得减少数据冗余，使得更新快，体积小</p>
+
 <blockquote>
 <p>缺点:对于查询需要多个表进行关联，减少写得效率增加读得效率，更难进行索引优化</p>
 </blockquote>
+
 <p>反范式化:</p>
+
 <p>优点:可以减少表得关联，可以更好得进行索引优化</p>
+
 <p>缺点:数据冗余以及数据异常，数据得修改需要更多的成本</p>
+
 <h3 id="mysql-中有哪几种锁">Mysql 中有哪几种锁</h3>
+
 <ul>
 <li>MyISAM支持表锁，InnoDB支持表锁和行锁，默认为行锁</li>
 <li>表级锁：开销小，加锁快，不会出现死锁。锁定粒度大，发生锁冲突的概率最高，并发量最低</li>
 <li>行级锁：开销大，加锁慢，会出现死锁。锁力度小，发生锁冲突的概率小，并发度最高</li>
 </ul>
+
 <h3 id="什么是存储过程">什么是存储过程</h3>
+
 <p>我们常用的操作数据库语言SQL语句在执行的时候需要要先编译，然后执行，而存储过程（Stored Procedure）是一组为了完成特定功能的SQL语句集，经编译后存储在数据库中，用户通过指定存储过程的名字并给定参数（如果该存储过程带有参数）来调用执行它。</p>
+
 <p>一个存储过程是一个可编程的函数，它在数据库中创建并保存。它可以有SQL语句和一些特殊的控制结构组成。当希望在不同的应用程序或平台上执行相同的函数，或者封装特定功能时，存储过程是非常有用的。数据库中的存储过程可以看做是对编程中面向对象方法的模拟。它允许控制数据的访问方式。</p>
+
 <blockquote>
 <p>优点：</p>
 </blockquote>
+
 <ul>
 <li>存储过程增强了SQL语言的功能和灵活性。存储过程可以用流控制语句编写，有很强的灵活性，可以完成复杂的判断和较复杂的运算。</li>
 <li>存储过程允许标准组件是编程。存储过程被创建后，可以在程序中被多次调用，而不必重新编写该存储过程的SQL语句。而且数据库专业人员可以随时对存储过程进行修改，对应用程序源代码毫无影响。</li>
 <li>存储过程能实现较快的执行速度。如果某一操作包含大量的Transaction-SQL代码或分别被多次执行，那么存储过程要比批处理的执行速度快很多。因为存储过程是预编译的。在首次运行一个存储过程时查询，优化器对其进行分析优化，并且给出最终被存储在系统表中的执行计划。而批处理的Transaction-SQL语句在每次运行时都要进行编译和优化，速度相对要慢一些。</li>
 <li>存储过程能过减少网络流量。针对同一个数据库对象的操作（如查询、修改），如果这一操作所涉及的Transaction-SQL语句被组织程存储过程，那么当在客户计算机上调用该存储过程时，网络中传送的只是该调用语句，从而大大增加了网络流量并降低了网络负载。</li>
-<li>存储过程可被作为一种安全机制来充分利用。系统管理员通过执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全。</li>
-</ul>
-<h3 id="如何处理负载高并发">如何处理负载、高并发</h3>
+
+<li><p>存储过程可被作为一种安全机制来充分利用。系统管理员通过执行某一存储过程的权限进行限制，能够实现对相应的数据的访问权限的限制，避免了非授权用户对数据的访问，保证了数据的安全。</p>
+
+<h3 id="如何处理负载-高并发">如何处理负载、高并发</h3>
+
 <p>1、HTML静态化
-其实大家都知道，效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的 网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。</p>
+其实大家都知道，效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的 网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。</p></li>
+</ul>
+
 <p>2、图片服务器分离
 把图片单独存储，尽量减少图片等大流量的开销，可以放在一些相关的平台上，如七牛等。</p>
+
 <p>3、数据库集群和库表散列及缓存</p>
+
 <p>数据库的并发连接为100，一台数据库远远不够，可以从读写分离、主从复制，数据库集群方面来着手。另外尽量减少数据库的访问，可以使用缓存数据库如memcache、redis。</p>
+
 <p>4、镜像
 尽量减少下载，可以把不同的请求分发到多个镜像端。</p>
+
 <p>5、负载均衡：
 Apache的最大并发连接为1500，只能增加服务器，可以从硬件上着手，如F5服务器。当然硬件的成本比较高，我们往往从软件方面着手。</p>
+
 <p>负载均衡 （Load Balancing） 建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力，同时能够提高网络的灵活性和可用性。目前使用最为广泛的负载均衡软件【Nginx】、【LVS】、【HAProxy】。</p>
+
 <p>我分别来说下三种的优缺点:</p>
+
 <ul>
 <li>【Nginx】</li>
 </ul>
+
 <p>Nginx的优点是：</p>
+
 <p>工作在网络的7层之上，可以针对http应用做一些分流的策略，比如针对域名、目录结构，它的正则规则比HAProxy更为强大和灵活，这也是它目前广泛流行的主要原因之一，Nginx单凭这点可利用的场合就远多于LVS了。
 Nginx对网络稳定性的依赖非常小，理论上能ping通就就能进行负载功能，这个也是它的优势之一；相反LVS对网络稳定性依赖比较大，这点本人深有体会；
 Nginx安装和配置比较简单，测试起来比较方便，它基本能把错误用日志打印出来。LVS的配置、测试就要花比较长的时间了，LVS对网络依赖比较大。
@@ -556,30 +679,40 @@ Nginx现在作为Web反向加速缓存越来越成熟了，速度比传统的Squ
 Nginx可作为中层反向代理使用，这一层面Nginx基本上无对手，唯一可以对比Nginx的就只有 lighttpd了，不过 lighttpd目前还没有做到Nginx完全的功能，配置也不那么清晰易读，社区资料也远远没Nginx活跃。
 Nginx也可作为静态网页和图片服务器，这方面的性能也无对手。还有Nginx社区非常活跃，第三方模块也很多。
 Nginx的缺点是：</p>
+
 <p>Nginx仅能支持http、https和Email协议，这样就在适用范围上面小些，这个是它的缺点。
 对后端服务器的健康检查，只支持通过端口来检测，不支持通过url来检测。不支持Session的直接保持，但能通过ip_hash来解决。</p>
+
 <ul>
 <li>【LVS】</li>
 </ul>
+
 <p>使用Linux内核集群实现高性能、高可用的负载均衡服务器，它具有很好的可伸缩性（Scalability)、可靠性（Reliability)和可管理性（Manageability)。</p>
+
 <p>LVS的优点是：</p>
+
 <p>抗负载能力强、是工作在网络4层之上仅作分发之用，没有流量的产生，这个特点也决定了它在负载均衡软件里的性能最强的，对内存和cpu资源消耗比较低。
 配置性比较低，这是一个缺点也是一个优点，因为没有可太多配置的东西，所以并不需要太多接触，大大减少了人为出错的几率。
 工作稳定，因为其本身抗负载能力很强，自身有完整的双机热备方案，如LVS+Keepalived，不过我们在项目实施中用得最多的还是LVS/DR+Keepalived。
 无流量，LVS只分发请求，而流量并不从它本身出去，这点保证了均衡器IO的性能不会受到大流量的影响。
 应用范围比较广，因为LVS工作在4层，所以它几乎可以对所有应用做负载均衡，包括http、数据库、在线聊天室等等。
 LVS的缺点是：</p>
+
 <p>软件本身不支持正则表达式处理，不能做动静分离；而现在许多网站在这方面都有较强的需求，这个是Nginx/HAProxy+Keepalived的优势所在。
 如果是网站应用比较庞大的话，LVS/DR+Keepalived实施起来就比较复杂了，特别后面有 Windows Server的机器的话，如果实施及配置还有维护过程就比较复杂了，相对而言，Nginx/HAProxy+Keepalived就简单多了。</p>
+
 <ul>
 <li>【HAProxy】</li>
 </ul>
+
 <p>HAProxy的特点是：</p>
+
 <p>HAProxy也是支持虚拟主机的。
 HAProxy的优点能够补充Nginx的一些缺点，比如支持Session的保持，Cookie的引导；同时支持通过获取指定的url来检测后端服务器的状态。
 HAProxy跟LVS类似，本身就只是一款负载均衡软件；单纯从效率上来讲HAProxy会比Nginx有更出色的负载均衡速度，在并发处理上也是优于Nginx的。
 HAProxy支持TCP协议的负载均衡转发，可以对MySQL读进行负载均衡，对后端的MySQL节点进行检测和负载均衡，大家可以用LVS+Keepalived对MySQL主从做负载均衡。
 HAProxy负载均衡策略非常多，HAProxy的负载均衡算法现在具体有如下8种：</p>
+
 <p>① roundrobin，表示简单的轮询，这个不多说，这个是负载均衡基本都具备的；
 ② static-rr，表示根据权重，建议关注；
 ③ leastconn，表示最少连接者先处理，建议关注；
@@ -588,9 +721,11 @@ HAProxy负载均衡策略非常多，HAProxy的负载均衡算法现在具体有
 ⑥ rl_param，表示根据请求的URl参数’balance url_param’ requires an URL parameter name；
 ⑦ hdr(name)，表示根据HTTP请求头来锁定每一次HTTP请求；
 ⑧ rdp-cookie(name)，表示根据据cookie(name)来锁定并哈希每一次TCP请求。</p>
+
 <blockquote>
 <p>Nginx和LVS对比的总结：</p>
 </blockquote>
+
 <p>Nginx工作在网络的7层，所以它可以针对http应用本身来做分流策略，比如针对域名、目录结构等，相比之下LVS并不具备这样的功能，所以Nginx单凭这点可利用的场合就远多于LVS了；但Nginx有用的这些功能使其可调整度要高于LVS，所以经常要去触碰触碰，触碰多了，人为出问题的几率也就会大。
 Nginx对网络稳定性的依赖较小，理论上只要ping得通，网页访问正常，Nginx就能连得通，这是Nginx的一大优势！Nginx同时还能区分内外网，如果是同时拥有内外网的节点，就相当于单机拥有了备份线路；LVS就比较依赖于网络环境，目前来看服务器在同一网段内并且LVS使用direct方式分流，效果较能得到保证。另外注意，LVS需要向托管商至少申请多一个ip来做Visual IP，貌似是不能用本身的IP来做VIP的。要做好LVS管理员，确实得跟进学习很多有关网络通信方面的知识，就不再是一个HTTP那么简单了。
 Nginx安装和配置比较简单，测试起来也很方便，因为它基本能把错误用日志打印出来。LVS的安装和配置、测试就要花比较长的时间了；LVS对网络依赖比较大，很多时候不能配置成功都是因为网络问题而不是配置问题，出了问题要解决也相应的会麻烦得多。
@@ -610,11 +745,11 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
     <h2>See Also</h2>
     <ul class="listing">
         
-        <li><a href="/php/laravel%E4%BD%BF%E7%94%A8/">Laravel使用</a></li>
+        <li><a href="/php/Laravel%E4%BD%BF%E7%94%A8/">Laravel使用</a></li>
         
-        <li><a href="/php/laravel%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">Laravel核心概念</a></li>
+        <li><a href="/php/Laravel%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5/">Laravel核心概念</a></li>
         
-        <li><a href="/php/first/">深入理解php底层：php生命周期</a></li>
+        <li><a href="/php/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3php%E5%BA%95%E5%B1%82php%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">深入理解php底层：php生命周期</a></li>
         
         <li><a href="/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/">Laravel55博客项目说明xblog</a></li>
         
@@ -626,7 +761,7 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
 
         <div class="post-meta meta-tags">
             
-            没有标签
+            No tags
             
         </div>
     </article>
@@ -664,11 +799,14 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
       </script>
     </div>
     
+    
+    
+
 </div>
 
                     <footer id="footer">
     <div>
-        &copy; 2017 - 2022 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
 
         | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
         
@@ -713,48 +851,48 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='http://hmx224.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
-    
+
     <section class="widget">
-        <h3 class="widget-title">最近文章</h3>
+        <h3 class="widget-title">Latest articles</h3>
 <ul class="widget-list">
     
     <li>
-        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/resume/" title="Resume">Resume</a>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode">Qrcode</a>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
     </li>
     
 </ul>
@@ -763,10 +901,12 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
     
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
 <ul class="widget-list">
     
     <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
     
     <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
     
@@ -774,10 +914,12 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
     </section>
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
 <div class="tagcloud">
     
     <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
     
     <a href="http://hmx224.github.io/tags/php/">php</a>
     
@@ -786,7 +928,7 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
 
     
 <section class="widget">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <ul class="widget-list">
         
         <li>
@@ -802,9 +944,9 @@ Nginx能支持http、https和email（email的功能比较少用），LVS所支�
 
 
     <section class="widget">
-        <h3 class="widget-title">其它</h3>
+        <h3 class="widget-title">Meta</h3>
         <ul class="widget-list">
-            <li><a href="http://hmx224.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
         </ul>
     </section>
 </div>

@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？ | 爱狂热博客</title>
+    <meta property="og:title" content="35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/35%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E5%87%BB%E7%A9%BF%E5%92%8C%E9%9B%AA%E5%B4%A9%E9%97%AE%E9%A2%98/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#35-缓存问题-怎么解决缓存穿透-击穿和雪崩问题">35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？</a>
+<ul>
+<li><a href="#缓存穿透">缓存穿透</a></li>
+<li><a href="#缓存击穿">缓存击穿</a></li>
+<li><a href="#缓存雪崩">缓存雪崩</a></li>
+<li><a href="#面试准备">面试准备</a></li>
+<li><a href="#解决缓存穿透">解决缓存穿透</a>
+<ul>
+<li><a href="#回写特殊值">回写特殊值</a></li>
+<li><a href="#布隆过滤器">布隆过滤器</a></li>
+</ul></li>
+<li><a href="#解决缓存击穿">解决缓存击穿</a></li>
+<li><a href="#解决缓存雪崩">解决缓存雪崩</a></li>
+<li><a href="#限流">限流</a></li>
+<li><a href="#亮点方案">亮点方案</a></li>
+<li><a href="#面试思路总结">面试思路总结</a></li>
+<li><a href="#思考题">思考题</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="35-缓存问题-怎么解决缓存穿透-击穿和雪崩问题">35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？</h1>
+
+<p>你好，我是大明。今天我们再来聊一个缓存中的热门面试话题：怎么解决缓存穿透、击穿和雪崩问题。</p>
+
+<p>这个问题之所以常见，是因为你在使用缓存的过程中一不小心就会遇到它们。比如说在前面的课程里面我给你讲过，如果缓存崩溃，那么大量请求就会落到数据库上，直接把数据库压垮。然而很多新手在刚接触缓存的时候完全意识不到这个问题，只有在出了线上故障之后才会考虑缓存崩溃的事情。因此，面试官就倾向于在面试的时候确认你是否会解决这一类的问题。</p>
+
+<p>这一节课，我就带你综合分析这三种情况，以及其他可能出现的缓存问题。</p>
+
+<p>不得不说的是，缓存穿透、击穿和雪崩是三个很容易搞混的概念，尤其是缓存穿透和击穿。</p>
+
+<h2 id="缓存穿透">缓存穿透</h2>
+
+<p>缓存穿透是指 <strong>数据既不在缓存中，也不在数据库中</strong>。</p>
+
+<p>最常见的场景就是有攻击者伪造了大量的请求，请求某个不存在的数据。这会造成两个后果。</p>
+
+<ul>
+<li>缓存里面没有对应的数据，所以查询会落到数据库上。</li>
+<li>数据库也没有数据，所以没有办法回写缓存，下一次请求同样的数据，请求还是会落到数据库上。</li>
+</ul>
+
+<p><img src="/images/interviews/698514/b5d8c1a8a95c32dc5eabb8d8b7207196.png" alt="图片" /></p>
+
+<p>如果你没有在服务层面上采用熔断、限流之类的措施，那么数据库就可能崩溃。</p>
+
+<h2 id="缓存击穿">缓存击穿</h2>
+
+<p>缓存击穿是指 <strong>数据不在缓存中</strong>，导致请求落到了数据库上。注意，数据这个时候在数据库中是存在的，所以我们可以预计，查询到数据库中的数据之后就会回写缓存。</p>
+
+<p>这看起来并没有问题。但如果请求的是热点数据呢？比如说同一时刻有几百个人请求某个大博主的数据，这些请求都没有命中缓存，那么几百个查询请求都会落到数据库上。</p>
+
+<p><img src="/images/interviews/698514/482554f7864698f1c1f5c6a7196dac68.png" alt="图片" /></p>
+
+<p>因此，如果请求的数据并不是什么热点数据，那么击穿也没有什么问题，它就是普通的缓存未命中而已。</p>
+
+<h2 id="缓存雪崩">缓存雪崩</h2>
+
+<p>缓存雪崩是指缓存里大量数据在同一时刻过期，导致请求都落到了数据库上。</p>
+
+<p><img src="/images/interviews/698514/ef84c080bf293823dba7548743c1c58e.png" alt="图片" /></p>
+
+<p>缓存雪崩基本上都是因为一次性加载了很多数据到缓存中，并且都设置为同一个过期时间。比如说在应用启动的时候，提前从数据库里查询数据，然后放到缓存里面，这样这一批数据就会在同一时刻过期。又比如榜单数据计算好了之后加载到缓存里，都是同一个过期时间，导致这一批榜单数据同一时间过期。</p>
+
+<h2 id="面试准备">面试准备</h2>
+
+<p>在面试前，你需要在公司里面收集一些信息。</p>
+
+<p>比如：</p>
+
+<ul>
+<li>你用的 Redis 是如何部署的？用的是 Redis Cluster 还是 Redis Sentinel？</li>
+<li>你们公司有没有出现过 Redis 崩溃的问题？如果有，是什么原因引发的？</li>
+<li>公司有没有出现过Redis连不上的问题？如果有，后面有没有使用什么方案来容错？</li>
+<li>你有没有遇到过缓存穿透、击穿或者雪崩等问题？如果有，你当时是怎么解决的，有没有可以改进的点？</li>
+<li>公司有没有保护数据库的措施？比如说防止缓存失效，导致数据库不堪重负直接崩溃。</li>
+</ul>
+
+<p>你可以在简历中或者自我介绍的时候强调自己解决过很多缓存问题，包括缓存穿透、击穿、雪崩等问题。面试官多半会对这些点感兴趣，那么你就可以趁机把你前面准备的各种案例说出来。同时，你也可以考虑把各种缓存问题融合到自己的高可用方案里面，作为其中的一个环节。</p>
+
+<h2 id="解决缓存穿透">解决缓存穿透</h2>
+
+<p>缓存穿透是因为数据本身不存在而引起的，所以我们就要想办法在确认数据不存在之后，避免下一次查询再次落到数据库上。这有两种解决思路。</p>
+
+<h3 id="回写特殊值">回写特殊值</h3>
+
+<p>第一种思路是在缓存未命中，而且数据库里也没有的情况下，往缓存里写入一个特殊的值。这个值就是标记数据不存在，那么下一次查询请求过来的时候，看到这个特殊值，就知道没有必要再去数据库里查询了。</p>
+
+<p><img src="/images/interviews/698514/c569532ec6a39f9af6d8fff5321346bd.png" alt="图片" /></p>
+
+<p>你可以直接介绍这个方案。</p>
+
+<blockquote>
+<p>第一种思路是回写特殊值。也就是在第一次查询发现数据库里都没有数据的时候，直接写入一个特殊值。那么下一次查询过来的时候，看到缓存里的特殊值，就知道没有数据，这时候直接返回就可以了。在这种设计之下，数据库只需要支撑住第一次请求就可以。</p>
+</blockquote>
+
+<p>但是这个方案也是有缺点的。</p>
+
+<blockquote>
+<p>如果攻击者每次都用不同的且都不存在的 key 来请求数据，那么这种措施毫无效果。并且，因为要回写特殊值，那么这些不存在的 key 都会有特殊值，浪费了 Redis 的内存。这可能会进一步引起另外一个问题，就是 Redis 在内存不足，执行淘汰的时候，把其他有用的数据淘汰掉。</p>
+
+<p>这时候你就可以引出下一个点了，考虑使用布隆过滤器。</p>
+</blockquote>
+
+<h3 id="布隆过滤器">布隆过滤器</h3>
+
+<p>既然缓存穿透是因为数据不存在，那么提前用布隆过滤器判断一下不就可以了嘛？</p>
+
+<p>正常请求一个 key 的流程如下：</p>
+
+<p><img src="/images/interviews/698514/92f79dce0dd0ac567f72d39df9235338.png" alt="图片" /></p>
+
+<p>如果请求一个 key 不存在，那么布隆过滤器会直接说数据不存在，那么就没必要继续往下查询了。</p>
+
+<p><img src="/images/interviews/698514/2c10663b7b825ef5d3dd0694405d4da9.png" alt="图片" /></p>
+
+<p>你先简要介绍这个流程。</p>
+
+<blockquote>
+<p>使用布隆过滤器的流程是业务代码收到请求之后，要先问一下布隆过滤器有没有这个 key。如果说没有，那就不用继续往后执行了。如果布隆过滤器说有，那么就继续往后执行，去查询缓存和数据库，并且在查询到了数据的时候，回写到缓存里面。</p>
+</blockquote>
+
+<p>然后你要记得介绍假阳性的问题。</p>
+
+<blockquote>
+<p>但是布隆过滤器本身存在假阳性的问题，所以当攻击者请求一个不存在的 key 的时候，布隆过滤器可能会返回数据存在的假阳性响应。在这种情况下，业务代码依旧会去查询缓存和数据库。不过这个不需要担心，因为假阳性的概率是很低的。假如说假阳性概率是万分之一，那么就算攻击的并发有百万，也只有 100 个查询请求会落到数据库上，这一点查询请求就是毛毛雨了。</p>
+</blockquote>
+
+<p>这时候，你可以补充一个变种，也就是先查询缓存，缓存中没有数据的时候，再去问布隆过滤器。</p>
+
+<blockquote>
+<p>也可以考虑先查询缓存，当缓存没有数据的时候，再去查询布隆过滤器。如果布隆过滤器说有数据，再去查询数据库。</p>
+</blockquote>
+
+<p><img src="/images/interviews/698514/47172ae3e995de7a641737f7c39c321d.png" alt="图片" /></p>
+
+<p>然后你对比两者。</p>
+
+<blockquote>
+<p>这两种模式没有太大的差别。先查询布隆过滤器，保护效果会更好，也就是提前挡住了非法请求。而先查询缓存，对正常请求更加友好，因为正常请求大概率命中缓存，直接返回数据，也就不用查询布隆过滤器了。</p>
+</blockquote>
+
+<p>不过如果布隆过滤器也是在 Redis 的基础上实现的，两者就基本上没什么区别了。</p>
+
+<h2 id="解决缓存击穿">解决缓存击穿</h2>
+
+<p>解决缓存击穿是很容易的，只需要用到我们在缓存模式里面提到的 singleflight 模式。也就是说，就算是一个热点数据，当几百个请求缓存未命中的时候，在 singleflight 模式之下，也只有一个请求会真的去查询数据，剩下的都在等着这个请求查询回来的结果。</p>
+
+<p><img src="/images/interviews/698514/c86c8d10c44a0090fbc21769ff52eff2.png" alt="图片" /></p>
+
+<h2 id="解决缓存雪崩">解决缓存雪崩</h2>
+
+<p>缓存雪崩也很容易解决。在前置知识里我提到过之所以有雪崩，就是因为一次性加载了一大批数据放到了缓存里面，并且设置了同样的过期时间。</p>
+
+<p>那么解决思路自然就有两个，一个是不允许一次性加载一大批数据到缓存，而这显然不现实，因为批量加载属于业务要求；另外一个思路就是设置不同的过期时间。</p>
+
+<p>最简单的思路，就是在过期时间的基础上加一个偏移量。</p>
+
+<blockquote>
+<p>要解决缓存雪崩，就是在数据批量加载到缓存的场景中在过期时间的基础上加上一个随机量。比如说，我预计这一批数据的过期时间是 15 分钟。那么我就在设置每一条数据的过期时间的时候，在 15 分钟的基础上加上一个 0～180 秒的偏移量。那么这一批数据就不会在同一时刻过期，也就不存在缓存雪崩的问题了。</p>
+</blockquote>
+
+<p>这时候，面试官可能会问你这个偏移量的范围怎么确定。比如说在你的回答里面，你说的是 0～180 秒的偏移量，那么 0～10 秒的偏移量行不行？</p>
+
+<p>这时候你要抓住核心， <strong>偏移量要跟过期时间成正比，不能过低或者过高。</strong></p>
+
+<blockquote>
+<p>这个随机偏移量应该和过期时间成正比。比如说如果过期时间是 15 分钟，那么随机偏移量在 0～180 秒都可以。如果数据量不多，那么 0～60 秒也可以。而如果过期时间很长，比如说 4 个小时，也可以把偏移量控制在 0～10 分钟。如果过期时间很短，比如说只有 10s，这个时候偏移量就只能在 0～3 秒内了。</p>
+</blockquote>
+
+<p>当然，偏移量这个东西，除了随机生成，也可以有别的算法。比如说第一条数据加上 1 秒偏移量，第二条数据加上 2 秒，以此类推。</p>
+
+<h2 id="限流">限流</h2>
+
+<p>此外你还要注意一点，就是引发缓存穿透、击穿和雪崩等问题的一个关键是 <strong>有很多请求落到了数据库上</strong>。所以一个最简单的办法就是限制住这些请求，不让它们落到数据库上。所以，限流就可以用在这些场景中。</p>
+
+<p>你可以回答限流的基本思路。</p>
+
+<blockquote>
+<p>缓存穿透和击穿只有在高并发下才会成为一个问题，所以一个很自然的想法就是使用限流。限流可以考虑在两个地方使用：服务层面和数据库层面。</p>
+</blockquote>
+
+<p>而在服务层面上限流，是有一个隐含假设的，你可以强调一下这个假设，就是 <strong>数据库撑得住。</strong></p>
+
+<blockquote>
+<p>在服务层面上限流的时候，要保证只要 QPS 没有超过这个数值，就算所有的请求都没有命中缓存，直接落到了数据库上，数据库也能撑住这个流量，但是有些时候也难以保证。或者说大多数人在考虑限流阈值，包括使用压测来确定限流阈值的时候，都已经把命中缓存这种情况考虑进去了。所以需要进一步考虑数据库层面上的限流了。</p>
+</blockquote>
+
+<p><img src="/images/interviews/698514/52eaa16c6b0c5cddff0c7b60a63f6117.png" alt="图片" /></p>
+
+<p>我在降级那节课提到，为了防止数据库崩溃，最好在数据库访问上加一些限流措施。显然，就算数据库没有崩溃，这个限流还是可以保护数据库免遭大流量的冲击。</p>
+
+<blockquote>
+<p>数据库层面上的限流总的来说是必不可少的。不管是缓存崩溃，还是穿透或者击穿，限流都能保护住数据库。如果使用了数据库代理，并且这些代理支持限流，那么就可以直接在代理上做限流。如果没有使用代理或者代理不支持，那么就可以考虑在 ORM 上做。</p>
+</blockquote>
+
+<p><img src="/images/interviews/698514/1066b0575e039e88622df47c4yy3e3e1.png" alt="图片" /></p>
+
+<h2 id="亮点方案">亮点方案</h2>
+
+<p>到这里，你已经知道不管是缓存穿透、击穿还是雪崩，归根结底就是请求都落到了数据库上。除了这三个异常，Redis 本身也有可能崩溃，又或者因为网络问题连不上这个集群。那么今天我给你准备的亮点方案—— <strong>集群互为备份</strong>，就可以很好地解决这个问题。</p>
+
+<p>很多大厂会用一些异地多活的方案，就是使用两个 Redis 集群，然后两个集群之间要保持数据同步。那么其中一个 Redis 集群崩溃的时候，就可以用另外一个 Redis 集群。</p>
+
+<p><img src="/images/interviews/698514/bedc1c4f87879a348029755040d89d7b.png" alt="图片" /></p>
+
+<p>但是，这个方案太高端了，不在大厂的话很难接触到。所以我给你准备一个比较低端但是更加容易落地的方案。</p>
+
+<p>这个方案的思路还是用两个或者多个 Redis 集群，但是你不会让这些集群之间保持数据同步。比如说你可以在两个云服务厂商上购买两个不同的 Redis 服务，然后尽可能让核心业务访问不同的集群。</p>
+
+<p><img src="/images/interviews/698514/80153252bbef3yy1dd39f0dbd04a52a8.png" alt="图片" /></p>
+
+<p>那么你可以这样介绍这个思路。</p>
+
+<blockquote>
+<p>假设说我有两个业务，那么我准备两个 Redis 集群，业务1 主要用集群 1，集群 2 作为备份。业务 2 主要使用集群 2，集群 1 作为备份。</p>
+
+<p>具体思路是这样的：</p>
+
+<p>第一，业务 1 会和集群 1 保持心跳。当发现连不上 Redis 之后，就可以执行容错方案，这个时候业务 1 会保持和集群 1 的心跳。</p>
+
+<p>第二，触发容错之后，业务 1 根据流量价值分成两部分。对于非核心业务来说，直接触发熔断，不会查询集群 2，也不会查询数据库，这是舍小保大。对于核心业务来说，按照预先设置的流量比例，查询集群 2，并回查数据库，其余请求一样熔断。如果当前流量比例查询集群 2 没有引起任何的问题，数据库也没有问题，那么就增大流量比例。</p>
+
+<p>第三，当集群 1 重新恢复心跳之后，业务 1 还是逐步把集群 2 上的流量转发到集群 1 上。</p>
+</blockquote>
+
+<p><img src="/images/interviews/698514/d4a0676a96322d7fee96aaed7cd11yyf.png" alt="图片" /></p>
+
+<p>你可以进一步总结这个思路的要点，就是 <strong>渐进式。</strong></p>
+
+<blockquote>
+<p>在触发容错之后，没有立刻把全部流量转发到集群 2 上，是因为担心集群 2 会撑不住，所以要逐步转发流量，每次转发之后发现没问题就可以调大比例。转发回集群 1 也是这样，因为和集群 1 刚恢复通信的时候，集群 1 上面什么数据都没有，而这个时候集群 2 还能用，所以不着急立刻转发回来，先小规模流量重建集群 1 上的数据。</p>
+</blockquote>
+
+<p>那么为什么互为备份可行呢？因为正常 Redis 集群都有很大的余量，在遇到问题的时候互为备份顶一下就可以。当技术人员发现问题之后，会紧急采购新的 Redis 服务，或者部署新的集群接替集群 1。所以集群 2 大概率会在高负载状态下运行一段时间。</p>
+
+<p>如果你面试的是比较小型的公司，对成本比较敏感，你就可以补充一个变种，关键词是凑合用便宜货。</p>
+
+<blockquote>
+<p>如果觉得两个 Redis 集群服务太贵，那么也有一个低成本方案，公司可以自己部署一个小规模的 Redis 集群，甚至单机 Redis 作为所有业务的备份。这个 Redis 集群不要求高可用，对它的唯一要求就是撑住我线上集群的核心流量一段时间就可以。毕竟，不管这个备份集群有多差，都比完全没有要好。</p>
+</blockquote>
+
+<p><img src="/images/interviews/698514/411d042856a57666e8e8721a46c5b9d3.png" alt="图片" /></p>
+
+<p>这里还有一些细节问题。第一个是最开始按多少比例转发到集群 2 上比较合适，答案是这个初始流量的大小就是你业务数据库能撑住的流量大小。因为一开始转发到集群 2 上的流量，肯定都是缓存未命中的，也就是要回查数据库，所以数据库决定了这个初始流量。</p>
+
+<p>第二个问题是后续流量要怎么放开。答案是你可以自由选择，按照比例增长、线性增长都可以。但是原则是要保守，因为你万一把集群 2 弄崩溃了，业务损失就更大了。</p>
+
+<p>第三个问题就是怎么判定 Redis 已经崩溃了，或者恢复过来了？这个问题你在微服务部分已经多次遇到了，思路都是一样的，这里我就不重复了。</p>
+
+<h2 id="面试思路总结">面试思路总结</h2>
+
+<p>今天这节课我给你介绍了缓存穿透、击穿和雪崩三个基本概念，你要注意它们之间的区别，尤其是含义非常接近的穿透和击穿两个概念，穿透是完全没有数据，而击穿是缓存里没有数据。</p>
+
+<p>后面我也提出了具体的解决方案。</p>
+
+<ul>
+<li>解决缓存穿透：回写特殊值和布隆过滤器两个方案</li>
+<li>解决缓存击穿：singleflight 模式</li>
+<li>解决缓存雪崩：过期时间增加随机偏移量</li>
+</ul>
+
+<p>还有一个限流，能够彻底保护住数据库，对于穿透、击穿和雪崩等问题都有效果。</p>
+
+<p>最后我给出了一个互为备份的集群容错方案，并且提供了一个经济适用版的变种。这一次的亮点方案稍微有点不同，是一个低端一点的方案。但是它更加符合大多数人的实际情况，在实践中落地也不是很难，只需要改造一下缓存客户端代码，加上探活和流量调度的逻辑就可以了。</p>
+
+<p>如果你在大厂工作过，那么你可以考虑深入了解你们公司异地多活方案的细节。就算你没有实际部署实施过，但是面试的时候还是可以拿出来聊一下，凸显一下你的知识面。</p>
+
+<p><img src="/images/interviews/698514/66a4bfb42b5214f9466c7211440ee6cb.jpg" alt="图片" /></p>
+
+<h2 id="思考题">思考题</h2>
+
+<p>最后，请你来思考两个问题。</p>
+
+<ul>
+<li>能不能考虑在 Redis 崩溃之后启用本地缓存来作为容灾？如果可以，你准备怎么在面试中介绍这个方案？</li>
+<li>除了我这里列举的方案，你还有没有别的思路可以解决缓存穿透、击穿和雪崩的问题？</li>
+</ul>
+
+<p>欢迎你把思考后的答案分享到评论区，也欢迎你把这节课的内容分享给其他朋友，我们下节课再见！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>面试 on 爱狂热博客</title>
+    <link>http://hmx224.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+    <description>Recent content in 面试 on 爱狂热博客</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 11 Sep 2024 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://hmx224.github.io/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</title>
+      <link>http://hmx224.github.io/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/</link>
+      <pubDate>Wed, 11 Sep 2024 00:00:00 +0000</pubDate>
+      
+      <guid>http://hmx224.github.io/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/</guid>
+      <description>02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？ 你好，我是大明。今天我们来聊一聊微服务架构下的负载均衡。 负载均衡在微服务架构里也处于一个核心位置。一般我们在准备调用任何服务的时候，第一个要解决的问题就是负载均衡该怎么做。负载均衡在微服务架构的面试中，也属于必面题目。 可惜的</description>
+    </item>
+    
+  </channel>
+</rss>

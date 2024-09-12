@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>33｜缓存模式：缓存模式能不能解决缓存一致性问题？ | 爱狂热博客</title>
+    <meta property="og:title" content="33｜缓存模式：缓存模式能不能解决缓存一致性问题？ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="33｜缓存模式：缓存模式能不能解决缓存一致性问题？">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/33%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F%E8%83%BD%E4%B8%8D%E8%83%BD%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#33-缓存模式-缓存模式能不能解决缓存一致性问题">33｜缓存模式：缓存模式能不能解决缓存一致性问题？</a>
+<ul>
+<li><a href="#面试准备">面试准备</a></li>
+<li><a href="#基本思路">基本思路</a>
+<ul>
+<li><a href="#cache-aside">Cache Aside</a></li>
+<li><a href="#read-through">Read Through</a>
+<ul>
+<li><a href="#亮点-异步方案">亮点：异步方案</a></li>
+</ul></li>
+<li><a href="#write-through">Write Through</a>
+<ul>
+<li><a href="#亮点-异步方案-1">亮点：异步方案</a></li>
+</ul></li>
+<li><a href="#write-back">Write Back</a></li>
+<li><a href="#亮点-能否解决数据一致性问题">亮点：能否解决数据一致性问题</a></li>
+<li><a href="#refresh-ahead">Refresh Ahead</a></li>
+<li><a href="#singleflight">Singleflight</a></li>
+<li><a href="#删除缓存">删除缓存</a></li>
+<li><a href="#延迟双删">延迟双删</a></li>
+<li><a href="#选用什么模式">选用什么模式？</a></li>
+</ul></li>
+<li><a href="#亮点方案-用装饰器模式实现缓存模式">亮点方案：用装饰器模式实现缓存模式</a></li>
+<li><a href="#面试思路总结">面试思路总结</a></li>
+<li><a href="#思考题">思考题</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">33｜缓存模式：缓存模式能不能解决缓存一致性问题？</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="33-缓存模式-缓存模式能不能解决缓存一致性问题">33｜缓存模式：缓存模式能不能解决缓存一致性问题？</h1>
+
+<p>你好，我是大明。今天我们来学习缓存的另外一个热点——缓存模式。</p>
+
+<p>缓存模式在面试中属于高频问题，但是大部分人的回答都会有两个缺陷：一个是不够完整，也就是只知道一部分缓存模式；另外一个是不够深入，也就是只能泛泛而谈。尤其是有些面试官会故意问你怎么用缓存模式来解决一致性问题，你就有可能上当。</p>
+
+<p>那么这节课我就带你深入分析每一个缓存模式，并且讨论它的优缺点以及在数据一致性方面的表现。</p>
+
+<p>让我们直接从面试准备开始。</p>
+
+<h2 id="面试准备">面试准备</h2>
+
+<p>缓存模式你首先要确保自己能够记住这些模式，其次要在公司内部收集一些信息。</p>
+
+<ul>
+<li>你们公司有没有使用缓存模式，使用了哪些，有没有遇到过缓存一致性的问题，最终是如何解决的？</li>
+<li>你的业务中使用了缓存之后，你是如何更新缓存和数据库中的数据的？有没有一致性问题？</li>
+</ul>
+
+<p>缓存模式用得好可以有效缓解数据一致性的问题，也可以用于解决缓存穿透、击穿和雪崩的问题。这两个话题我们课程后面会进一步讨论，你要结合在一起理解。</p>
+
+<p>为了便于你理解，我们用一个简化模型来解释缓存模式，也就是你的系统里面有缓存和数据库，你读写数据都要操作这两者。</p>
+
+<h2 id="基本思路">基本思路</h2>
+
+<p>在最开始面试的时候，你可以在自我介绍的时候提起缓存模式的话题。</p>
+
+<blockquote>
+<p>我对缓存模式有比较深刻的理解，平时会用缓存模式来解决很多问题，比如说缓存穿透、雪崩和击穿。</p>
+</blockquote>
+
+<p>在这段话里面，你还提到了缓存穿透、雪崩和击穿，这一部分内容我们后面会学习。在后续面试过程中，面试官就会直接问，你了解哪些缓存模式或者用过哪些缓存模式。你就可以这么回答：</p>
+
+<blockquote>
+<p>缓存模式有 Cache Aside、Read Through、Write Through、Write Back、Singleflight。除此之外，我还用过删除缓存和延迟双删。</p>
+</blockquote>
+
+<p>严格意义上来说，删除缓存、延迟双删不能算是缓存模式，但是在面试中还是很常见的，所以你可以顺便提一下。</p>
+
+<h3 id="cache-aside">Cache Aside</h3>
+
+<p>Cache Aside 我个人认为都很难说是一种缓存模式，毕竟我们什么也不做的时候，就是 Cache Aside。这个模式，就是把缓存看作一个独立的数据源。当写入的时候，业务方来控制写入顺序。</p>
+
+<p><img src="/images/interviews/692719/21b770802b9a125200ff212ef23ebb8c.png" alt="" /></p>
+
+<p>当读取的时候，也是由业务方来控制。</p>
+
+<p><img src="/images/interviews/692719/c5ffd743dafdd7e0338ca85957d25061.png" alt="图片" /></p>
+
+<p>你先简单介绍读写的基本操作。</p>
+
+<blockquote>
+<p>Cache Aside 是最基本的缓存模式，在这个模式下，业务代码就是把缓存看成是和数据库一样的独立的数据源，然后业务代码控制怎么写入缓存，怎么写入数据库。一般来说，都是优先写入数据库的。</p>
+</blockquote>
+
+<p>最后一句你提到了优先写入数据库，那么面试官就会追问为什么要先写入数据库。</p>
+
+<blockquote>
+<p>先写数据库是因为大多数业务场景下数据都是以数据库为准的，也就是说如果写入数据库成功了，就可以认为这个操作成功了。即便写入缓存失败，但是缓存本身会有过期时间，那么它过期之后重新加载，数据就会恢复一致。</p>
+</blockquote>
+
+<p>最后你要加一句总结。</p>
+
+<blockquote>
+<p>不管是先写数据库还是先写缓存，Cache Aside 都不能解决数据一致性问题。</p>
+</blockquote>
+
+<p>这一句总结很重要，你可以看下面的图，如果面试官追问为什么都不能解决，或者有什么不一致的场景，你按照图里面的内容来回答就可以。</p>
+
+<p><img src="/images/interviews/692719/5yy88978b6eae00aa3eee64eacdda546.png" alt="图片" /></p>
+
+<p>我教你一个简单的记忆方法，就是你注意观察图里的线程2，它一定是后面才开始执行，但是最先结束的。</p>
+
+<h3 id="read-through">Read Through</h3>
+
+<p>这个缓存模式也叫做读穿透。它的核心是当缓存里面没有数据的时候，缓存会代替你去数据库里面把数据加载出来，并且缓存起来。</p>
+
+<p><img src="/images/interviews/692719/53519ca2ee9f7fd41c71a7489847ea65.png" alt="图片" /></p>
+
+<p>而写入的时候，就和 Cache Aside 一样。</p>
+
+<blockquote>
+<p>Read Through 也是一个很常用的缓存模式。Read Through 是指在读缓存的时候，如果缓存未命中，那么缓存会代替业务代码去数据库中加载数据。</p>
+
+<p>这种模式有两个异步变种，一种是异步写回缓存，一种是完全异步加载数据，然后写回缓存。当然，不管是什么变种，Read Through 都不能解决缓存一致性的问题。</p>
+</blockquote>
+
+<p>你可以注意到，Read Through 只管了读的部分，而写的部分是完全没有管的，所以它的写过程和 Cache Aside 是一样的。因此，它一样有缓存一致性的问题。要是面试官追问，你就用 Cache Aside 中的分析来回答。</p>
+
+<p>最后我们提到异步加载数据，也就是为了引出亮点。</p>
+
+<h4 id="亮点-异步方案">亮点：异步方案</h4>
+
+<p>Read Through 模式在发现缓存里面没有数据的时候，加载数据、缓存起来这两个步骤是可以考虑异步执行的。所以你可以先回答第一个变种。</p>
+
+<blockquote>
+<p>缓存可以在从数据库加载了数据之后，立刻把数据返回给业务代码，然后开启一个线程异步更新缓存。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/111b230fd2fb2266d2720688895ca23f.png" alt="图片" /></p>
+
+<p>既然缓存数据这个步骤可以异步，那么从数据库中加载数据也完全可以异步。</p>
+
+<blockquote>
+<p>第二个变种是直接让整个加载和回写缓存的过程都异步执行。也就是说，如果缓存未命中，那么就直接返回一个错误或者默认值，然后缓存异步地去数据库中加载，并且回写缓存。和第一个变种比起来，这种变种的缺陷是业务方在当次调用中只能拿到错误或者默认值。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/3072d2d4916551a9fe58a9f747086985.png" alt="图片" /></p>
+
+<p>然后你可以总结一下什么场景可以使用这两个变种。</p>
+
+<blockquote>
+<p>如果业务方对响应时间的要求非常苛刻，那么就可以考虑使用变种二。代价就是业务方会收到错误响应或者默认值。而变种一其实收益很小，只有在缓存操作很慢的时候才会考虑。比如说缓存大对象，又或者要把一个大对象序列化之后再存储到缓存里面。</p>
+</blockquote>
+
+<p>如果你在实践中用过这些变种，那么你就可以用自己的实际业务来举例子。</p>
+
+<h3 id="write-through">Write Through</h3>
+
+<p>这个也叫做写穿透，是指当业务方写入数据的时候，只需要写入缓存。缓存会代替业务方去更新数据库。</p>
+
+<p><img src="/images/interviews/692719/811e6fd221d070654b4bdbe93e68d5b6.png" alt="图片" /></p>
+
+<p>Write Through 读数据的步骤就跟 Cache Aside 是一样的。</p>
+
+<blockquote>
+<p>Write Through 就是在写入数据的时候，只写入缓存，然后缓存会代替我们的去更新数据库。但是，Write Through 没有要求先写数据库还是先写缓存，不过一般也是先写数据库。</p>
+
+<p>其次，Write Through 也没有讨论如果缓存中原本没有数据，那么写入数据的时候，要不要更新缓存。一般来说，如果预计写入的数据很快就会读到，那么就要刷新缓存中的数据。</p>
+
+<p>Write Through 也有对应的异步变种方案。当然，这些变种也都没有解决缓存一致性的问题。</p>
+</blockquote>
+
+<p>在刚刚的回答中，你提到了写入顺序的问题，那么面试官就可能追问写入一致性的问题。显然，Write Through 也没有解决一致性的问题，你同样可以参考 Cache Aside 中的分析。</p>
+
+<h4 id="亮点-异步方案-1">亮点：异步方案</h4>
+
+<p>类似地，Write Through 也是可以考虑异步的。也就是在写入缓存之后，缓存立刻返回结果。</p>
+
+<p><img src="/images/interviews/692719/5aa8d273fa2b86033a4932400ecd9090.png" alt="图片" /></p>
+
+<p>但这种模式是有可能丢数据的，也就是当业务代码收到成功响应之后，缓存崩溃了，那么数据其实并没有写入到数据库中。</p>
+
+<p>另外一个比较可行的变种是同步写入到数据库中，但是会异步刷新缓存。</p>
+
+<p><img src="/images/interviews/692719/b13c2f58dd835e540b2d62bbe01db27f.png" alt="图片" /></p>
+
+<blockquote>
+<p>在缓存收到写请求之后，可以直接返回成功响应，然后异步写入数据库和刷新缓存。但是这种方案比较危险，存在数据丢失的风险。</p>
+
+<p>缓存也可以考虑只写入数据库，然后返回成功响应，后面可以异步刷新缓存。基本上前者很少用，要用也是用一个和它很像的 Write Back 方案。变种二则适合用于缓存写入操作且代价高昂的场景。比如说前面提到的，写入大对象或者需要序列化大对象再写入缓存。</p>
+</blockquote>
+
+<h3 id="write-back">Write Back</h3>
+
+<p>Write Back 这个模式的特色非常鲜明。在这个模式下，当你写入数据的时候，你只是写到了缓存。当缓存过期的时候，才会被刷新到数据库。</p>
+
+<p><img src="/images/interviews/692719/08e535458fab38d17d8a99f3c1bee033.png" alt="图片" /></p>
+
+<blockquote>
+<p>Write Back 模式是指我们在更新数据的时候，只把数据更新到缓存中就返回。后续会有一个组件监听缓存中过期的 key，在过期的时候将数据刷新到数据库中。显然，只是监听过期 key 的话还是会有问题，比如说关闭缓存的时候还是需要把缓存中的数据全部刷新到数据库里。</p>
+</blockquote>
+
+<p>但是你应该也注意到了，如果数据还在缓存中的时候，缓存突然崩溃了，那数据就直接丢了。</p>
+
+<blockquote>
+<p>Write Back 有一个硬伤，就是如果缓存突然宕机，那么还没有刷新到数据库的数据就彻底丢失了。这也限制了 Write Back 模式在现实中的应用。不过要是缓存能够做到高可用，也就不容易崩溃，也可以考虑使用。</p>
+</blockquote>
+
+<p>到这里，你还可以进一步刷亮点，深入讨论 Write Back 和数据一致性的问题。所以你可以稍微总结一下。</p>
+
+<blockquote>
+<p>Write Back 最大的优点是排除数据丢失这一点，它能解决数据一致性的问题。</p>
+</blockquote>
+
+<h3 id="亮点-能否解决数据一致性问题">亮点：能否解决数据一致性问题</h3>
+
+<p>这里你要分成两种情况来讨论，使用本地缓存还是使用 Redis 这种缓存。你可以肯定的是，如果使用的是本地缓存，那么 Write Back 也会有不一致的问题，毕竟你的数据缓存在多个节点上。但是如果你用的是 Redis，那么在不考虑缓存丢失的情况下，你就可以做到数据一致性了。</p>
+
+<p>这个稍微有点绕，为了让面试官理解，你要一步步引导。</p>
+
+<blockquote>
+<p>首先，在使用 Redis 更新数据的时候业务代码只更新缓存，所以对于业务方来说必然是一致的。也就是说，虽然数据库的数据和缓存的数据不一致，但是对于业务方来说，它只能读写到缓存的数据，对业务方来说，数据是一致的。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/21cf7ae8a34b49aeba7dbea44d9d891e.png" alt="图片" /></p>
+
+<p>这是第一个前提，也就是写操作不会带来不一致的问题。紧接着你要解释读操作。</p>
+
+<blockquote>
+<p>当业务方读数据的时候，如果缓存没有数据，就要去数据库里面加载。这个时候，就有可能产生不一致的问题。比如说，数据库中 a=3，读出来之后还没写到缓存里面。这个时候来了一个写请求，在缓存中写入了 a = 4。如果这时候读请求回写缓存，就会用数据库里的老数据覆盖缓存中的新数据。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/c92102d20b64a2a1fcfc44de9e79cda2.png" alt="图片" /></p>
+
+<p>紧接着补充解决方案。</p>
+
+<blockquote>
+<p>解决这个问题的思路也很简单，当读请求回写的时候，使用 SETNX 命令。也就是说，只有当缓存中没有数据的时候，才会回写数据。而如果回写失败了，那么读请求会再从缓存中读取到数据。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/7268e0e75e5b75cfe1082f4b9aed9cdc.png" alt="图片" /></p>
+
+<p>最后你一锤定音，总结一下。</p>
+
+<blockquote>
+<p>因此Write Back 除了有数据丢失的问题，在缓存一致性的表现上，比其他模式要好。</p>
+</blockquote>
+
+<p>这句话其实有一点强词夺理，所以你要酌情使用。如果你觉得说 Write Back 解决了一致性问题有点夸张，你可以说 Write Back 极大地缓解了数据不一致的问题。</p>
+
+<p>激进的观点会让你留下深刻的印象，但是如果面试官不认同就可能否定你。保守的观点没有风险，但是也没有对应的收益。</p>
+
+<h3 id="refresh-ahead">Refresh Ahead</h3>
+
+<p><img src="/images/interviews/692719/2b9d1638e9ab6822907ef020d211ce1b.png" alt="图片" /></p>
+
+<blockquote>
+<p>Refresh Ahead 是指利用 CDC（Capture Data Change）接口异步刷新缓存的模式。这种模式在实践中也很常见，比如说利用 Canal 来监听数据库的 binlog，然后 Canal 刷新 Redis。这种模式也有缓存一致性的问题，也是出在缓存未命中的读请求和写请求上。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/a81a425b4628222a3c8db446734409d3.png" alt="图片" /></p>
+
+<p>实际上，这个缓存一致性问题是可以解决的，也就是参考 Write Back 里面的策略。</p>
+
+<blockquote>
+<p>如果读请求在回写缓存的时候，使用了 SETNX 命令，那么就没有什么大的不一致问题了。唯一的不一致就是数据写入到了数据库，但是还没刷新到缓存的那段时间。</p>
+</blockquote>
+
+<h3 id="singleflight">Singleflight</h3>
+
+<p>Singleflight 主要是为了控制住加载数据的并发量。</p>
+
+<p><img src="/images/interviews/692719/6b66435e6ef218d636db7825fb620cfb.png" alt="图片" /></p>
+
+<p>你先简单介绍 Singleflight 的原理，再补充它的优缺点。</p>
+
+<blockquote>
+<p>Singleflight 模式是指当缓存未命中的时候，访问同一个 key 的线程或者协程中只有一个会去真的加载数据，其他都在原地等待。</p>
+
+<p>这个模式最大的优点就是可以减轻访问数据库的并发量。比如说如果同一时刻有 100 个线程要访问 key1，那么最终也只会有 1 个线程去数据库中加载数据。这个模式的缺点是如果并发量不高，那么基本没有效果。所以热点之类的数据就很适合用这个模式。</p>
+</blockquote>
+
+<h3 id="删除缓存">删除缓存</h3>
+
+<p>这算是在业务中比较常见的用法，也就是在更新数据的时候先更新数据库，然后将缓存删除。</p>
+
+<p><img src="/images/interviews/692719/fd58f546688edb5daf82c3be0b24e2yy.png" alt="图片" /></p>
+
+<p>删除缓存本身没有规定必须是业务代码来删除缓存，所以实际上也可以结合 Write Through 模式，让缓存去更新数据库，然后缓存自己删除自己的数据。</p>
+
+<p><img src="/images/interviews/692719/806bde52b8242874ab713e708ce69823.png" alt="图片" /></p>
+
+<p>这个模式依旧没有解决数据一致性的问题，但是它的一致性问题不是源自两个线程同时更新数据，而是源自一个线程更新数据，一个线程缓存未命中回查数据库。</p>
+
+<p><img src="/images/interviews/692719/cfa81ee750af2f83e5a4890ebf96f83e.png" alt="图片" /></p>
+
+<p>你在回答的时候要注意答出这一点。</p>
+
+<blockquote>
+<p>删除是最常用的更新缓存的模式，它是指在更新数据库之后，直接删除缓存。这种做法可以是业务代码来控制删除操作，也可以结合 Write Through 使用。而且删除缓存之后会使缓存命中率下降，也算是一个隐患。如果偶尔出现写频繁的场景，导致缓存一直被删除，那么就会使性能显著下降。缓存未命中回查数据库叠加写操作，数据库压力会很大。</p>
+
+<p>删除缓存和别的模式一样，也有一致性问题。但是它的一致性问题是出在读线程缓存未命中和写线程冲突的情况下。</p>
+</blockquote>
+
+<p>然后你补充一句总结。</p>
+
+<blockquote>
+<p>为了避免这种缓存不一致的问题，又有了延迟双删模式。</p>
+</blockquote>
+
+<h3 id="延迟双删">延迟双删</h3>
+
+<p>从名字上你大概就能知道延迟双删是有两次删除操作的。</p>
+
+<p><img src="/images/interviews/692719/6304cf03bf54b4031fbf56df45c9e32f.png" alt="图片" /></p>
+
+<blockquote>
+<p>延迟双删类似于删除缓存的做法，它在第一次删除操作之后设定一个定时器，在一段时间之后再次执行删除。</p>
+</blockquote>
+
+<p>紧接着你解释一下第二次删除的动机。</p>
+
+<blockquote>
+<p>第二次删除就是为了避开删除缓存中的读写导致数据不一致的场景。</p>
+</blockquote>
+
+<p><img src="/images/interviews/692719/3a09a23b76a1830e2e4f3065fefc58a7.png" alt="图片" /></p>
+
+<p>那么是不是就不会有数据不一致的问题了？从理论上来说是可能的。第一个不一致出现在上图写入 a = 3 到第二次删缓存之间，还有一种不一致的可能如下图。</p>
+
+<p><img src="/images/interviews/692719/1425611e8af4fe88a15065505c648848.png" alt="图片" /></p>
+
+<p>但是这种可能性只是存在理论中，因为两次删除的时间间隔很长，不至于出现图片里的这种情况。所以你补充说明一下就可以了。</p>
+
+<blockquote>
+<p>在这种形态之下，只需要考虑在回写缓存和第二次删除之间，数据可能不一致的问题。</p>
+</blockquote>
+
+<p>紧接着再次说明这种模式的缺点。</p>
+
+<blockquote>
+<p>延迟双删因为存在两次删除，所以实际上缓存命中率下降的问题更加严重。</p>
+</blockquote>
+
+<h3 id="选用什么模式">选用什么模式？</h3>
+
+<p>我觉得到这一步你已经非常困惑了，万一面试官问你应该使用哪个模式要怎么回答呢？坦白说，任何一种缓存模式都有各自的缺陷，所以你实际上选哪个都有好处，也都有问题。面试的时候你就可以根据自己的偏好来选择，只要分析清楚优劣，并解释清楚数据一致性问题就可以了。</p>
+
+<p>如果你确实需要一个标准答案，那么你就回答延迟双删。</p>
+
+<blockquote>
+<p>这么多模式里面，我比较喜欢延迟双删，因为它的一致性问题不是很严重。虽然会降低缓存的命中率，但是我们的业务并发也没有特别高，写请求是很少的。命中率降低一点点是完全可以接受的。</p>
+</blockquote>
+
+<h2 id="亮点方案-用装饰器模式实现缓存模式">亮点方案：用装饰器模式实现缓存模式</h2>
+
+<p>这个亮点你可以考虑是否要使用，我建议你在实践中落地之后再拿去面试。但是你不需要把所有的模式都实现一遍，实现一下你项目中用到的就可以。</p>
+
+<p>前面的缓存模式中，除了 Refresh Ahead 和 Cache Aside，其他的模式都可以使用装饰器模式来实现。我举一个使用缓存模式中 Read Through 模式的例子。你可以参考我给出的伪代码。</p>
+
+<pre><code class="language-go">type Cache interface {
+  Get(key string) any
+  Set(key string, val any)
+}
+
+type ReadThroughCache struct {
+  c Cache
+  fn func(key string) any
+}
+
+func (r *ReadThroughCache) Get(key string) any {
+    val := r.c.Get(key)
+    if val == nil {
+      val = r.fn(key)
+      r.c.Set(key, val)
+    }
+    return val
+}
+
+</code></pre>
+
+<p>你抓住关键词装饰器模式来描述这个解决方案。</p>
+
+<blockquote>
+<p>我在我们公司利用装饰器模式，无侵入式地实现了其中的大部分模式。以 Read Through 为例，装饰器模式只需要在已有的缓存实现的基础上，为 Get 方法添加一个缓存中没有找到就去加载数据的额外逻辑就可以。</p>
+</blockquote>
+
+<p>而且，如果你平时在公司的项目经历比较平淡，那么你完全可以在公司内部定义一个统一的 Cache 接口，提供基于 Redis 和本地内存的实现，同时提供这些缓存模式的实现，那么也算是一个比较有特色的项目了。</p>
+
+<p>你就可以这样介绍你的项目。</p>
+
+<blockquote>
+<p>我在公司里面因为经常用到缓存，也经常使用缓存模式，所以我抽象了一个缓存接口，提供了基于 Redis 和本地内存的实现。在这个基础上，我还用装饰器模式实现了大部分缓存模式。对于开发者来说，他们只要会初始化装饰器就可以应用这个缓存模式。</p>
+</blockquote>
+
+<p>后续你就可以和面试官讨论每一个缓存模式的细节。Beego 的缓存模块中有类似的实现，你可以参考。</p>
+
+<h2 id="面试思路总结">面试思路总结</h2>
+
+<p>这一节课我带你学习了缓存模式，包括 Cache Aside、Read Through、Write Through、Write Back、Refresh Ahead 和 Singleflight几种。此外还有删除缓存和延迟双删，这两个虽然不叫缓存模式，但是面试中可以提一提。</p>
+
+<p>缓存模式数量众多，但是你都需要记住，尤其是每一种缓存模式下，什么情况下会出现数据不一致的问题。此外，我建议你实践一下这些缓存模式，比如说你可以参考我给出的代码用装饰器模式来实现它们。</p>
+
+<p><img src="/images/interviews/692719/13622c46d28b80d8d8c7722633e0a49e.png" alt="" /></p>
+
+<h2 id="思考题">思考题</h2>
+
+<p>最后请你来思考两个问题。</p>
+
+<ol>
+<li>缓存模式那么多，你用过哪些？有没有遇到过缓存一致性的问题？</li>
+<li>假如说现在你用了 singleflight 模式，那么落到数据库上的查询数量会跟什么因素有关？</li>
+</ol>
+
+<p>欢迎你把思考后的结果分享到评论区，也欢迎你把这节课的内容分享给需要的朋友，我们下节课再见。</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

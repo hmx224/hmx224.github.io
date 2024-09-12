@@ -23,7 +23,10 @@
         
     <meta name="author" content="爱狂热">
     <meta property="og:url" content="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/">
-    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
@@ -36,6 +39,7 @@
     
     
 </head>
+
 
 <body>
     <header id="header" class="clearfix">
@@ -51,7 +55,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="http://hmx224.github.io/">首页</a>
+                    <a class="current" href="http://hmx224.github.io/">Home</a>
                     
                     <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
                     
@@ -140,43 +144,42 @@
     }
 </style>
 <div class="post-toc" style="position: absolute; top: 188px;">
-    <h2 class="post-toc-title">文章目录</h2>
+    <h2 class="post-toc-title">Table of Contents</h2>
     <div class="post-toc-content">
         <nav id="TableOfContents">
-  <ul>
-    <li><a href="#关于vnc模式登陆报错">关于vnc模式登陆报错</a></li>
-    <li><a href="#1安装gnome">(1)安装GNOME</a>
-      <ul>
-        <li><a href="#查看yum安装的清单">查看yum安装的清单</a></li>
-      </ul>
-    </li>
-    <li><a href="#2startx-启动图形界面">(2)startx 启动图形界面</a></li>
-    <li><a href="#3系统切换形式">(3)系统切换形式</a>
-      <ul>
-        <li><a href="#获取默认target">获取默认target</a></li>
-      </ul>
-    </li>
-  </ul>
-
-  <ul>
-    <li><a href="#安装图形界面">安装图形界面</a>
-      <ul>
-        <li><a href="#使用以下命令安装图形桌面的软件包">使用以下命令安装图形桌面的软件包。</a></li>
-        <li><a href="#使用以下命令设置图形模式为默认模式启动">使用以下命令设置图形模式为默认模式启动。</a></li>
-        <li><a href="#使用以下命令重启重启后即可通过阿里云网页控制台上的vnc连接看到图形界面">使用以下命令重启，重启后即可通过阿里云网页控制台上的VNC连接看到图形界面。</a></li>
-      </ul>
-    </li>
-    <li><a href="#安装vnc-server">安装VNC Server</a>
-      <ul>
-        <li><a href="#使用以下命令安装相关软件包">使用以下命令安装相关软件包。</a></li>
-        <li><a href="#使用以下命令设置vnc密码">使用以下命令设置vnc密码。</a></li>
-        <li><a href="#使用以下命令启动vnc-server">使用以下命令启动VNC Server。</a></li>
-        <li><a href="#232vnc密码">232vnc密码</a></li>
-      </ul>
-    </li>
-    <li><a href="#tcp测试ip的某个端口是否开启">tcp测试ip的某个端口是否开启</a></li>
-    <li><a href="#当starx-进入到图形化界面后右键open-in-terminal-失效问题">当starx 进入到图形化界面后，右键：open in terminal 失效问题</a></li>
-  </ul>
+<ul>
+<li><a href="#centos中安装gui界面">CentOS中安装GUI界面</a>
+<ul>
+<li><a href="#关于vnc模式登陆报错">关于vnc模式登陆报错</a></li>
+<li><a href="#1-安装gnome">(1)安装GNOME</a>
+<ul>
+<li><a href="#查看yum安装的清单">查看yum安装的清单</a></li>
+</ul></li>
+<li><a href="#2-startx-启动图形界面">(2)startx 启动图形界面</a></li>
+<li><a href="#3-系统切换形式">(3)系统切换形式</a>
+<ul>
+<li><a href="#获取默认target">获取默认target</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#阿里云的ecs服务器中centos安装图形化界面-centos8系统">阿里云的ecs服务器中CentOS安装图形化界面-CentOS8系统</a>
+<ul>
+<li><a href="#安装图形界面">安装图形界面</a>
+<ul>
+<li><a href="#使用以下命令安装图形桌面的软件包">使用以下命令安装图形桌面的软件包。</a></li>
+<li><a href="#使用以下命令设置图形模式为默认模式启动">使用以下命令设置图形模式为默认模式启动。</a></li>
+<li><a href="#使用以下命令重启-重启后即可通过阿里云网页控制台上的vnc连接看到图形界面">使用以下命令重启，重启后即可通过阿里云网页控制台上的VNC连接看到图形界面。</a></li>
+</ul></li>
+<li><a href="#安装vnc-server">安装VNC Server</a>
+<ul>
+<li><a href="#使用以下命令安装相关软件包">使用以下命令安装相关软件包。</a></li>
+<li><a href="#使用以下命令设置vnc密码">使用以下命令设置vnc密码。</a></li>
+<li><a href="#使用以下命令启动vnc-server">使用以下命令启动VNC Server。</a></li>
+<li><a href="#232vnc密码">232vnc密码</a></li>
+</ul></li>
+<li><a href="#tcp测试ip的某个端口是否开启">tcp测试ip的某个端口是否开启</a></li>
+<li><a href="#当starx-进入到图形化界面后-右键-open-in-terminal-失效问题">当starx 进入到图形化界面后，右键：open in terminal 失效问题</a></li>
+</ul></li>
+</ul>
 </nav>
     </div>
 </div>
@@ -215,62 +218,99 @@
         <header>
             <h1 class="post-title">Centos中安装GUI</h1>
         </header>
-        <date class="post-meta meta-date">
-            2020年11月29日
-        </date>
         
+  <time datetime="2020-11-29T13:51:13Z" class="post-meta meta-date dt-published">
+    2020-11-29
+  </time>
+
+
+
         
         <div class="post-meta">
-            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                    阅读</span></span>
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
         </div>
         
         
         <div class="clear" style="display: none">
             <div class="toc-article">
-                <div class="toc-title">文章目录</div>
+                <div class="toc-title">Table of Contents</div>
             </div>
         </div>
         
         <div class="post-content">
-            <p>[toc]</p>
+            
+
+<p>[toc]</p>
+
 <h1 id="centos中安装gui界面">CentOS中安装GUI界面</h1>
+
 <h2 id="关于vnc模式登陆报错">关于vnc模式登陆报错</h2>
+
 <blockquote>
 <p>这个报错是密码错误，需要先输入账户名（默认是root），在输入密码（密码默认不显示），才能进入系统</p>
 </blockquote>
-<h2 id="1安装gnome">(1)安装GNOME</h2>
+
+<h2 id="1-安装gnome">(1)安装GNOME</h2>
+
 <pre><code>yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot; -y
-</code></pre><p>卸载GNOME</p>
+</code></pre>
+
+<p>卸载GNOME</p>
+
 <pre><code>yum groupremove &quot;GNOME Desktop&quot;
-</code></pre><ul>
-<li>Centos7 yum groupinstall 报错的解决办法</li>
-</ul>
+</code></pre>
+
+<ul>
+<li><p>Centos7 yum groupinstall 报错的解决办法</p>
+
 <pre><code>Maybe run: yum groups mark install (see man yum)
 No packages in any requested group available to install or update
-</code></pre><p>解决：</p>
+</code></pre>
+
+<p>解决：</p>
+
 <pre><code>yum groupinstall &quot;Office Suite and Productivity&quot; --setopt=group_package_types=mandatory,default,optional
 
-</code></pre><ul>
-<li>xauth:  file /root/.serverauth.21702 does not exist</li>
-</ul>
+</code></pre></li>
+
+<li><p>xauth:  file /root/.serverauth.21702 does not exist</p>
+
 <pre><code>yum update
 yum groupinstall &quot;X Window System&quot;
 yum groupinstall &quot;Desktop&quot;
-</code></pre><h3 id="查看yum安装的清单">查看yum安装的清单</h3>
-<p>yum grouplist</p>
-<h2 id="2startx-启动图形界面">(2)startx 启动图形界面</h2>
+</code></pre>
+
+<h3 id="查看yum安装的清单">查看yum安装的清单</h3>
+
+<p>yum grouplist</p></li>
+</ul>
+
+<h2 id="2-startx-启动图形界面">(2)startx 启动图形界面</h2>
+
 <p>我们可以通过命令 startx 进入图形界面，第一次进入会比较慢，请耐心等待。</p>
+
 <p>modeset(0): Initializing kms color map for depth 16, 6 bpc</p>
+
 <p>我的是腾讯云服务器，只需要切换登录服务器的方式（用VNC登录方式登录服务器），其他的方式登录默认是命令行界面</p>
-<h2 id="3系统切换形式">(3)系统切换形式</h2>
+
+<h2 id="3-系统切换形式">(3)系统切换形式</h2>
+
 <p>系统启动默认还是命令行页面的，需要我们进行切换。如果想要使系统启动即为图形化窗口，需要执行下面的命令</p>
+
 <p>ln -sf /lib/systemd/system/runlevel5.target /etc/systemd/system/default.target</p>
+
 <h3 id="获取默认target">获取默认target</h3>
+
 <p>systemctl get-default //获取当前的默认target</p>
+
 <h1 id="阿里云的ecs服务器中centos安装图形化界面-centos8系统">阿里云的ecs服务器中CentOS安装图形化界面-CentOS8系统</h1>
+
 <h2 id="安装图形界面">安装图形界面</h2>
+
 <h3 id="使用以下命令安装图形桌面的软件包">使用以下命令安装图形桌面的软件包。</h3>
+
 <pre><code># centos8
 yum groupinstall &quot;Server with GUI&quot; -y 
 
@@ -279,7 +319,10 @@ yum groupinstall &quot;MATE Desktop&quot; -y
 yum groupinstall &quot;GNOME Desktop&quot; &quot;Graphical Administration Tools&quot; -y
 yum groupinstall &quot;X Window System&quot;
 
-</code></pre><h3 id="使用以下命令设置图形模式为默认模式启动">使用以下命令设置图形模式为默认模式启动。</h3>
+</code></pre>
+
+<h3 id="使用以下命令设置图形模式为默认模式启动">使用以下命令设置图形模式为默认模式启动。</h3>
+
 <pre><code># centos8
 systemctl set-default graphical
 
@@ -294,32 +337,56 @@ systemctl set-default multi-user.target  //设置成命令模式
 systemctl set-default graphical.target  //设置成图形模式
 
 
-</code></pre><h3 id="使用以下命令重启重启后即可通过阿里云网页控制台上的vnc连接看到图形界面">使用以下命令重启，重启后即可通过阿里云网页控制台上的VNC连接看到图形界面。</h3>
+</code></pre>
+
+<h3 id="使用以下命令重启-重启后即可通过阿里云网页控制台上的vnc连接看到图形界面">使用以下命令重启，重启后即可通过阿里云网页控制台上的VNC连接看到图形界面。</h3>
+
 <pre><code>reboot
-</code></pre><h2 id="安装vnc-server">安装VNC Server</h2>
+</code></pre>
+
+<h2 id="安装vnc-server">安装VNC Server</h2>
+
 <h3 id="使用以下命令安装相关软件包">使用以下命令安装相关软件包。</h3>
+
 <pre><code>yum install tigervnc-server tigervnc-server-module -y
-</code></pre><h3 id="使用以下命令设置vnc密码">使用以下命令设置vnc密码。</h3>
+</code></pre>
+
+<h3 id="使用以下命令设置vnc密码">使用以下命令设置vnc密码。</h3>
+
 <pre><code>vncpasswd
-</code></pre><h3 id="使用以下命令启动vnc-server">使用以下命令启动VNC Server。</h3>
+</code></pre>
+
+<h3 id="使用以下命令启动vnc-server">使用以下命令启动VNC Server。</h3>
+
 <pre><code>vncserver :1
-</code></pre><p>说明：:1表示用6001端口，注意安全组记得放行端口。</p>
+</code></pre>
+
+<p>说明：:1表示用6001端口，注意安全组记得放行端口。</p>
+
 <h3 id="232vnc密码">232vnc密码</h3>
+
 <pre><code>hmxMD3
-</code></pre><blockquote>
-<p>如果你的xshell是设置隧道关联xmanager，能展示图形桌面的话，说明ECS设置没问题，可在ECS管理控制台的管理终端下按Ctrl+Alt+F1，进入图形界面。</p>
-</blockquote>
+</code></pre>
+
 <blockquote>
+<p>如果你的xshell是设置隧道关联xmanager，能展示图形桌面的话，说明ECS设置没问题，可在ECS管理控制台的管理终端下按Ctrl+Alt+F1，进入图形界面。</p>
+
 <p>图形化界面默认只能VNC方式连接，也可以搭配VNC server服务本地通过VNC viewer工具进行连接，具体VNC server服务配置方式可以外站搜索看下</p>
 </blockquote>
+
 <h2 id="tcp测试ip的某个端口是否开启">tcp测试ip的某个端口是否开启</h2>
+
 <p>tcping 120.78.237.232 6001</p>
+
 <p>netstat -anplt | grep 6001</p>
-<h2 id="当starx-进入到图形化界面后右键open-in-terminal-失效问题">当starx 进入到图形化界面后，右键：open in terminal 失效问题</h2>
+
+<h2 id="当starx-进入到图形化界面后-右键-open-in-terminal-失效问题">当starx 进入到图形化界面后，右键：open in terminal 失效问题</h2>
+
 <pre><code>yum -y install nautilus-open-terminal
 
 reboot
 </code></pre>
+
         </div>
 
         
@@ -347,7 +414,7 @@ reboot
 
         <div class="post-meta meta-tags">
             
-            没有标签
+            No tags
             
         </div>
     </article>
@@ -385,11 +452,14 @@ reboot
       </script>
     </div>
     
+    
+    
+
 </div>
 
                     <footer id="footer">
     <div>
-        &copy; 2017 - 2022 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
 
         | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
         
@@ -434,48 +504,48 @@ reboot
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='http://hmx224.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
-    
+
     <section class="widget">
-        <h3 class="widget-title">最近文章</h3>
+        <h3 class="widget-title">Latest articles</h3>
 <ul class="widget-list">
     
     <li>
-        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/resume/" title="Resume">Resume</a>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode">Qrcode</a>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
     </li>
     
 </ul>
@@ -484,10 +554,12 @@ reboot
     
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
 <ul class="widget-list">
     
     <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
     
     <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
     
@@ -495,10 +567,12 @@ reboot
     </section>
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
 <div class="tagcloud">
     
     <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
     
     <a href="http://hmx224.github.io/tags/php/">php</a>
     
@@ -507,7 +581,7 @@ reboot
 
     
 <section class="widget">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <ul class="widget-list">
         
         <li>
@@ -523,9 +597,9 @@ reboot
 
 
     <section class="widget">
-        <h3 class="widget-title">其它</h3>
+        <h3 class="widget-title">Meta</h3>
         <ul class="widget-list">
-            <li><a href="http://hmx224.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
         </ul>
     </section>
 </div>

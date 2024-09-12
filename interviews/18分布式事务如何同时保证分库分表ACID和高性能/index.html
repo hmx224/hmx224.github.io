@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>18｜分布式事务：如何同时保证分库分表、ACID和高性能？ | 爱狂热博客</title>
+    <meta property="og:title" content="18｜分布式事务：如何同时保证分库分表、ACID和高性能？ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="18｜分布式事务：如何同时保证分库分表、ACID和高性能？">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/18%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A6%82%E4%BD%95%E5%90%8C%E6%97%B6%E4%BF%9D%E8%AF%81%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8ACID%E5%92%8C%E9%AB%98%E6%80%A7%E8%83%BD/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#18-分布式事务-如何同时保证分库分表-acid和高性能">18｜分布式事务：如何同时保证分库分表、ACID和高性能？</a>
+<ul>
+<li><a href="#前置知识">前置知识</a>
+<ul>
+<li><a href="#两阶段提交">两阶段提交</a></li>
+<li><a href="#三阶段提交">三阶段提交</a></li>
+<li><a href="#xa-事务">XA 事务</a></li>
+</ul></li>
+<li><a href="#小结一下">小结一下</a></li>
+<li><a href="#面试准备">面试准备</a></li>
+<li><a href="#基本思路">基本思路</a>
+<ul>
+<li><a href="#tcc-事务">TCC 事务</a>
+<ul>
+<li><a href="#亮点一-tcc-与本地事务">亮点一：TCC 与本地事务</a></li>
+<li><a href="#亮点二-容错">亮点二：容错</a></li>
+</ul></li>
+<li><a href="#saga-事务">SAGA 事务</a></li>
+<li><a href="#at-事务">AT 事务</a></li>
+<li><a href="#禁用跨库事务">禁用跨库事务</a></li>
+</ul></li>
+<li><a href="#亮点方案-延迟事务">亮点方案：延迟事务</a></li>
+<li><a href="#面试思路总结">面试思路总结</a></li>
+<li><a href="#思考题">思考题</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">18｜分布式事务：如何同时保证分库分表、ACID和高性能？</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="18-分布式事务-如何同时保证分库分表-acid和高性能">18｜分布式事务：如何同时保证分库分表、ACID和高性能？</h1>
+
+<p>你好，我是大明。</p>
+
+<p>我们在把单库拆分成为分库分表之后，一个巨大的挑战就是 <strong>本地事务变成了分布式事务</strong>。事实上，即便没有分库分表，在微服务架构之下我们也还是会面临分布式事务的问题。所以，在学习了微服务架构又学习了分库分表之后，是时候深入讨论一下分布式事务了。</p>
+
+<p>分布式事务在面试中是一把双刃剑，用得好，那么会是一个非常强的加分项。但是如果你基础不够扎实，见闻不够广博，面分布式事务很容易翻车，所以熟练掌握分布式事务很重要。</p>
+
+<p>希望你学完这节课的内容之后可以自信地在简历里写上精通分布式事务这一条，提高简历通过筛选的几率，同时也在面试过程中刷出亮点，给面试官留下深刻印象。</p>
+
+<h2 id="前置知识">前置知识</h2>
+
+<p>关于分布式事务，首先你需要弄清楚一个东西，就是分布式事务既可以是纯粹多个数据库实例之间的分布式事务，也可以是跨越不同中间件的业务层面上的分布式事务。前者一般是分库分表中间件提供支持，后者一般是独立的第三方中间件提供支持，比如 Seata。你在面试的时候，要根据上下文确定面试官问你的分布式事务是哪一类，然后有针对性地回答。</p>
+
+<p>要学习分布式事务，我们要先学习分布式事务中几个比较常用的协议。</p>
+
+<h3 id="两阶段提交">两阶段提交</h3>
+
+<p>两阶段提交协议（Two Phase Commit）是分布式事务中的一种常用协议，算法思路可以概括为参与者将操作成败通知协调者，再由协调者根据所有参与者的反馈情况决定各参与者要提交操作还是中止操作。</p>
+
+<p>它可以分为两个阶段：准备阶段和提交阶段。</p>
+
+<p><img src="/images/interviews/678287/6yyac8bf7452e05cb0d0edaf24363193.png" alt="图片" /></p>
+
+<ol>
+<li>准备阶段， <strong>协调者让参与者执行事务，但是并不提交，协调者返回执行情况。</strong> 这个阶段参与者会记录 Redo 和 Undo 信息，用于后续提交或者回滚。</li>
+<li>提交阶段，协调者根据准备阶段的情况，要求参与者提交或者回滚，参与者返回提交或者回滚的结果。准备阶段任何一个节点执行失败了，就都会回滚。全部执行成功就提交。</li>
+</ol>
+
+<p>两阶段提交协议的缺点很多。最大缺点是 <strong>在执行过程中节点都处于阻塞状态</strong>。也就是节点之间在等待对方的响应消息时，什么也做不了。特别是如果某个节点在已经占有了某项资源的情况下，为了等待其他节点的响应消息而陷入阻塞状态时，当第三个节点尝试访问该节点占有的资源时，这个节点也会连带着陷入阻塞状态。</p>
+
+<p>此外，协调者也是关键，如果协调者崩溃，整个分布式事务都无法执行。所以，如果协调者是单节点，那么就容易出现单节点故障。而且协调者采用保守策略，如果一个节点在第一阶段没有返回响应，那么协调者会执行回滚。所以这可能会引起不必要的回滚。</p>
+
+<p>而这里有一个问题，很少有人会想到。如果在第二阶段，协调者发送 Commit 的时候，参与者没有收到，会怎样？那么协调者会不断重试，直到请求发送成功。</p>
+
+<p><img src="/images/interviews/678287/0fdca749e1590ee06ec873e813b505fc.png" alt="图片" /></p>
+
+<p>但是如果参与者已经收到了 Commit 请求，但是在提交之前就宕机了又该怎样呢？</p>
+
+<p><img src="/images/interviews/678287/6d2cf55f54b9665b93fdb6f6e7e7d214.png" alt="图片" /></p>
+
+<p>参与者在恢复过来之后会查看自己本地的日志，看有没有收到 Commit 指令，如果已经收到了，就会使用 Redo 信息来提交事务。</p>
+
+<p>总的来说，两阶段提交协议是分布式事务中最常用的协议之一，它可以有效地保证 <strong>分布式事务的一致性和可靠性。</strong></p>
+
+<h3 id="三阶段提交">三阶段提交</h3>
+
+<p>三阶段提交协议是在两阶段提交协议的基础上进行的改进，三阶段提交协议引入了一个额外阶段来确保在执行事务之前有足够的资源，减少两阶段协议引起的事务失败的可能。</p>
+
+<p>在两阶段协议里面，比较容易出现的一个情况就是参与者在准备阶段辛辛苦苦把 Redo、Undo 写好，结果另外一个参与者说自己这边执行不了事务，要回滚。那么这个参与者就白费功夫了。</p>
+
+<p><img src="/images/interviews/678287/f2147aa08d4ffe5ddc150be15e33ffb6.png" alt="图片" /></p>
+
+<p>因此在两阶段提交的基础上，三阶段提交引入了一个新阶段，协调者会先问一下参与者能不能执行这个事务。所以整个三阶段提交协议的三个阶段是这样的：</p>
+
+<ol>
+<li>第一阶段（CanCommit）：协调者问一下各个参与者能不能执行事务。参与者这时候一般是检查一下自己有没有足够的资源。</li>
+<li>第二阶段（PreCommit）：类似于两阶段提交的第一个阶段，执行事务但是不提交。</li>
+<li>第三阶段（Commit）：直接提交或者回滚。</li>
+</ol>
+
+<p>目前看来，三阶段提交协议并没有两阶段提交协议使用得那么广泛，原因有两个，一是两阶段提交协议已经足以解决大部分问题了，二是三阶段提交协议的收益和它的复杂度比起来，性价比有点低。</p>
+
+<h3 id="xa-事务">XA 事务</h3>
+
+<p>XA 事务遵循了两阶段提交协议。我个人认为，两阶段协议是一种学术理论，而 XA 则是把两阶段提交协议具像化之后的一个标准。它定义了协调者和参与者之间的接口。用专业的术语来说，就是定义了事务管理器（Transaction Manager）和资源管理器（Resource Manager）之间的接口。</p>
+
+<h2 id="小结一下">小结一下</h2>
+
+<p>这里我讲一个稍微有点争议的事情，也就是 XA 是否满足 ACID。我注意到网上有一部分人认为 XA，或者说两阶段提交协议，有数据一致性的问题，但是也有人认为 XA 是满足 ACID 的。</p>
+
+<p>我在两阶段提交那里说到在提交阶段，协调者会不断重试直到把 Commit 请求发送给协调者；协调者如果在提交阶段中途崩溃，也要确定是否需要提交或者回滚。那么你就应该可以理解，在重试成功之前，或者在协调者恢复过来重新提交或者回滚之前，数据是 <strong>不一致</strong> 的。</p>
+
+<p>所以我 <strong>个人</strong> 倾向 XA 不满足 ACID。但是相比其他的方案，它更加接近 ACID。</p>
+
+<h2 id="面试准备">面试准备</h2>
+
+<p>关于分布式事务，你在公司需要弄清楚几个问题：</p>
+
+<ol>
+<li>如果公司使用了分库分表，那么是否允许跨库事务？</li>
+<li>如果允许跨库事务，那么是如何解决的？</li>
+<li>如果你使用了分库分表中间件，那么它支持哪些类型的事务？</li>
+<li>在微服务层面上，使用的是什么样的分布式事务方案？是 TCC、SAGA 还是 AT？</li>
+<li>当你在使用分布式事务的时候，中间步骤出错了你怎么办？</li>
+</ol>
+
+<p>此外，你最好收集一些实际的案例，在面试的时候作为证据。</p>
+
+<p>正常来说，在面试微服务架构的时候就有可能面到分布式事务。面试官可能会问这两个问题。</p>
+
+<ol>
+<li>在单体应用拆分成微服务架构之后，你怎么解决分布式事务？</li>
+<li>你们的服务是共享一个数据库吗？如果不是的话，你们怎么解决分布式事务问题？</li>
+</ol>
+
+<p>当然，在分库分表里面也会有类似的问法。</p>
+
+<ul>
+<li>在单库拆分之后，你怎么解决分布式事务问题？</li>
+<li>当你开启一个事务的时候，分库分表中间件做了什么？</li>
+<li>怎么在分库分表的事务里面保证 ACID？</li>
+</ul>
+
+<p>有些时候面试官不会直接问分布式事务，而是问你数据一致性的问题，其实基本上也是问的分布式事务。他可能这样问：“如果你的 DELETE 语句，经过分库分表之后要删除多张表的数据，那你怎么保证数据一致性？”所以对于数据一致性的问题，你也要做好准备。</p>
+
+<p>其实面试翻车的一个主要原因就是你不熟悉各种异常情况的处理方案，所以在接下来我给你介绍的各种方案里面，容错都是一个比较重要的部分，也是你用来刷亮点的部分。</p>
+
+<h2 id="基本思路">基本思路</h2>
+
+<p>一句话总结，就是既想要 ACID，又想要分布式事务，以目前的条件来说基本不可能。所以所有解决分布式事务的方案，立足点都是最终一致性。因此不管从哪里提到了分布式事务，如果面试官问起来，你都可以先从理论上强调这一点，关键词是 <strong>最终一致性</strong>。</p>
+
+<blockquote>
+<p>分布式事务或者说跨库事务基本上都只能依赖于最终一致性，ACID 是不太可能的。比如说常见的 TCC、AT、SAGA，又或者比较罕见的延迟事务，其实都是追求最终一致性。</p>
+</blockquote>
+
+<p>这里提到了 TCC、AT 和 SAGA 这些比较具体的方案，你就可以根据后面的内容来进一步解释，或者等面试官询问。</p>
+
+<p>注意，如果面试官认为 XA 是支持 ACID 的，那么他可能会问：“难道没有什么能够保证 ACID 吗？”通过这种问题你就可以知道面试官的倾向了，那么你就可以抛开个人立场，回答 XA 事务。</p>
+
+<blockquote>
+<p>有，XA 事务可以看作支持 ACID。</p>
+</blockquote>
+
+<p>如果面试官直接问 XA，那么你就可以按照自己的真实想法来回答。</p>
+
+<h3 id="tcc-事务">TCC 事务</h3>
+
+<p>TCC 是一个追求最终一致性，而不是严格一致性的事务解决方案，它不满足 ACID 要求。TCC 是 Try-Confirm-Cancel 的缩写，它勉强也算是两阶段提交协议的一种实现。</p>
+
+<ul>
+<li>Try：对应于两阶段提交协议的准备阶段，执行事务但是不提交。</li>
+<li>Confirm：对应于两阶段提交协议第二阶段的提交步骤。</li>
+<li>Cancel：对应于两阶段提交协议第二阶段的回滚步骤。</li>
+</ul>
+
+<p>之所以给它一个新名字，完全是因为 TCC 强调的是业务自定义逻辑。也就是说 Try 是执行业务自定义逻辑，Confirm 也是执行业务自定义逻辑，Cancel 同样如此。</p>
+
+<p>TCC 在微服务架构里面比较常用，Try 对应一个微服务调用，Confirm 对应一个微服务调用，Cancel 也对应一个微服务调用。不过一些分库分表中间件也支持 TCC 模式，但是比较罕见。</p>
+
+<p>接下来你可以从两个角度深入讨论。</p>
+
+<h4 id="亮点一-tcc-与本地事务">亮点一：TCC 与本地事务</h4>
+
+<p>其实在微服务架构中Try-Confirm-Cacel 都对应一个微服务调用，你就可以猜测到，TCC 的任何一个步骤都可以是 <strong>本地事务</strong>，所以你可以这样说：</p>
+
+<blockquote>
+<p>在 TCC 里面，Try 可以是一个完整的本地事务，Confirm 也可以是一个完整的本地事务，Cancel 同样可以是一个完整的本地事务。</p>
+</blockquote>
+
+<p>然后你可以用这个例子补充说明。</p>
+
+<p><img src="/images/interviews/678287/f452e763d48daf1ce86833771af04ca7.png" alt="图片" /></p>
+
+<blockquote>
+<p>比如在我的某个业务里面，Try 本身就是插入数据，但是处于初始化状态，还不能使用。后续 Confirm 的时候就是把状态更新为可用，而 Cancel 则是更新为不可用，当然直接删除也是可以的。</p>
+</blockquote>
+
+<p>不过 TCC 怎样都是会出错的，比如说在 Confirm 阶段出错或者出现超时，所以你是搞不清楚究竟有没有提交的。这里你可以补一句，引出下面的亮点。</p>
+
+<blockquote>
+<p>TCC 用起来还是比较简单的，但是要想做好容错还是很不容易的。</p>
+</blockquote>
+
+<h4 id="亮点二-容错">亮点二：容错</h4>
+
+<p>实际上，正如我之前好几次提到的，容错很多时候就是重试，重试失败之后人工介入或者引入自动故障处理机制，后续尝试修复数据。</p>
+
+<p>面试的时候我们需要一步步分析，首先要 <strong>分析出错的场景</strong>。</p>
+
+<blockquote>
+<p>正常来说，TCC 里面 T 阶段出错是没有关系的。比如说前面的那个例子里，数据处于初始化状态的时候，其实后续业务是用不了的，也就不会有问题。但是如果在 Confirm 的时候出错了，问题就比较严重了。比如说一部分业务已经将数据更新为可用了，另外一部分业务更新数据为可用失败，那么就会出现不一致的情况。</p>
+</blockquote>
+
+<p><img src="/images/interviews/678287/098b5608842f7501ed4a21acdf684746.png" alt="图片" /></p>
+
+<p>紧接着讲解决方案，关键词是 <strong>重试。</strong></p>
+
+<blockquote>
+<p>基本上这里就是只能考虑不断重试，确保在 Confirm 阶段都能提交成功。毫无疑问，不管怎么重试，最终都是要失败的，所以要做好监控和告警的机制。</p>
+</blockquote>
+
+<p>这里我们提到了重试最终都可能失败，所以紧接着你就要进一步补充重试失败了之后怎么办。我给你两个方案，第一个方案是 <strong>异步比较数据并修复。</strong></p>
+
+<blockquote>
+<p>我在后面搞了一个离线比对数据并修复的方案，就是用来查找这种相关联的数据的，一部分数据还处于初始化状态，但是一部分数据已经处于可用状态，然后修复那部分初始化的数据。</p>
+</blockquote>
+
+<p><img src="/images/interviews/678287/999a42ef82eff53fa5affa5985bca50f.png" alt="图片" /></p>
+
+<p>另外一个方案则是在读取数据的时候，如果发现数据不一致，那么就 <strong>丢弃这个数据，同时触发修复逻辑。</strong></p>
+
+<blockquote>
+<p>在一些业务场景下，读请求是能够发现这种数据不一致的。那么它就会立刻丢弃这个数据，并且触发修复程序。</p>
+</blockquote>
+
+<p><img src="/images/interviews/678287/f17da3dc9b381aebd3dfc42867ea8239.png" alt="图片" /></p>
+
+<p>到这里 TCC 你已经讨论得比较深入了。接下来你可以考虑尝试把话题引到 SAGA。</p>
+
+<blockquote>
+<p>TCC 整体来说是追求最终一致性的，和它类似的是 SAGA 事务，也是一个追求最终一致性的事务解决方案，也不满足 ACID 的要求。</p>
+</blockquote>
+
+<h3 id="saga-事务">SAGA 事务</h3>
+
+<p>SAGA 的核心思想一句话就可以说明白，就是把业务分成一个个步骤，当某一个步骤失败的时候，就 <strong>反向补偿</strong> 前面的步骤。</p>
+
+<p>很多人在介绍 SAGA 的时候会用回滚这个词来取代反向补偿，但是我认为这会让你误解 SAGA，所以我这里就用反向补偿这个词。</p>
+
+<p>我举一个例子，某个步骤是插入数据，如果是回滚的话，那么是指插入的时候没有提交，然后在业务失败的时候回滚。如果是反向补偿的话，那么是指插入的时候已经提交了，然后在业务失败的时候执行删除。</p>
+
+<p><img src="/images/interviews/678287/b54fd51cb4e9e55b24f3a045729316c7.png" alt="图片" /></p>
+
+<p>在聊到 SAGA 的时候，你可以简单介绍一下 SAGA 的基本理念，关键词是 <strong>反向补偿</strong>。</p>
+
+<blockquote>
+<p>SAGA 的核心思想是反向补偿事务中已经成功的步骤。比如说某个业务，需要在数据库1 和数据库 2 中都插入一条数据，那么在数据库 1 插入之后，数据库 2 插入失败，那么就要删除原本数据库 1 的数据。但是要注意，在最开始数据库 1 插入的时候，事务是已经被提交了的。</p>
+</blockquote>
+
+<p>大部分人没有使用过 SAGA。我这里给出我曾经使用过一个实现比较复杂但是理论很简单的 SAGA 调度机制，你可以用来刷亮点，关键词是 <strong>并发调度</strong>。</p>
+
+<blockquote>
+<p>早期我设计过一个比较复杂的 SAGA 机制，它支持并发调度。也就是说如果整个分布式事务中有可以并发执行的步骤，那么就并发执行，在后续出错的时候，这些并发执行的步骤也可以并发反向补偿。</p>
+</blockquote>
+
+<p><img src="/images/interviews/678287/4beb57642bb000fe1ae5fcdb658yy1d3.png" alt="图片" /></p>
+
+<p>SAGA 本身也是需要考虑容错的，难点就是在反向补偿的时候失败了怎么办？比如说在前面的例子里，你准备删除数据的时候失败了。那么还是没有特别好的办法，无非就是不断重试，这一部分你可以参考 TCC 中讨论的容错内容。</p>
+
+<p>在讲完容错之后，紧接着你可以尝试把话题引导到 AT。</p>
+
+<blockquote>
+<p>我个人认为最近比较流行的 AT 模式可以看作是 SAGA 的一种特殊形态，或者说简化形态。</p>
+</blockquote>
+
+<h3 id="at-事务">AT 事务</h3>
+
+<p>AT 是指如果你操作很多个数据库，那么分布式事务中间件会帮你生成这些数据库操作的反向操作。</p>
+
+<p>这就有点类似于 undo log。比如说你数据库操作是一个 INSERT，那么对应的反向补偿操作就是 DELETE 了。你在回答的时候就可以结合 undo log 一起回答，顺便把话题引导到 undo log 上。</p>
+
+<blockquote>
+<p>AT 模式的核心是分布式事务中间件会帮你生成数据库的反向操作，比如说 INSERT 对应的就是 DELETE，UPDATE 对应的就是 UPDATE，DELETE 对应的就是 INSERT。这个机制有点类似于 undo log。</p>
+</blockquote>
+
+<p>同样地，AT 事务也有容错的问题，它的容错和 SAGA 一样，都是在反向补偿的时候出错了该怎么办。这里我就不赘述了，你可以参考前面的内容。</p>
+
+<p>在回答了这些内容之后，你还可以进一步强调可以考虑禁用跨库事务。</p>
+
+<blockquote>
+<p>如果是单纯使用分库分表，不涉及多个服务的分布式事务，可以考虑直接禁用跨库事务，一了百了。</p>
+</blockquote>
+
+<h3 id="禁用跨库事务">禁用跨库事务</h3>
+
+<p>在实践中，解决分库分表中的分布式事务问题，最简单的方式就是直接禁用跨库事务。正常来说，在分库分表之后，你的业务就应该操作特定的某个数据库中的某个表。最多就是操作某个数据库上的某几张表，跨库本身就是一个不好的实践。</p>
+
+<p>所以可以从公司规范上直接禁用了跨库事务。</p>
+
+<blockquote>
+<p>我们公司是直接禁止跨库事务。所以在分库分表之后我们要做的就是改造业务代码，确保不会出现跨库事务。</p>
+</blockquote>
+
+<p>但是这样又有点太牵强了，那么你接下来就可以补充说明如果真的要使用跨库事务，你可以怎么解决，也就是把话题引导到延迟事务这个方案方案上。</p>
+
+<h2 id="亮点方案-延迟事务">亮点方案：延迟事务</h2>
+
+<p>这算是分库分表中间件经常采用的方案。从理论上来说这个方案其实并不比 SAGA 复杂，但是 TCC、SAGA 和 AT 属于烂大街的答案，你拉不开差距，而延迟事务可以。</p>
+
+<p>在分库分表中间件眼里，当你执行 Begin 的时候，它是无法预测你接下来会在哪些数据库上面开启事务的。</p>
+
+<p><img src="/images/interviews/678287/840fc823ddd3d576651beacdb1761b87.png" alt="图片" /></p>
+
+<p>比如说，在同一个场景下，某个请求过来，你处理的时候在分库分表中间件上调用了 Begin 方法，这个请求最终在 user_db_0 和 user_db_1 上开启了事务；但是另外一个请求过来，因为参数不同，它可能最终在 user_db_2 上开启了事务。</p>
+
+<p><img src="/images/interviews/678287/c205c41113b148080290632e8b6218c3.png" alt="图片" /></p>
+
+<p>所以中间件只有两个选择，要么在 Begin 的时候就在全部数据库上开启事务，要么就是延迟到执行具体 SQL 的时候，知道要在哪些数据库上执行，再去开启事务。</p>
+
+<p>而在 Begin 的时候就直接开启事务过于粗暴，毕竟后面有些 DB 根本不会有任何查询。</p>
+
+<p><img src="/images/interviews/678287/2a970e9bea5a32d3ae4ef482f609a348.png" alt="图片" /></p>
+
+<p>因此，延迟事务应用更加广泛，它可以避免在用不上的数据库上开启事务的问题。</p>
+
+<p><img src="/images/interviews/678287/b75a73a5498dfba73144786d3c1e497e.png" alt="图片" /></p>
+
+<p>这时候，你就可以对比 <strong>全开事务</strong> 和 <strong>延迟事务</strong> 这两种思路。</p>
+
+<blockquote>
+<p>默认情况下，我们使用的是延迟事务。在正常的情况下，当我们执行 Begin 的时候，其实并不知道后续事务里面的查询会命中哪些数据库和数据表，那么只有两个选择，要么 Begin 的时候在所有的分库上都开启事务。但是这会浪费一些资源，毕竟事务不太可能操作所有的库，因此才有了延迟事务。也就是在 Begin 的时候，分库分表中间件并没有真的开启事务，而是直到执行 SQL 的时候，才在目标数据库上开启事务。</p>
+
+<p>举例来说，如果 SQL 命中了数据库 db_0，这个时候 db_0 还没有开始事务，那么就会直接开启事务，然后执行 SQL；如果又来了一个 SQL，再次命中了 db_0，此时 db_0 上已经开启了事务，因此直接使用已有的事务。在提交或者回滚的时候，就提交或者回滚所有开启的事务。不过提交或者回滚的时候，部分失败的问题比较难以解决。</p>
+</blockquote>
+
+<p>这里你故意提到了部分失败的问题，是为了引导面试官进一步问。所谓部分失败是指在 COMMIT 的时候，某些数据库 COMMIT 成功了，但是另外一些数据库 COMMIT 失败了怎么办？当然，回滚也有类似的问题。</p>
+
+<p><img src="/images/interviews/678287/7dcb91a998c9dc0c67c6f2bdee18d4d5.png" alt="图片" /></p>
+
+<p>其实这里没有完美的解决方案，只能 <strong>考虑重试，</strong> 类似于在讨论 TCC、SAGA 和 AT 的时候那样。</p>
+
+<blockquote>
+<p>部分失败并没有更好的解决办法。我们这里就是在 Commit 的时候，如果发现某个数据库失败了，那么会立刻发起重试。如果连续重试失败，就会触发告警，人工介入处理。</p>
+</blockquote>
+
+<p>这里我再给出一个处理重试失败的高级方案。你可以用我们在高可用微服务架构里面提到的 <strong>自动故障处理机制</strong>。</p>
+
+<blockquote>
+<p>在重试失败的时候，最开始我们公司就是告警，然后人手工介入处理。后来我改进了这个机制，引入了自动故障处理机制。也就是说如果一个事务里面部分数据库提交或者回滚失败，触发告警，然后自动故障处理机制就会根据告警的上下文来修复数据。</p>
+
+<p>修复数据本身分成两种，一种是用已经提交的数据库的数据来修复没有提交成功的数据库的数据；另外一种则是用没有提交成功的数据库的数据来还原已经提交的数据库的数据。具体采用哪种，根据业务来决定。</p>
+
+<p>在我引入这个机制之后，很多业务都接入了自己的自动修复逻辑，整体上数据出错之后的持续时间和出错本身的比率都大幅度下降了，系统可用性提升到了三个九。</p>
+</blockquote>
+
+<p>实际上，这种自动修复的逻辑是跟业务强相关的，所以你可以提供一些简单的通用处理机制，但是如果比较复杂的话，就需要业务方来控制如何修复了。</p>
+
+<p><img src="/images/interviews/678287/9db2481dc2ec4726e77ccf2344e4ed2f.png" alt="图片" /></p>
+
+<h2 id="面试思路总结">面试思路总结</h2>
+
+<p>这一节课你需要掌握 <strong>两阶段提交协议、三阶段提交协议和 XA 协议的基本步骤这几个重要的知识点</strong>。到分布式事务的具体解决方案上，如果是跨服务的分布式事务，那么可以考虑 <strong>TCC、SAGA 和 AT</strong>。你在回答的时候尤其要注意讨论容错部分。</p>
+
+<p>容错基本上就是重试，重试失败之后就有三种方案，分别是：</p>
+
+<ul>
+<li>监控+告警 + 人手工介入处理；</li>
+<li>读请求 + 数据修复；</li>
+<li>监控 + 告警 + 故障自动处理。</li>
+</ul>
+
+<p>如果是单纯的分库分表跨库事务，那么可以考虑延迟事务，同时它也是我给你提供的亮点方案。</p>
+
+<p><img src="/images/interviews/678287/cba3889e193ffe72a714bcf7e0368d47.png" alt="" /></p>
+
+<p>此外，这一节课我又演示了一个面试小技巧，就是顺着面试官的立场回答。在我们的技术领域，并不是所有答案都有对错之分，有一些是立场之分、偏好之分。如果你摸不清面试官的偏向，你就按照自己的本心回答。如果你的回答面试官不满意，也就是你的偏向和他的偏向不一致，他一路杠到底，你就直接认怂。</p>
+
+<p>不太建议你和面试官杠到底，毕竟你出去面试，遇到一个什么样的面试官是未知数，而人往往喜欢和自己相似的人。你也不用觉得丢人，毕竟 <strong>面试求职生存下来是王道，挣钱嘛，不寒碜</strong>。</p>
+
+<h2 id="思考题">思考题</h2>
+
+<p>最后你来思考2个问题。</p>
+
+<ul>
+<li>在 XA 事务里面，我提到了一个有点争议的点，即 XA 究竟算不算满足了 ACID，你是怎么看这个问题的？欢迎你分享自己的观点。</li>
+<li>在分布式事务里面，我提到了三种容错措施，你还有没有使用过别的容错方案？可以分享一下。</li>
+</ul>
+
+<p>欢迎你把自己的经验和想法分享到评论区，和我一起讨论，也欢迎你把这节课的内容分享给其他朋友，邀他们一起学习，我们下节课继续！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

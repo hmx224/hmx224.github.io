@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>模拟面试（一）｜微服务架构面试思路一图懂 | 爱狂热博客</title>
+    <meta property="og:title" content="模拟面试（一）｜微服务架构面试思路一图懂 - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="模拟面试（一）｜微服务架构面试思路一图懂">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/%E6%A8%A1%E6%8B%9F%E9%9D%A2%E8%AF%95%E4%B8%80%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E4%B8%80%E5%9B%BE%E6%87%82/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#模拟面试-一-微服务架构面试思路一图懂">模拟面试（一）｜微服务架构面试思路一图懂</a>
+<ul>
+<li><a href="#整体性问题">整体性问题</a>
+<ul>
+<li><a href="#01-服务注册与发现-注册中心应该选-ap-还是-cp">01｜服务注册与发现：注册中心应该选 AP 还是 CP？</a></li>
+<li><a href="#02-负载均衡-调用结果-缓存机制怎么影响负载均衡的">02｜负载均衡：调用结果、缓存机制怎么影响负载均衡的？</a></li>
+<li><a href="#03-熔断-熔断-恢复-熔断-恢复-抖来抖去怎么办">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+<li><a href="#04-降级-为什么每次大促的时候总是要把退款之类的服务停掉">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+<li><a href="#05-限流-别说算法了-就问你阈值怎么算-限流的目的是什么">05｜限流：别说算法了，就问你阈值怎么算？限流的目的是什么？</a></li>
+<li><a href="#06-隔离-怎么保证尊贵的-vip-用户体验不受损">06｜隔离：怎么保证尊贵的 VIP 用户体验不受损？</a></li>
+<li><a href="#07-超时控制-怎么保证用户一定能在1s内拿到响应">07｜超时控制：怎么保证用户一定能在1s内拿到响应？</a></li>
+<li><a href="#08-调用第三方-下游的接口不稳定性能又差怎么办">08｜调用第三方：下游的接口不稳定性能又差怎么办？</a></li>
+</ul></li>
+<li><a href="#一图懂">一图懂</a></li>
+<li><a href="#图片-images-interviews-672561-21dd6b903c7421505be505yy14a7a549-jpg"><img src="/images/interviews/672561/21dd6b903c7421505be505yy14a7a549.jpg" alt="图片" /></a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">模拟面试（一）｜微服务架构面试思路一图懂</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="模拟面试-一-微服务架构面试思路一图懂">模拟面试（一）｜微服务架构面试思路一图懂</h1>
+
+<p>你好，我是大明。</p>
+
+<p>恭喜你学完第一章的内容，终于到了要验收成果的时刻了。微服务这一章的内容很多，而且知识点之间盘根错节，记忆起来并不容易，所以为了帮助你更好地掌握这部分内容，我们在这里设置了面试题。</p>
+
+<p>你在回答的时候，最好是能够写成一个文档，至少也要口头上说一遍。千万不要只在脑海里面回忆一遍。因为在真正面试的时候，脑海中的记忆到嘴里说出的话，还需要一个转换。</p>
+
+<p>此外，在回答的时候你可以从以下几个角度来评估自己的回答：</p>
+
+<ul>
+<li>在面试前有没有想好自己要打造什么人设？你的回答有没有围绕这个人设进行？</li>
+<li>当你看到一个问题的时候，你能不能瞬间想到可以怎么刷亮点？怎么引导面试官？</li>
+<li>有没有在回答中留下足够的引导话术？</li>
+<li>有没有在我准备的回答基础上，糅合自己的项目经历，打造独一无二的回答？</li>
+</ul>
+
+<p>我希望你可以通过我给你列出的这些问题，回想起我教给你的那些方案，真正地掌握这部分内容，下面我们开始通关吧！</p>
+
+<h2 id="整体性问题">整体性问题</h2>
+
+<p>✨ 什么是微服务架构？</p>
+
+<p>✨ 怎么保证微服务架构的高可用？</p>
+
+<p>还有下面这些问题，横跨了多个主题，可以从不同的角度回答。</p>
+
+<p>✨ 怎么判定服务是否已经健康？</p>
+
+<p>✨ 如果服务不健康该怎么办？</p>
+
+<p>✨ 怎么判定服务已经从不健康状态恢复过来了？</p>
+
+<p>✨ 听你说你用到了 Redis 作为缓存，如果你的 Redis 崩溃了会怎么样？</p>
+
+<p>✨ 听你说你用到了 Kafka 作为消息队列，如果你的 Kafka 崩溃了怎么办？</p>
+
+<p>✨ 现在需要设计一个开放平台，即提供接口给合作伙伴用，你觉得需要考虑一些什么问题？</p>
+
+<h3 id="01-服务注册与发现-注册中心应该选-ap-还是-cp">01｜服务注册与发现：注册中心应该选 AP 还是 CP？</h3>
+
+<p>🔍 什么是注册中心？</p>
+
+<p>🔍 服务注册与发现机制的基本模型是怎样的？</p>
+
+<p>🔍 服务上线与服务下线的步骤是什么？</p>
+
+<p>🔍 注册中心选型需要考虑哪些因素？</p>
+
+<p>🔍 你为什么使用 Zookeeper/Nacos/etcd 作为你的注册中心？</p>
+
+<p>🔍 什么是CAP?</p>
+
+<p>🔍 在服务注册与发现里面你觉得应该用 AP 还是 CP？</p>
+
+<p>🔍 如何保证服务注册与发现的高可用？</p>
+
+<p>🔍 服务器崩溃，如何检测？</p>
+
+<p>🔍 客户端容错的措施有哪些？</p>
+
+<p>🔍 注册中心崩溃了怎么办？</p>
+
+<p>🔍 注册中心怎么判断服务端已经崩溃了？</p>
+
+<h3 id="02-负载均衡-调用结果-缓存机制怎么影响负载均衡的">02｜负载均衡：调用结果、缓存机制怎么影响负载均衡的？</h3>
+
+<p>⚖️ 你了解负载均衡算法吗？</p>
+
+<p>⚖️ 静态负载均衡算法和动态负载均衡算法的核心区别是什么？</p>
+
+<p>⚖️ 轮询与随机负载均衡算法有什么区别？</p>
+
+<p>⚖️ 你了解平滑的加权轮询算法吗？</p>
+
+<p>⚖️ 如何根据调用结果来调整负载均衡效果？</p>
+
+<p>⚖️ 为什么有些算法要动态调整节点的权重？权重究竟代表了什么？</p>
+
+<p>⚖️ 你们公司的算法有没有调整过权重？为什么？</p>
+
+<p>⚖️ 最快响应时间负载均衡算法有什么缺点？</p>
+
+<p>⚖️ 如果我现在有一个应用，对内存和 CPU 都非常敏感，你可以针对这个特性设计一个负载均衡算法吗？</p>
+
+<p>⚖️ 为什么使用轮询、加权轮询、随机之类的负载均衡算法，系统始终会出现偶发性的流量不均衡，以至于某台服务器出故障的情况？怎么解决这一类问题？</p>
+
+<h3 id="03-熔断-熔断-恢复-熔断-恢复-抖来抖去怎么办">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</h3>
+
+<p>🔥 为什么说熔断可以提高系统的可用性？</p>
+
+<p>🔥 如何判断节点的健康状态，需要看哪些指标？</p>
+
+<p>🔥 触发熔断之后，该熔断多久？</p>
+
+<p>🔥 响应时间超过多少应该触发熔断？</p>
+
+<p>🔥 响应时间超过阈值就一定要触发熔断吗？</p>
+
+<p>🔥 怎么避免偶发性超过阈值的情况？</p>
+
+<p>🔥 服务熔断后如何恢复？</p>
+
+<p>🔥 产生抖动的原因，以及如何解决抖动问题？</p>
+
+<h3 id="04-降级-为什么每次大促的时候总是要把退款之类的服务停掉">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</h3>
+
+<p>🤚 什么时候会用到降级，请举例说明？</p>
+
+<p>🤚 降级有什么好处？</p>
+
+<p>🤚 跨服务降级常见的做法是什么？</p>
+
+<p>🤚 你怎么评估业务服务的重要性？或者说，你怎么知道 A 服务比 B 服务更加重要？</p>
+
+<p>🤚 请说一说服务内部常见的降级思路。</p>
+
+<p>🤚 怎么判断哪些服务需要降级？</p>
+
+<p>🤚 触发降级之后，应该保持在降级状态多久？</p>
+
+<p>🤚 服务降级之后如何恢复，如何保证恢复过程中不发生抖动？</p>
+
+<p>🤚 你们公司的产品首页是如何保证高可用的？</p>
+
+<h3 id="05-限流-别说算法了-就问你阈值怎么算-限流的目的是什么">05｜限流：别说算法了，就问你阈值怎么算？限流的目的是什么？</h3>
+
+<p>🏁 限流算法都包括哪些？</p>
+
+<p>🏁 不同的限流算法怎么选？</p>
+
+<p>🏁 限流的对象应该如何选择？</p>
+
+<p>🏁 怎么确定流量的阈值？</p>
+
+<p>🏁 如何应对突发流量？</p>
+
+<p>🏁 被限流的请求会被怎么处理？</p>
+
+<p>🏁 为什么使用了限流，系统还是有可能崩溃？</p>
+
+<p>🏁 我们有一个功能，对于普通用户来说，一些接口需要限制在每分钟不超过 10 次，整天不能超过 1000 次；VIP 用户不限制。你怎么解决这个问题？</p>
+
+<h3 id="06-隔离-怎么保证尊贵的-vip-用户体验不受损">06｜隔离：怎么保证尊贵的 VIP 用户体验不受损？</h3>
+
+<p>🤝 什么是隔离，你用来解决什么问题？</p>
+
+<p>🤝 你了解哪些隔离策略？你用过哪些？</p>
+
+<p>🤝 当某个服务崩溃的时候，你有什么办法保证其它服务不受影响？</p>
+
+<p>🤝 在使用线程池、连接池和协程池的时候，怎么避免业务之间相互影响？</p>
+
+<h3 id="07-超时控制-怎么保证用户一定能在1s内拿到响应">07｜超时控制：怎么保证用户一定能在1s内拿到响应？</h3>
+
+<p>🕙 为什么要做超时控制？</p>
+
+<p>🕙 为什么缺乏超时控制有可能引起连接泄露、线程泄露？</p>
+
+<p>🕙 什么是链路超时控制？</p>
+
+<p>🕙 如何确定超时时间？</p>
+
+<p>🕙 怎么在链路中传递超时时间？</p>
+
+<p>🕙 超时时间传递的是什么？</p>
+
+<p>🕙 如何计算网络传输时间？</p>
+
+<p>🕙 什么是时钟同步问题？</p>
+
+<p>🕙 客户端和服务端谁来监听超时？</p>
+
+<p>🕙 超时之后能不能中断业务？怎么中断？</p>
+
+<h3 id="08-调用第三方-下游的接口不稳定性能又差怎么办">08｜调用第三方：下游的接口不稳定性能又差怎么办？</h3>
+
+<p>🌊 如何保证调用第三方接口的可用性？</p>
+
+<p>🌊 如果在出错的时候你会切换不同的第三方，但是如果全部第三方换一遍之后都崩溃了，怎么办？</p>
+
+<p>🌊 调用第三方接口出错的时候，你是怎么重试的？重试次数和重试间隔你是怎么确定的？</p>
+
+<p>🌊 你怎么判定第三方服务已经非常不可用，以至于要切换一个新的第三方服务了？</p>
+
+<p>🌊 对时效性要求不高的接口，你可以怎么优化架构？</p>
+
+<p>🌊 在压力测试一个接口的时候，如果这个接口依赖了一个第三方接口，你怎么解决？</p>
+
+<p>🌊 公司业务依赖一个非常关键的第三方依赖，我要怎么保证我在调用第三方的时候不出错？</p>
+
+<h2 id="一图懂">一图懂</h2>
+
+<h2 id="图片-images-interviews-672561-21dd6b903c7421505be505yy14a7a549-jpg"><img src="/images/interviews/672561/21dd6b903c7421505be505yy14a7a549.jpg" alt="图片" /></h2>
+
+<p>最后我将这节课的内容整理成了一张图片，图片能够更好地展现知识点之间的联系，你可以参考，如果你觉得有用的话，可以把这节课的内容分享给身边的朋友，邀他一起学习，共同进步。好了，我们下一章再见吧！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

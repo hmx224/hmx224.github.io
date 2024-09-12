@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>09｜综合服务治理方案：怎么保证微服务应用的高可用？ | 爱狂热博客</title>
+    <meta property="og:title" content="09｜综合服务治理方案：怎么保证微服务应用的高可用？ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="09｜综合服务治理方案：怎么保证微服务应用的高可用？">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/09%E7%BB%BC%E5%90%88%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%96%B9%E6%A1%88%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#09-综合服务治理方案-怎么保证微服务应用的高可用">09｜综合服务治理方案：怎么保证微服务应用的高可用？</a>
+<ul>
+<li><a href="#前置知识">前置知识</a>
+<ul>
+<li><a href="#容错">容错</a></li>
+<li><a href="#限制故障影响范围">限制故障影响范围</a></li>
+<li><a href="#快速发现和快速修复故障">快速发现和快速修复故障</a></li>
+<li><a href="#规范变更流程">规范变更流程</a></li>
+</ul></li>
+<li><a href="#面试准备">面试准备</a></li>
+<li><a href="#基本思路">基本思路</a>
+<ul>
+<li><a href="#发现问题">发现问题</a></li>
+<li><a href="#计划方案">计划方案</a></li>
+<li><a href="#落地实施">落地实施</a></li>
+<li><a href="#取得效果">取得效果</a></li>
+<li><a href="#后续改进">后续改进</a></li>
+</ul></li>
+<li><a href="#亮点方案">亮点方案</a>
+<ul>
+<li><a href="#异步-解耦">异步/解耦</a></li>
+<li><a href="#自动故障处理">自动故障处理</a></li>
+</ul></li>
+<li><a href="#面试思路总结">面试思路总结</a></li>
+<li><a href="#思考题">思考题</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">09｜综合服务治理方案：怎么保证微服务应用的高可用？</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="09-综合服务治理方案-怎么保证微服务应用的高可用">09｜综合服务治理方案：怎么保证微服务应用的高可用？</h1>
+
+<p>你好，我是大明。今天我们来聊一个综合性的话题：给你一个微服务应用，你怎么保证它的高可用？</p>
+
+<p>在面试互联网相关岗位的时候，大部分公司都会看重 <strong>高并发</strong>、 <strong>高可用</strong> 和 <strong>大数据</strong> 相关的经验。不过有没有高并发和大数据的项目经验有点儿看命。因为如果你不是在大厂的核心部门，你是很难遇到真正的高并发和大数据场景的。</p>
+
+<p>高可用不一样，即便你维护的系统月活只有一万人，依旧可以把自己的系统做成高可用的。所以相比之下，高可用就可以成为我们面试的主要发力点。</p>
+
+<p><img src="/images/interviews/672251/2e2fa14105e4af15de328b87c0467f87.png" alt="图片" /></p>
+
+<p>当然你也需要意识到，一个类似淘宝那种量级的系统的高可用和一个简单的后台管理系统的高可用，含金量是不一样的。但还是那句话，又有几个人真的有机会接触到淘宝那种项目呢？所以如果你真的不知道怎么把自己平凡的项目说得比较有特色，那么就可以参考这节课的内容。</p>
+
+<h2 id="前置知识">前置知识</h2>
+
+<p>一般衡量可用性，我们都是用 <strong>SLA</strong>（Service Level Aggrement）指标，通常用 N 个九来说明。例如，当我们说微服务的可用性是三个九，是指系统在一段时间内（一般是一年）正常提供服务的时间超过了 99.9%。</p>
+
+<p>那么高可用究竟有多高？一般是指可用性需要达到三个九。当然有些人会认为需要达到四个九，这并没有硬性的标准。那么怎么做到高可用呢？</p>
+
+<p>核心有四点：</p>
+
+<ul>
+<li>容错；</li>
+<li>限制故障影响范围；</li>
+<li>出现故障可以快速发现，快速修复；</li>
+<li>规范变更流程。</li>
+</ul>
+
+<h3 id="容错">容错</h3>
+
+<p>容错是指不管发生了什么，你的系统都能正常提供服务，也就是所谓的 Design for Failure。用一句俗语来说，就是 <strong>凑合用</strong>。</p>
+
+<p><img src="/images/interviews/672251/de1f096c592227f7a3e3dfd4f370yyfa.png" alt="图片" /></p>
+
+<p>系统中可能出问题的组件包括你的服务本身、你依赖的服务，还包括你依赖的硬件基础设施和软件基础设施。</p>
+
+<p>在面试的时候，最重要的是描述怎么保证自己的服务即便在遇到了一些故障的情况下，整个系统也能继续为用户提供服务。</p>
+
+<p><img src="/images/interviews/672251/aae42b530ca0ebaced69c0aff8308a55.png" alt="图片" /></p>
+
+<p>其次是软件基础设施如果出问题了，你是否能保证你的服务还能正常运作。如果你的服务不能正常运作，系统整体也要能运作，这主要考虑两个点。</p>
+
+<ol>
+<li>在公司内使用软件基础设施的高可用方案。比如说在使用 Redis 的时候就不再是使用单机 Redis，而是改成 Redis Cluster 或者直接使用云厂商的 Redis 服务。</li>
+<li>做好万一软件崩溃的容错手段。比如说前面我提到如果 Redis 崩溃了，你可以使用限流来保护数据库。</li>
+</ol>
+
+<p>剩余的内容除了依赖第三方这一个特殊的场景外，在面试中出现得很少，这里我们就不展开说了。</p>
+
+<p>容错的问题就是不管你怎么容错，最终都有可能出错，所以到了真出错的时候，你就要考虑限制故障影响范围。</p>
+
+<h3 id="限制故障影响范围">限制故障影响范围</h3>
+
+<p>限制故障影响范围是指万一真的出现了故障，也要尽可能减轻它的影响范围。影响范围可以从三个角度来考虑，尽可能使故障造成的业务损失更小、被影响的用户更少，还有被影响的其他组件更少。</p>
+
+<p>限制影响范围的最佳策略就是 <strong>隔离</strong>。一个复杂的系统被划分成独立的不同的服务，服务内部再进一步细分模块、核心服务与非核心服务，尽量降低相互之间的影响。</p>
+
+<p>但是普遍来说，想要缩小影响范围总是面临两个难点。</p>
+
+<ul>
+<li><strong>服务互相依赖，</strong> 这种依赖一部分源自业务本身的复杂度，另外一部分则源自设计不合理。我们可以通过改进设计来降低服务之间的依赖，但是不可能做到彻底没有依赖。比如说后面提到的解耦方案，就是通过改进设计来降低服务之间依赖的一个例子。</li>
+<li><strong>服务共享一部分基础设施</strong>。理论上只要你有足够多的钱，能够为每一个服务提供完全独立的基础设施，就可以彻底解决这个问题。但是实际中大部分公司连部署两套 Redis 都舍不得，所以我们经常听到某某公司因为共享基础设施导致系统崩溃的事故。</li>
+</ul>
+
+<p><img src="/images/interviews/672251/488ba4e9766d8452decf16e724185aa3.png" alt="图片" /></p>
+
+<p>在限制了故障影响范围后，你就要考虑快速发现和快速修复故障。</p>
+
+<h3 id="快速发现和快速修复故障">快速发现和快速修复故障</h3>
+
+<p>快速发现强调的是 <strong>完备的观测和告警系统</strong>。观测不仅要观测服务本身，也要对各种基础设施、第三方依赖进行观测。尤其是在你核心链路上依赖的东西，你都需要进行全方位地观测。有了观测之后，还要设置合理的告警。 <strong>没有告警的观测是没有灵魂的</strong>。</p>
+
+<p>快速恢复则是尽可能减少服务不可用的时间。快速修复与其说是一个工程技术问题，不如说是一个组织建设问题。它实际上要求每一个组都需要安排人 24 小时值班，并且每个值班的人都需要了解整个组所维护的项目的细节，否则出了故障都没人响应，或者不知道怎么响应。</p>
+
+<p><img src="/images/interviews/672251/2a573b2267a765de820bee344fa0b3b1.png" alt="图片" /></p>
+
+<p>所以要想真正做到快速修复，不能依赖于研发个人的自觉性，而是要依赖于自动处理故障的机制，后面我们再详细介绍这一机制。</p>
+
+<h3 id="规范变更流程">规范变更流程</h3>
+
+<p>规范变更流程是指任何一个人都不能随意发布新版本，也不能随意修改配置。任何一个变更都要经过 review，并且做好回退的准备。</p>
+
+<p>实际上，我们在实践中最害怕的就是发布新版本或者新配置。因为原本系统都运作得非常好，但是一旦上线新功能或者变更配置，就很容易出现线上故障。特别是有些时候因为急着修 Bug，根本没有测试就直接发布新代码或者配置，导致不仅已有的 Bug 没修好，还造成了新的问题。</p>
+
+<p><img src="/images/interviews/672251/44cbaca556cb2f0f136083034e5ba375.png" alt="图片" /></p>
+
+<p>因此变更流程是一定要搞好的，搞好了变更流程，可用性就能大幅提升。不过这一点和快速修复一样，都是一个组织问题而不是一个工程技术问题。</p>
+
+<h2 id="面试准备">面试准备</h2>
+
+<p>在面试前，你需要准备一个 <strong>从前端到后端全方位的、完整的</strong> 高可用方案，而且要仔细思考其中的几个环节。</p>
+
+<ul>
+<li>所有面向前端用户的接口有没有限流之类的措施，防止攻击者伪造大量请求把你的系统搞崩。</li>
+<li>你所依赖的第三方组件，包括缓存（如 Redis）、数据库（如 MySQL）、消息队列（如 Kafka）是否启用了高可用方案。</li>
+<li>如果你依赖的某个第三方组件崩溃了，你维护的服务会发生什么事情，整个系统是否还能正常提供服务。</li>
+<li>你的所有服务是否选择了合适的负载均衡算法，是否有熔断、降级、限流和超时控制等治理措施。</li>
+<li>你所在公司的上线流程、配置变更流程等和研发息息相关的流程，或者说你认为会对系统可用性产生影响的各种流程。</li>
+</ul>
+
+<p>我在接下来的内容里给出了一个非常全面的高可用方案，你要做的就是根据你的真实项目经历来改造一下，并且重新组织一下语言。</p>
+
+<p>我在这里使用的都是一些比较普适的例子，也就是说即便你在中小企业也能用上这些例子。但是如果你在大厂，有机会接触到一些更加高级的高可用方案，此时你应该优先使用那些高级高可用方案。我建议你在面试前将整个内容写出来。面试讲究的是有备无患，千万别考验自己的临机应变能力。</p>
+
+<p>最佳的面试策略就是在自我介绍的时候提到自己在高可用微服务架构方面的经历，然后在介绍项目的时候，展示自己在入职之后大幅度提高了系统可用性的成果。之后面试官大概率会详细问你这个项目，以及你是怎么提高可用性的。这时候你就可以用到下面的话术了。</p>
+
+<h2 id="基本思路">基本思路</h2>
+
+<p>整个思路可以拆解成几个部分，分别是 <strong>发现问题、计划方案、落地实施、取得效果、后续改进。</strong> 而且发现问题和取得效果这两个步骤可以通过前后对比来凸显你在这个过程中起到的作用。</p>
+
+<h3 id="发现问题">发现问题</h3>
+
+<p>第一个部分发现问题由项目的核心困难、困难的具体体现、具体难点三个部分组成。</p>
+
+<blockquote>
+<p>某某业务是我们公司的核心业务，它的核心困难是需要保证高可用。在我刚入职的时候，这个系统的可用性还是比较低的。比如说我刚入职的第一个月就出了一个比较严重的线上故障，别的业务组突然上线了一个功能，带来了非常多的 Redis 大对象操作，以至于 Redis 响应非常慢，把我们的核心服务搞超时了。</p>
+
+<p>后面经过调研，我总结下来，系统可用性不高主要是这三个原因导致的。</p>
+
+<ol>
+<li>缺乏监控和告警，导致我们难以发现问题，难以定位问题，难以解决问题。</li>
+<li>缺乏服务治理，导致某一个服务出现故障的时候，整个系统都不可用了。</li>
+<li>缺乏合理的变更流程。我们每次复盘 Bug 时候，都觉得如果有更加合理的变更流程的话，那么大部分事故都是可以避免的。</li>
+</ol>
+</blockquote>
+
+<h3 id="计划方案">计划方案</h3>
+
+<p>这里有一个常见的误区，就是你在现实中可能做过类似的事情，但是都是东一榔头西一棒槌，也就是说想到了啥就做啥。但是面试的时候，你一定要将这些内容组织得非常有条理、有计划。</p>
+
+<p>你要给面试官留下的印象不仅仅是你能解决问题，更是你能够有计划地解决问题。所以你一定要有一个非常清晰的、可执行性高的 <strong>计划</strong>。</p>
+
+<blockquote>
+<p>针对这些具体的点，我的可用性改进计划分成了几个步骤。</p>
+
+<ol>
+<li>引入全方位的监控与告警，这一步是为了快速发现问题和定位问题。</li>
+<li>引入各种服务治理措施，这一步是为了提高服务本身的可用性，并且降低不同服务相互之间的影响。</li>
+<li>为所有第三方依赖引入高可用方案，这一步是为了提高第三方依赖的可用性。</li>
+<li>拆分核心业务与非核心业务的共同依赖。这一步是为了进一步提高核心业务的可用性。</li>
+<li>规范变更流程，降低因为变更而引入 Bug 的可能性。</li>
+</ol>
+</blockquote>
+
+<p><img src="/images/interviews/672251/9ec68bf7207dfc2byy0e72945648ff20.png" alt="图片" /></p>
+
+<p>如果你们公司有非常完善的基础设施和强大的技术实力，那么你可以加上像全链路压测、混沌工程、故障演练等高端方案，作为你整个计划中的一部分。</p>
+
+<h3 id="落地实施">落地实施</h3>
+
+<p>然后你再讲落地实施。落地实施的时候你要补充细节，同时也可以掺杂一些落地过程中的痛点。</p>
+
+<blockquote>
+<p>在第一个步骤里面，就监控来说，既要为业务服务添加监控和告警，又要为第三方依赖增加监控，比如说监控数据库、Redis 和消息队列。而告警则要综合考虑告警频率、告警方式以及告警信息的内容是否足够充足，减少误报和谎报。本身这个东西并不是很难，就是非常琐碎，要一个个链路捋过去，一个个业务查漏补缺。</p>
+
+<p>就第二个步骤来说，服务治理包括的范围比较广，我使用过的方案也比较多，比如说限流熔断等等。</p>
+
+<p>第三个步骤遇到了比较大的阻力，主要是大部分第三方依赖的高可用方案都需要资金投入。比如说最开始我们使用的 Redis 就是一个单机 Redis，那么后面我尝试引入 Redis Cluster 的时候，就需要部署更多的实例。</p>
+
+<p>第四个步骤也是执行得不彻底。现在的策略就是新的核心业务会启用新的第三方依赖集群，比如说 Redis 集群，但是老的核心业务就保持不动。</p>
+</blockquote>
+
+<p>你可能发现了，我在上面的回答中，谈到第三点和第四点的时候都说执行得不太好。这会不会给面试官留下不好的印象呢？</p>
+
+<p>其实不会。因为我陈述的基本上都是事实，这些困难都是实打实的，而且也是面试官能理解的。另一方面，一个方案不可能十全十美，适当地暴露一些问题能够增强说服力。</p>
+
+<p>第五个步骤有点特殊，取决于你在公司的地位。如果你在公司很有话语权，甚至本身就在带团队，那么你可以直接说你推行了新的变更流程。如果你是一个纯粹的“搬砖”工程师，那么可以参考这个回答，关键词是 <strong>建议</strong>。</p>
+
+<blockquote>
+<p>第五个步骤是我在公司站稳脚跟之后跟领导建议过几次，后来领导就制定了新的规范，主要是上线规范，包括上线流程、回滚计划等内容。</p>
+</blockquote>
+
+<h3 id="取得效果">取得效果</h3>
+
+<p>既然我们这里讨论的是可用性，那么你取得的效果肯定就是可用性方面有多大的改进。一般来说，我建议你说可用性达到了 <strong>三个九</strong>，而不是四个九，毕竟四个九的可用性有点过于夸张了。</p>
+
+<blockquote>
+<p>经过我的改进之后，现在我维护的服务的可用性从原来不足两个九提升到了三个九。</p>
+</blockquote>
+
+<p>你也可以比较幽默地回答。</p>
+
+<blockquote>
+<p>现在 Bug 数量也减少了。Bug 复盘的时候我已经不再是那个挨骂的人了，变成了看别人挨骂的人。</p>
+</blockquote>
+
+<p>同时你还可以强调一下，系统中超出你影响力范围的部分，可用性还是比较差。</p>
+
+<blockquote>
+<p>不过我的服务还依赖于一些同事提供的服务，而他们的服务可用性就还是比较差。我这边只能是说尽量做到容错，比如说提供有损服务。后面要想进一步提高可用性，还是得推动同事去提高可用性。</p>
+</blockquote>
+
+<p>如果面试官质疑你为什么三个九也敢说是高可用，你要怎么回答呢？</p>
+
+<p>其实不用慌，你可以解释一下，也可以理解为认怂，关键词是 <strong>影响力有限</strong>。</p>
+
+<blockquote>
+<p>我也一直在想办法进一步提高可用性，但是整个系统要做到四个九还是非常难的，需要整个公司技术人员一起努力才能达到。我在公司的影响力还局限在我们部门，困难比较多，暂时做不到那么高的可用性。</p>
+</blockquote>
+
+<h3 id="后续改进">后续改进</h3>
+
+<p>最后你要补充一下你的改进计划。一般来说，改进计划都是针对已有方案的缺点，所以你要先讲已有方案的缺点。</p>
+
+<blockquote>
+<p>目前我的服务，尤其是一些老服务，相互之间还是在共享一些基础设施。一个出问题就很容易牵连其他服务，所以我还需要进一步将这些老服务解耦。</p>
+</blockquote>
+
+<p>然后你可以再举一个非常具体的改进措施，来增强说服力。</p>
+
+<blockquote>
+<p>比如说，我一定要让我的全部服务都使用我自己所在组的数据库实例，省得因为别组的同事搞崩了数据库，牵连到我的业务。大家一起用一个东西，出了事别人死不认账，甩锅都甩不出去。</p>
+</blockquote>
+
+<p>讲改进方案有一个好处，就是它还没实施，你就可以随便讲，什么高大上你就讲什么。</p>
+
+<h2 id="亮点方案">亮点方案</h2>
+
+<p>掌握了面试的基本思路之后，实际上你在这次面试中就基本上能给面试官留下一个不错的印象了。这里我再额外补充一些方案，你可以选择其中一两个来进一步强化你在面试官心目中的形象。</p>
+
+<h3 id="异步-解耦">异步/解耦</h3>
+
+<p>这个方案适用于什么情况呢？就是你的某一个业务可以分成两部分。一部分是必须要同步执行成功的关键步骤，另外一部分则是可以异步执行的非关键步骤。</p>
+
+<p>比如说在一个简单的创建订单的场景中，创建订单、支付是必须要同步执行成功的。但是另外一些部分，比如说发邮件通知你下单成功、为你增加积分这种就不是一定要立刻执行成功的。</p>
+
+<p><img src="/images/interviews/672251/0c508239245d52f804a17728b28c17aa.png" alt="图片" /></p>
+
+<p>因此在设计高可用微服务的时候有一个技巧或者说原则，就是能够异步执行的绝对异步执行，能够解耦的必须解耦。</p>
+
+<p>这种理念用一句话来形容就是 <strong>多做多错，少做少错，不做不错</strong>。</p>
+
+<p>因此你可以用这个话术来介绍你的方案，关键词是 <strong>异步/解耦</strong>。</p>
+
+<blockquote>
+<p>我还全面推行了异步/解耦。我将核心业务的逻辑一个个捋过去，再找产品经理确认，最终将所有的核心业务中能够异步执行的都异步执行，能够解耦的都解耦。这样在我的业务里面，需要同步执行的步骤就大大减少了。而后续异步执行的动作，即便失败了也可以引入重试机制，所以整个可用性都大幅度提升了。</p>
+
+<p>比如说在某个场景下，整个逻辑可以分成很明显的两部分，必须要同步执行的 A 步骤和可以异步执行的 B 步骤。那么在 A 步骤成功之后，再发一条消息到消息队列。另外一边消费消息，执行 B 步骤。</p>
+</blockquote>
+
+<h3 id="自动故障处理">自动故障处理</h3>
+
+<p>严格来说，熔断、限流和降级也算是自动故障处理。不过我这里说的是有一个独立的系统来处理业务系统发生的故障。</p>
+
+<p><img src="/images/interviews/672251/1d5263e9a4a27yy28f557747bdd80ce6.png" alt="图片" /></p>
+
+<p>一个问题从发现到找出临时应对方案、再到付诸实施，一不留神一个小时就过去了。所以在达成三个九以后，如果你还想进一步提升可用性，那就要么降低出事故的概率，要么提高反应速度。</p>
+
+<p>人本身做不到长时间精神紧绷 24 小时待命，并且同一个项目组的项目也很难说了如指掌，所以自动故障处理机制的重要性不言而喻。甚至可以说，如果没有自动故障处理机制，是不可能达到四个九的可用性的。</p>
+
+<p>这里我给你一个例子：微服务集群自动扩容。它是指对整个微服务集群进行监控，如果发现集群负载过高那么就会自动扩容。</p>
+
+<p><img src="/images/interviews/672251/yy9e3fcb6775fc66e45f906e109893d4.png" alt="图片" /></p>
+
+<p>所以你可以这么回答，关键词是 <strong>自动扩容</strong>。</p>
+
+<blockquote>
+<p>为了进一步提高整个集群服务的可用性，我跟运维团队进行密切合作，让他们支持了自动扩容。整个设计方案是允许不同的业务方设置不同的扩容条件，满足条件之后运维就会自动扩容。比如说我为我的服务设置了 CPU 90% 的指标。如果我这个服务所有节点的 CPU 使用率都已经超过了 90%，并且持续了一段时间，那么就会触发自动扩容，每次扩容会新增一个节点。</p>
+</blockquote>
+
+<p>这里我用的例子比较简单，决策的理由也比较简单。</p>
+
+<blockquote>
+<p>CPU 使用率长期处于高位，基本上代表节点处于高负载状态。并且我强调的是集群里面的节点都超过了这个指标，防止单一节点超过该指标之后引起不必要的扩容。比如说，万一某个节点非常不幸，处理的都是复杂的请求，那么它就会处于高负载的状态，但是其他节点其实负载还很低。那么这个时候扩容，并没有什么效果。</p>
+</blockquote>
+
+<p>还有一些常见的方案，你可以参考。</p>
+
+<ul>
+<li>自动修复数据，最常见的就是有一个定时任务比对不同的业务数据，如果数据不一致，就会发出告警，同时触发自动修复动作。</li>
+<li>自动补发消息，也是通过定时任务等机制来比对业务数据，如果发现某条消息还没发，就会触发告警，同时触发补发消息动作。</li>
+</ul>
+
+<p>但凡你的业务有很多需要人手工介入处理的数据问题，你都可以考虑设计一个自动恢复程序，去自动地发现和修复不一致的数据。</p>
+
+<h2 id="面试思路总结">面试思路总结</h2>
+
+<p>我要强调一下，这里给出的整个话术和方案，你要根据你的实际经验来做调整。业界有非常多的高可用方案，你可以多学几个，纳入你的面试方案里面。</p>
+
+<p>你不需要掌握全部的高可用方案，因为实在太多学不过来。你只需要重点掌握几种，然后在面试的时候注重引导和把控面试节奏，将面试内容限制在你所了解的那几种上就可以。</p>
+
+<p><img src="/images/interviews/672251/6fda777a320e3289dd9169e85b1a99da.png" alt="图片" /></p>
+
+<h2 id="思考题">思考题</h2>
+
+<ol>
+<li>四个九代表全年不可用时间不超过 53 分钟，那么你知道三个九和五个九又各自代表多少时间吗？从你个人经历出发，你认为四个九的可用性，究竟难不难达成？</li>
+<li>除了我这里提到的各种措施以外，你自己有没有做过其他提高可用性的事情？你怎么把它整合进你的面试方案里面？</li>
+</ol>
+
+<p>欢迎你把思考后的结果分享给我，我们一起讨论，同时也欢迎你把这节课分享给需要的朋友，我们下节课再见！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？ | 爱狂热博客</title>
+    <meta property="og:title" content="03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#03-熔断-熔断-恢复-熔断-恢复-抖来抖去怎么办">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a>
+<ul>
+<li><a href="#前置知识">前置知识</a>
+<ul>
+<li><a href="#判定服务的健康状态">判定服务的健康状态</a></li>
+<li><a href="#服务恢复正常">服务恢复正常</a></li>
+</ul></li>
+<li><a href="#面试准备">面试准备</a></li>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#亮点方案">亮点方案</a></li>
+<li><a href="#面试思路总结">面试思路总结</a></li>
+<li><a href="#思考题">思考题</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="03-熔断-熔断-恢复-熔断-恢复-抖来抖去怎么办">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</h1>
+
+<p>你好，我是大明。今天我们继续学习微服务架构，这节课我们讨论一个新的主题：熔断。</p>
+
+<p>在微服务架构里面，熔断-限流-降级一般是连在一起讨论的，熔断作为微服务架构可用性保障的重要手段之一，是我们必须要掌握的，而且要能够说清楚自己在实践中是怎么利用熔断来提高系统的可用性的。</p>
+
+<p>所以今天我就来给你梳理一下关于熔断有哪些知识是我们必须要掌握的，另外我还会在这个基础上给你提供一个全方位的熔断面试方案，帮助你在面试中脱颖而出。</p>
+
+<h2 id="前置知识">前置知识</h2>
+
+<p>熔断在微服务架构里面是指当微服务本身出现问题的时候，它会拒绝新的请求，直到微服务恢复。</p>
+
+<p><img src="/images/interviews/669233/5cd51264668d564aa59b7c4630e3913f.png" alt="图片" /></p>
+
+<p>看图，你会不会觉得有点困惑？服务端明明返回了错误的响应，怎么还说熔断提高了系统的可用性呢？</p>
+
+<p>答案就是 <strong>熔断可以给服务端恢复的机会</strong>。试想这么一个场景，CPU 使用率已经100%了，服务端因此触发了熔断。那么拒绝了新来的请求之后，服务端的 CPU 使用率就会在一段时间内降到100%以内。</p>
+
+<p>回到熔断的基本定义上来，我们可以提炼出两个点进一步讨论。</p>
+
+<ul>
+<li>怎么判断微服务出现了问题？</li>
+<li>怎么知道微服务恢复了？</li>
+</ul>
+
+<p>接下来我们要讨论的亮点也是围绕这两个方面来进行的。</p>
+
+<h3 id="判定服务的健康状态">判定服务的健康状态</h3>
+
+<p>第一个问题，判断微服务是否出现了问题，它有点儿像我们在负载均衡里面讨论的动态算法。本质上也是要求你根据自己的业务来选择一些指标，代表这个服务器的健康程度。比如说一般可以考虑使用响应时间、错误率。</p>
+
+<p>不管选择什么指标，都要考虑两个因素： <strong>一是阈值如何选择；二是超过阈值之后，要不要持续一段时间才触发熔断。</strong></p>
+
+<p>比如我们把响应时间作为指标，那么响应时间超过多少应该触发熔断呢？这是根据业务来决定的。比如说如果业务对响应时间的要求是在 1s 以内，那么你的阈值就可以设定在 1s，或者稍高一点，留点容错的余地也可以。</p>
+
+<p>那么如果你的产品经理没跟你说这个业务对响应时间的要求，你就可以根据它的整体响应时间设定一个阈值，原则上阈值应该明显超过正常响应时间。比如你经过一段时间的观测之后，发现这个服务的 99 线是 1s，那么你可以考虑将熔断阈值设定为 1.2s。</p>
+
+<p><img src="/images/interviews/669233/4a67fbc83dd9ab5743b103b4d6d7f016.png" alt="图片" /></p>
+
+<p>那么是不是响应时间一旦超过了阈值就立刻熔断呢？一般也不是，而是 <strong>要求响应时间超过一段时间之后才触发熔断</strong>。这主要是出于两个考虑，一个是响应时间可能是偶发性地突然增长；另外一个则是防止抖动。防止抖动这个问题后面我会和你进一步讨论。</p>
+
+<p>那么这个“一段时间”究竟有多长，很大程度上就依赖个人经验了。如果时间过短，可能会频繁触发熔断，然后又恢复，再熔断，再恢复……反过来，如果时间过长，那就可能会导致该触发熔断的时候迟迟没有触发。</p>
+
+<p>你可以根据经验来设定一个值，比如说三十秒或者一分钟。</p>
+
+<p><img src="/images/interviews/669233/eee791ac63348392cd1ea51d433258c9.png" alt="图片" /></p>
+
+<p>当然最简单的做法就是超过阈值就直接触发熔断，但是采取这种策略就要更加小心抖动问题。</p>
+
+<h3 id="服务恢复正常">服务恢复正常</h3>
+
+<p>第二个问题，一个服务熔断之后要考虑恢复。比如说如果我们判断一个服务响应时间过长，进入了熔断状态。那么十分钟过后，已接收的请求已经被处理完了，即服务恢复正常了，那么它就要退出熔断状态，继续接收新请求。</p>
+
+<p><img src="/images/interviews/669233/a7c20f51242185d023a304e502a0012e.png" alt="图片" /></p>
+
+<p>因此在触发熔断之后，就要考虑检测服务是否已经恢复正常。</p>
+
+<p>很可惜，这方面微服务框架都做得比较差。大多数情况下就是触发熔断之后保持一段时间，比如说一分钟，一分钟之后就认为服务已经恢复正常，继续处理新请求。</p>
+
+<p>不过这里就涉及到我前面多次提到的抖动问题了。所谓 <strong>抖动就是服务频繁地在正常-熔断两个状态之间切换</strong>。</p>
+
+<p>引起抖动的原因是多样的，比如说前面提到的一旦超过阈值就进入熔断状态，或者我们这里说的恢复策略不当也会引起抖动。再比如刚刚我们提到的“一分钟后就认为服务已经恢复正常，继续处理新请求”就容易引发抖动问题。</p>
+
+<p>你试想一下，如果本身熔断是高并发引起的。那么在一分钟后，并发依旧很高，这时候你一旦直接恢复正常，然后高并发的流量打过来，服务是不是又会触发熔断？</p>
+
+<p><img src="/images/interviews/669233/73be149c40be65f2e66d4bbde0d492df.png" alt="图片" /></p>
+
+<p>而要解决这个抖动问题，就需要在恢复之后控制住流量。比如说按照 10%、20%、30%……逐步递增，而不是立刻恢复 100% 的流量。</p>
+
+<p><img src="/images/interviews/669233/14a54365c9739b664fa35789434a131a.png" alt="图片" /></p>
+
+<p>显然你能够看出来这种做法还是不够好。因为在这种逐步放开流量的措施下，依旧有请求因为熔断不会被处理。那么一个自然的想法就是， <strong>能不能让客户端来控制这个流量？</strong> 简单来说就是服务端触发熔断之后，客户端就直接不再请求这个节点了，而是换一个节点。等到恢复了之后，客户端再逐步对这个节点放开流量。</p>
+
+<p>当然可以，这也是我给出的亮点方案。</p>
+
+<h2 id="面试准备">面试准备</h2>
+
+<p>这些就是关于熔断你要了解的基础知识，不过如果你想要彻底掌握，还需要把这些知识点和实际工作联系在一起。所以我建议你在面试之前，要弄清楚你所在的公司有没有用熔断来治理微服务。如果有，那么你需要进一步弄清楚下面这些情况。</p>
+
+<ol>
+<li>你们公司是怎么判断微服务出现故障的？比如说错误率、响应时间等等。</li>
+<li>你们公司是怎么判断微服务已经从故障中恢复过来的？</li>
+<li>在判断微服务已经恢复过来之后，有没有采取什么措施来防止抖动的问题？</li>
+</ol>
+
+<p>关于熔断最佳的面试策略是把它作为你构建一个高可用微服务架构的一环。例如你在介绍某一个微服务项目的时候可以这样说。</p>
+
+<blockquote>
+<p>这是一个高可用的微服务系统，为了保证它的可用性，我采取了限流、降级、熔断等措施。</p>
+</blockquote>
+
+<p>此外，如果面试官问到服务治理以及提高系统可用性的方法之类的问题，你也可以用熔断来回答。又或者面试官问到了限流或者降级，那么你就可以尝试把话题引到熔断上面。此外，如果面试官问到某个服务崩溃了怎么办？这个问题相当于是在问怎么提高可用性防止服务崩溃，以及万一服务真崩溃了你也要有措施防止拖累别的服务，那么熔断就是一个可用的手段。</p>
+
+<p>如果你现在有时间，在学完这节课的内容之后，就可以尝试在公司内部落地一下熔断，并且可以试试我给你的亮点方案，来加深印象以及对细节的把控。</p>
+
+<h2 id="基本思路">基本思路</h2>
+
+<p>当面试官问“你有没有用过熔断”或者“怎么保障微服务可用性”的时候，你就可以介绍你使用的熔断。但是要根据我在前置知识里面的提示，你在面试的时候要说清楚什么时候判定服务需要触发熔断，为什么选用这个指标。</p>
+
+<p>假如说你准备用 <strong>响应时间</strong> 来作为指标，那么你可以这么回答，关键词是 <strong>持续超过阈值</strong>。</p>
+
+<blockquote>
+<p>为了保障微服务的可用性，我在我的核心服务里面接入了熔断。针对不同的服务，我设计了不同的微服务熔断策略。</p>
+
+<p>比如说最简单的熔断策略就是根据响应时间来进行。当响应时间超过阈值一段时间之后就会触发熔断。我一般会根据业务情况来选择这个阈值，例如，如果产品经理要求响应时间是1s，那么我会把阈值设定在1.2s。如果响应时间超过1.2s，并且持续三十秒，就会触发熔断。在触发熔断的情况下，新请求会被拒绝，而已有的请求还是会被继续处理，直到服务恢复正常。</p>
+</blockquote>
+
+<p>这里面试官就可能有很多种问法，但是我在前置知识里面都讨论到了。虽然他的问题可能千奇百怪，不过万变不离这几问。</p>
+
+<ol>
+<li>这阈值还可以怎么确定？那么你就回答还可以根据观测到的响应时间数据来确定。</li>
+<li>这个持续三十秒是如何计算出来的？这个问题其实可以坦白回答是基于个人经验，然后你解释一下过长或者过短的弊端就可以了。</li>
+<li>为什么多了0.2s？那么你可以解释是留了余地，防止偶发性的响应时间变长的情况。</li>
+<li>怎么判断服务已经恢复正常了？那么你可以回答等待一段固定的时间，然后尝试逐渐放开流量。</li>
+</ol>
+
+<p>如果你在实践中根据自己的业务特征选用了一些比较罕见的指标，或者你设计的触发熔断的条件比较有特色，那么也可以用自己的实际方案。</p>
+
+<p>这里我给你另外一个微创新的方案，关键词是 <strong>缓存崩溃</strong>。</p>
+
+<blockquote>
+<p>我还设计过一个很有趣的熔断方案。我的一个接口并发很高，对缓存的依赖度非常严重。所以我的熔断策略是要是缓存不可用，比如说 Redis 崩溃了，那么我就会触发熔断。这里如果我不熔断的话，请求会因为 Redis 崩溃而全部落到 MySQL 上，基本上会压垮 MySQL。</p>
+
+<p>在触发熔断之后，我会额外开启一个线程（如果是Go就换成 Goroutine）持续不断地 ping Redis。如果 Redis 恢复了，那么我就会退出熔断状态，新来的请求就不会被拒绝了。</p>
+</blockquote>
+
+<p>这里我用 Redis 来作为例子，你可以将 Redis 替换为 MemCache 之类的，甚至你还可以将缓存替换成你业务上任何一个关键的第三方依赖。</p>
+
+<p><img src="/images/interviews/669233/4f4211f38c9b7130bf5116270e6fed85.png" alt="图片" /></p>
+
+<p>这个方案里面我还留了一些可以引导的点。</p>
+
+<ul>
+<li>缓存问题：在这里我提到了 Redis 失效，这种情况类似于缓存雪崩，那么你很自然地就可以把话题引导到如何处理缓存击穿、穿透、雪崩这些经典问题上。</li>
+<li>高可用 MySQL：我在这里使用的是熔断来保护 MySQL，类似地，你也可以考虑用限流来保护MySQL。</li>
+</ul>
+
+<p>最后我提到了退出熔断状态，如果面试官了解抖动问题，那么他就肯定会追问“你是一次性放开全部流量吗？”，那么你就可以阐述抖动的问题，然后总结一下。</p>
+
+<blockquote>
+<p>我这种逐步放开流量的方案其实还是有缺陷的，还有一些更加高级的做法，但是需要负载均衡来配合。</p>
+</blockquote>
+
+<p>这个总结就是你留下的鱼饵，为了引出下面我给你展示的亮点方案。</p>
+
+<h2 id="亮点方案">亮点方案</h2>
+
+<p>前面的基本思路如果你能答好，差不多也能通过跟熔断有关的面试了，而且有不小的概率能够给面试官留下你技术很不错的印象。但是你还可以进一步展示你在服务治理和服务可用性保证上的独到见解。这就需要用到下面我要给你讲的综合了负载均衡算法和熔断措施的方案了。</p>
+
+<p>这个方案很简单，在落地的时候也不是很难。</p>
+
+<p>我在讲抖动与恢复的时候提到，恢复的时候可以逐步放开流量。那么你是否注意到，这个放开流量是在服务端处理的，也就是说服务端还是收到了100%的流量，只不过只有部分流量会被放过去并且被正常处理。</p>
+
+<p>那么一个自然的想法就是 <strong>为什么不直接让客户端来控制这个流量呢？</strong></p>
+
+<p><img src="/images/interviews/669233/ec05dc00f892bde08a739e2yy3cee3d1.png" alt="图片" /></p>
+
+<p>进一步结合我在负载均衡里面谈到的根据调用结果来调整负载均衡策略的讨论，是不是可以让客户端也采用这种负载均衡策略？答案是可以的。</p>
+
+<p>整体流程：</p>
+
+<ol>
+<li>服务端在触发熔断的时候，会返回一个代表熔断的错误。</li>
+<li>客户端在收到这个错误之后，就会把这个服务端节点暂时挪出可用节点列表。后续所有的新请求都不会再打到这个触发了熔断的服务端节点上了。</li>
+<li>客户端在等待一段时间后，逐步放开流量。</li>
+<li>如果服务端正常处理了新来的请求，那么客户端就加大流量。</li>
+<li>如果服务端再次返回了熔断响应，那么客户端就会再一次将这个节点挪出可用列表。</li>
+<li>如此循环，直到服务端完全恢复正常，客户端也正常发送请求到该服务端节点。</li>
+</ol>
+
+<p><img src="/images/interviews/669233/bd829a2832df33c1c92b8d3165c06968.png" alt="图片" /></p>
+
+<p><img src="/images/interviews/669233/230c1329cd5d273fb79cbcc50f8a0002.png" alt="图片" /></p>
+
+<p><img src="/images/interviews/669233/59f6be80174afd9cd57d5f4c8b2ea5cd.png" alt="图片" /></p>
+
+<p>那么这里你就可以这样回答，关键词是 <strong>负载均衡</strong>。</p>
+
+<blockquote>
+<p>整体思路是利用负载均衡来控制流量。如果一个服务端节点触发了熔断，那么客户端在做负载均衡的时候就可以将这个节点挪出可用列表，后续请求会发给别的节点。在经过一段时间之后，客户端可以尝试发请求给该节点。如果该节点正确处理了，那客户端就可以加大流量。否则客户端就要再一次等待一段时间。</p>
+</blockquote>
+
+<p>到这里你还可以自己杠自己一下，就是 <strong>万一所有可用节点都触发熔断了，应该怎么办？</strong> 你就可以这样来说。</p>
+
+<blockquote>
+<p>这个方案是需要兜底的，比如说如果因为某些原因数据库出问题，导致某个服务所有的节点都触发了熔断，那么客户端就完全没有可用节点了。不过这个问题本身熔断解决不了，负载均衡也解决不了，只能通过监控告警之后人手工介入处理了。</p>
+</blockquote>
+
+<h2 id="面试思路总结">面试思路总结</h2>
+
+<p>这节课我们主要解决的是熔断问题。我们讨论了熔断的基本概念，怎么判定服务是否熔断，以及熔断后如何恢复的问题。其中的难点是抖动的问题，为了防止抖动，我们需要合理判定节点的健康状况，在恢复期间尽可能等待一段时间，然后逐步放开流量。</p>
+
+<p>最后我给出了一个 <strong>综合运用负载均衡和熔断的方案，重点在于客户端控制流量，并根据服务端节点的状况来操作可用节点列表</strong>。你在学习的时候注意把亮点方案和前面学习的负载均衡内容结合在一起，同时我也非常建议你在实际工作中尝试应用一下熔断，让它来保护你的系统，提高系统可用性。</p>
+
+<p>同样地，我也整理这节课的思维导图，你可以参考。</p>
+
+<p><img src="/images/interviews/669233/4f5yy2ae950f35d03af485d1b1bbd3a0.png" alt="" /></p>
+
+<p>除了熔断相关知识，这节课我还希望你学会综合运用各种技术手段来设计精巧的方案。在这里我给出了一个负载均衡+熔断的方案，后续你也可以看到更多这个技巧的应用。</p>
+
+<p>最后我再强调一下，熔断面试的最好方案是把它作为你 <strong>构建高可用微服务</strong> 的一环，也就是说，你可以认为前面讨论的负载均衡，还有接下来要讨论的限流、降级、隔离等措施，都是你整个高可用方案的一环。</p>
+
+<h2 id="思考题">思考题</h2>
+
+<p>我在负载均衡和熔断两节课里面都提到一个关键点，即如何判定一个服务是否处于健康状态，这方面你有什么自己的思考？欢迎你把你的答案分享在评论区，也欢迎你把这节课的内容分享给需要的朋友，我们下节课再见！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+        <li><a href="/interviews/06%E9%9A%94%E7%A6%BB%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E5%B0%8A%E8%B4%B5%E7%9A%84VIP%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%E4%B8%8D%E5%8F%97%E6%8D%9F/">06｜隔离：怎么保证尊贵的VIP用户体验不受损？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

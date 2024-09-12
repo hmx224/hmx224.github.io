@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    
+
+    <title>10｜数据库索引：为什么MySQL用B&#43;树而不用B树？ | 爱狂热博客</title>
+    <meta property="og:title" content="10｜数据库索引：为什么MySQL用B&#43;树而不用B树？ - 爱狂热博客">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+        
+    <meta property="article:modified_time" content='2024-09-11T00:00:00&#43;08:00'>
+        
+    <meta name="Keywords" content="golang,go语言,PHP,爱狂热,php,python,博客,项目管理,软件架构,公众号,小程序">
+    <meta name="description" content="10｜数据库索引：为什么MySQL用B&#43;树而不用B树？">
+        
+    <meta name="author" content="爱狂热">
+    <meta property="og:url" content="http://hmx224.github.io/interviews/10%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B&#43;%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91/">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
+
+    <link rel="stylesheet" href='/css/normalize.css'>
+    <link rel="stylesheet" href='/css/style.css'>
+    <script type="text/javascript" src="//cdn.bootcdn.net/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    
+    
+    
+    
+    
+    
+</head>
+
+
+<body>
+    <header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hmx224.github.io/">
+                        爱狂热博客
+                    </a>
+                
+                <p class="description">专注于PHP、Python、Go语言(golang)、项目管理、软件架构、服务运维</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hmx224.github.io/">Home</a>
+                    
+                    <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
+                    
+                    <a  href="http://hmx224.github.io/categories/" title="分类">分类</a>
+                    
+                    <a  href="http://hmx224.github.io/php/" title="php知识">php知识</a>
+                    
+                    <a  href="http://hmx224.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hmx224.github.io/interviews/" title="面试">面试</a>
+                    
+                    <a  href="http://hmx224.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <div id="body">
+        <div class="container">
+            <div class="col-group">
+
+                <div class="col-8" id="main">
+                    
+<div class="res-cons">
+    <style type="text/css">
+    .post-toc {
+        position: fixed;
+        width: 200px;
+        margin-left: -210px;
+        padding: 5px 10px;
+        font-family: Athelas, STHeiti, Microsoft Yahei, serif;
+        font-size: 12px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.98);
+        background-clip: padding-box;
+        -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        box-shadow: 1px 1px 2px rgba(0, 0, 0, .125);
+        word-wrap: break-word;
+        white-space: nowrap;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        z-index: 999;
+        cursor: pointer;
+        max-height: 70%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .post-toc .post-toc-title {
+        width: 100%;
+        margin: 0 auto;
+        font-size: 20px;
+        font-weight: 400;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    .post-toc .post-toc-content {
+        font-size: 15px;
+    }
+
+    .post-toc .post-toc-content>nav>ul {
+        margin: 10px 0;
+    }
+
+    .post-toc .post-toc-content ul {
+        padding-left: 20px;
+        list-style: square;
+        margin: 0.5em;
+        line-height: 1.8em;
+    }
+
+    .post-toc .post-toc-content ul ul {
+        padding-left: 15px;
+        display: none;
+    }
+
+    @media print,
+    screen and (max-width:1057px) {
+        .post-toc {
+            display: none;
+        }
+    }
+</style>
+<div class="post-toc" style="position: absolute; top: 188px;">
+    <h2 class="post-toc-title">Table of Contents</h2>
+    <div class="post-toc-content">
+        <nav id="TableOfContents">
+<ul>
+<li><a href="#10-数据库索引-为什么mysql用b-树而不用b树">10｜数据库索引：为什么MySQL用B+树而不用B树？</a>
+<ul>
+<li><a href="#前置知识">前置知识</a>
+<ul>
+<li><a href="#b-树">B+ 树</a></li>
+</ul></li>
+<li><a href="#索引分类">索引分类</a>
+<ul>
+<li><a href="#聚簇索引和非聚簇索引">聚簇索引和非聚簇索引</a></li>
+<li><a href="#覆盖索引">覆盖索引</a></li>
+<li><a href="#索引的最左匹配原则">索引的最左匹配原则</a></li>
+<li><a href="#索引的代价">索引的代价</a></li>
+</ul></li>
+<li><a href="#面试准备">面试准备</a></li>
+<li><a href="#基本思路">基本思路</a></li>
+<li><a href="#亮点1-mysql-为什么使用-b-树">亮点1：MySQL 为什么使用 B+ 树？</a></li>
+<li><a href="#亮点2-为什么数据库不使用索引">亮点2：为什么数据库不使用索引？</a></li>
+<li><a href="#亮点3-索引与-null">亮点3：索引与 NULL</a></li>
+<li><a href="#面试思路总结">面试思路总结</a></li>
+</ul></li>
+<li><a href="#思考题">思考题</a></li>
+</ul>
+</nav>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var postToc = $(".post-toc");
+        if (postToc.length) {
+            var leftPos = $("#main").offset().left;
+            if (leftPos < 220) {
+                postToc.css({ "width": leftPos - 10, "margin-left": (0 - leftPos) })
+            }
+
+            var t = postToc.offset().top - 20,
+                a = {
+                    start: {
+                        position: "absolute",
+                        top: t
+                    },
+                    process: {
+                        position: "fixed",
+                        top: 20
+                    },
+                };
+            $(window).scroll(function () {
+                var e = $(window).scrollTop();
+                e < t ? postToc.css(a.start) : postToc.css(a.process)
+            })
+        }
+
+        if ($("#TableOfContents").children().length < 1) {
+            $(".post-toc").remove();
+        }
+    })
+</script>
+    <article class="post">
+        <header>
+            <h1 class="post-title">10｜数据库索引：为什么MySQL用B&#43;树而不用B树？</h1>
+        </header>
+        
+  <time datetime="2024-09-11T00:00:00Z" class="post-meta meta-date dt-published">
+    2024-09-11
+  </time>
+
+
+<div class="post-meta meta-category">
+  <span>&nbsp;|</span>
+  
+    <a href='/categories/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a>
+  
+</div>
+
+
+        
+        <div class="post-meta">
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
+        </div>
+        
+        
+        <div class="clear" style="display: none">
+            <div class="toc-article">
+                <div class="toc-title">Table of Contents</div>
+            </div>
+        </div>
+        
+        <div class="post-content">
+            
+
+<h1 id="10-数据库索引-为什么mysql用b-树而不用b树">10｜数据库索引：为什么MySQL用B+树而不用B树？</h1>
+
+<p>你好，我是大明。</p>
+
+<p>从这节课开始，我们将进入数据库这一章。在实际工作中，数据库设计得好不好、SQL 写得好不好将极大程度影响系统性能。而且，即便是再小的公司，也不可能说没有数据库，所以如果你担忧自己因为没有微服务架构经验难以通过面试，那么数据库就可以成为你反败为胜的一个点。</p>
+
+<p>所以今天我们来聊一聊数据库中的第一个话题——索引。</p>
+
+<p>索引在数据库面试中占据了相当大的比重。但是大部分人面试索引的时候都非常机械，所以难以在面试官心中留下深刻印象。索引是一个理论和实践的结合，今天这节课我先带你分析索引的基本原理，下节课我再在 SQL 优化这一个大主题下进一步带你分析索引设计和优化的实战案例。</p>
+
+<p>索引的内容还是非常多的，尤其是有很多非常细碎的、不成体系的点，记起来非常难。所以这一节课我就会尽量用非常简单的话，以及一些奇妙的比喻来帮助你记忆和索引有关的内容。</p>
+
+<h2 id="前置知识">前置知识</h2>
+
+<p>索引是用来加速查找的数据结构。绝大多数跟存储、查找有关的中间件都有索引功能，但是它们的原理不尽相同。</p>
+
+<p>我们先来了解一下B+树的定义与特征。</p>
+
+<h3 id="b-树">B+ 树</h3>
+
+<p>B+ 树是一种多叉树，一棵m阶的B+树定义如下：</p>
+
+<ol>
+<li>每个节点最多有 m 个子女。</li>
+<li>除根节点外，每个节点至少有 <code>[m/2]</code> 个子女，根节点至少有两个子女。</li>
+<li>有 k 个子女的节点必有 k 个关键字。</li>
+</ol>
+
+<p>这里的关键字你可以直观地理解为就是索引全部列的值。B+ 树还有两个特征。</p>
+
+<ul>
+<li><strong>叶子存放了数据</strong>，而非叶子节点只是存放了关键字。</li>
+<li><strong>叶子节点被链表串联起来了。</strong></li>
+</ul>
+
+<p><img src="/images/interviews/672553/4f847baca3d0791yy3f09e3c63yy602d.png" alt="图片" /></p>
+
+<p>前面 B+ 树的定义你记不住没关系，但是这两个特征你一定要记住。为了帮助你理解和记忆，我给你打个比方。</p>
+
+<p>一棵 B+ 树就像是一个部门。部门分成管理人员（非叶子节点）和基层员工（叶子节点），而管理人员只是负责传达命令（只放索引关键字），具体的事务（存放数据）都是由基层员工来执行的。</p>
+
+<p>基层员工之间为了合作顺畅，私底下互相都有联系，对应到B+树上就是叶子节点被链表连在一起。</p>
+
+<p>B+ 树用于数据库索引有3大优势。</p>
+
+<ol>
+<li>B+ 树的高度和二叉树之类的比起来更低，树的高度代表了查询的耗时，所以 <strong>查询性能更好</strong>。</li>
+<li>B+ 树的叶子节点都被串联起来了， <strong>适合范围查询</strong>。</li>
+<li>B+ 树的非叶子节点没有存放数据，所以 <strong>适合放入内存中</strong>。</li>
+</ol>
+
+<p>很多人都能记住 B+ 树的前两个优势，但是很容易忽略第三个优势。事实上，我们在讨论使用索引提高查询性能的时候，一个默认的前提就是索引本身会全部装进内存中，只有真实的数据行会放在磁盘上。否则，索引也放在磁盘上的话，使用索引的效果也就不明显了。</p>
+
+<p><img src="/images/interviews/672553/8be51ff8f95900e1a1597431b5e6a025.png" alt="图片" /></p>
+
+<h2 id="索引分类">索引分类</h2>
+
+<p>这算是你在学习索引过程中一个非常容易迷惘的点，因为 MySQL 的索引站在不同的角度，就有不同的说法。</p>
+
+<ul>
+<li>根据叶子节点是否存储数据来划分，可以分成 <strong>聚簇索引</strong> 和 <strong>非聚簇索引</strong>。</li>
+<li>如果某个索引包含某个查询的所有列，那么这个索引就是 <strong>覆盖索引</strong>。</li>
+<li>如果索引的值必须是唯一的，不能重复，那么这个索引就是 <strong>唯一索引。</strong></li>
+<li>如果索引的某个列，只包含该列值的前一部分，那么这个索引就是 <strong>前缀索引</strong>。比如说在一个类型是 varchar(128) 的列上，选择前 64 个字符作为索引。</li>
+<li>如果某个索引由多个列组成，那么这个索引就是 <strong>组合索引，</strong> 也叫做联合索引。</li>
+<li><strong>全文索引</strong> 是指用于支持文本模糊查询的索引。</li>
+<li><strong>哈希索引</strong> 是指使用哈希算法的索引，但是 MySQL 的InnoDB 引擎并不支持这种索引。</li>
+</ul>
+
+<p>一个索引可以同时是覆盖索引、唯一索引、前缀索引和组合索引，你站在不同的角度去看待索引就会有不同的说法。</p>
+
+<h3 id="聚簇索引和非聚簇索引">聚簇索引和非聚簇索引</h3>
+
+<p>如果索引叶子节点存储的是数据行，那么它就是聚簇索引，否则就是非聚簇索引。</p>
+
+<p>简单来说，某个数据表本身你就可以看作是一棵使用主键搭建起来 B+ 树，这棵树的叶子节点放着表的所有行。而其他索引也是 B+ 树，不同的是它们的叶子节点存放的是主键。</p>
+
+<p><img src="/images/interviews/672553/b678418551507cf9a91519b524fed0c0.png" alt="图片" /></p>
+
+<p>有了这种区分，你就能理解所谓的 <strong>回表</strong> 了。如果你查询一张表，用到了索引，那么数据库就会先在索引里面找到主键，然后再根据主键去聚簇索引中查找，最终找出数据。</p>
+
+<p><img src="/images/interviews/672553/ea5f8fe7644f030bbe4ef1f03348yy63.png" alt="图片" /></p>
+
+<p>如图所示，查询的时候先沿着绿色的线条在非聚簇索引中找到主键。然后拿着主键再去下面沿着黄色的线条找到数据行。这个数据行存放在磁盘里，所以触发磁盘 IO 之后能够读取出来。磁盘 IO 是非常慢的，因此回表性能极差，你在实践中要尽可能避免回表。</p>
+
+<h3 id="覆盖索引">覆盖索引</h3>
+
+<p>如果你查询的列全部都在某个索引里面，那么数据库可以直接把索引存储的这些列的值给你，而不必回表。</p>
+
+<p>比如说你有一个用户表 user_tab，在上面的 id 和 name 两列上创建了一个组合索引 <code>&lt;id, name&gt;</code>，那么对于这个查询来说 <code>SELECT id, name FROM user_tab WHERE id = 123</code>, SELECT 关键字后面的 id 和 name 两列都在这个索引里，那么就可以直接用索引的数据，不必回表查询了。</p>
+
+<p><img src="/images/interviews/672553/ef6b9fbf89221a8d069e6cac5cb9f87b.png" alt="图片" /></p>
+
+<p>那么， <strong>这个索引在这个查询下就是一个覆盖索引</strong>。所以覆盖索引并不是一个独立的索引，而是某个索引相对于某个查询而言的。</p>
+
+<p>针对这个特性，优化 SQL 性能里面有两种常见的说法。</p>
+
+<ol>
+<li>只查询需要的列。</li>
+<li>针对最频繁的查询来设计覆盖索引。</li>
+</ol>
+
+<p>这两种说法本质上都是为了避免回表。</p>
+
+<h3 id="索引的最左匹配原则">索引的最左匹配原则</h3>
+
+<p>索引在查询中是按照最左匹配原则来使用的，细究起来这个原则还是有点难以理解。我用一个例子来给你解释最左匹配原则的运行机制。比如说你创建了一个在 A、B、C 三个列上的组合索引 <code>&lt;A, B, C&gt;</code>。我用一个表格来展示一下索引列的值的关系。</p>
+
+<p><img src="/images/interviews/672553/47eb1d5a892461ac54ee312937293c9d.png" alt="图片" /></p>
+
+<p>我们可以看到：A 是绝对有序的；在 A 确定的情况下，B 是有序的；在 A 和 B 都确定的情况下，C 是有序的。</p>
+
+<p>那么反过来说：</p>
+
+<ul>
+<li>如果 A 的值不确定，那么 B 和 C 都是无序的。例如当 A 取值可能为 1 或者 2 的时候，B 的取值可能是 <code>(23, 44, 31)</code>。</li>
+<li>如果 A 的值确定，但是 B 的值不确定，那么 C 是无序的。例如当 A=1 而 B 可能是 44 或者 31 的时候，C 的值可能是 <code>(122, 132, 109)</code>。</li>
+</ul>
+
+<p>所以执行一个 <code>WHERE A=a1 AND B=b1 AND C=c1</code> 的查询就类似于：</p>
+
+<pre><code class="language-go">for a in A {
+  if a == a1 {
+    for b in B {
+      if b == b1 {
+        for c in C {
+          if c == c1 {
+            // 这就是你要的数据，拿到主键之后去磁盘里面加载出来
+          }
+        }
+      }
+    }
+  }
+}
+
+</code></pre>
+
+<p>你从这个角度出发，就能理解其他最左匹配原则的情况了。</p>
+
+<ul>
+<li><p>如果查询条件是 <code>WHERE A = a1 AND B = b1</code>，那么你可以推断出来，数据库只会应用外层的两重循环，不会对 C 进行过滤。</p>
+
+<pre><code class="language-go">for a in A {
+if a == a1 {
+  for b in B {
+    if b == b1 {
+      // 这就是你要的结果，去磁盘里面读取
+    }
+  }
+}
+}
+
+</code></pre></li>
+
+<li><p>如果查询条件是 <code>WHERE A = a1 OR B = b1</code>，那么这个查询并不会使用这个索引。</p>
+
+<pre><code class="language-go">for a in A {
+if a == a1 {
+  as = append(as, a)
+}
+}
+for b in B {
+if b == b1 {
+  bs = append(bs, b)
+}
+}
+// as 和 bs 的并集就是你要的结果
+
+</code></pre></li>
+
+<li><p>如果查询条件是 <code>WHERE A=a1 AND B &gt; b1 AND C = c1</code>，那么这个查询只会使用索引的 A 和 B 两列。</p>
+
+<pre><code class="language-go">for a in A {
+if a == a1 {
+  for b in B {
+    if b &gt; b1 {
+      // C 是无序的，所以用不了。你可以从前面的表格里面看出来
+      // 比如说 b &gt; 23 之后，对应的 C 是乱序的
+      // 这就是你要的结果，去磁盘里面读取
+    }
+  }
+}
+}
+
+</code></pre></li>
+
+<li><p>如果查询条件是 <code>WHERE A !=a1</code>，那么这个查询也不会使用索引。</p></li>
+</ul>
+
+<p>我给你整理了一个简单的口诀用于判断会不会使用索引。按照组成索引的列的顺序，从左往右： <strong>AND 用 OR 不用，正用反不用，范围则中断</strong>。</p>
+
+<p>这个口诀是一个简化之后的版本，还有一些意外情况是不符合这个口诀描述的规律的。比如说 <code>M = 1 OR N = 2</code>，如果单列 M 上有一个索引，并且单列 N 上也有一个索引，那么还是可能会使用 M 和 N 上的两个索引。</p>
+
+<p>在实践中，用索引还是不用索引，就一个原则： <strong>看 EXPLAIN 命令的输出</strong>。</p>
+
+<h3 id="索引的代价">索引的代价</h3>
+
+<p>索引并不是没有代价的，它会消耗很多的系统资源。</p>
+
+<ol>
+<li>索引本身需要存储起来，消耗磁盘空间。</li>
+<li>在运行的时候，索引会被加载到内存里面，消耗内存空间。</li>
+<li>在增删改的时候，数据库还需要同步维护索引，引入额外的消耗。</li>
+</ol>
+
+<p><img src="/images/interviews/672553/7c55f215a48235fba933b87b591d38cf.png" alt="图片" /></p>
+
+<p>这部分内容你也需要记住，因为现在有一些面试官的套路就是突然问你违反直觉的问题。例如正常我们都认为索引非常好，有很多优点，那么面试官就可能突然问你“使用索引有什么问题”“索引有什么坏处”等问题。</p>
+
+<h2 id="面试准备">面试准备</h2>
+
+<p>首先你要弄清楚公司内使用索引的情况，或者你所在公司使用过的各种索引，以及有没有出现索引设计不当引发的线上故障。</p>
+
+<p>如果你有意为自己打造掌握了高性能架构的人设，那么你面试索引的最佳策略就是在自我介绍或者介绍项目的时候提及索引和索引优化。</p>
+
+<p>在面试中有一种情况是比较棘手的，即面试官给出一个表定义，然后手写一个 SQL，要你判断这个 SQL 会不会使用索引。你平时要刻意练习一下，省得面试的时候被打个措手不及。遇到这种题目，你还要注意强调一点，就是你的回答都是建立在 <strong>一般情况</strong> 下。因为有些面试官会故意不告诉你表中数据大小，有没有其他索引等情况。</p>
+
+<p>在你回答完之后，他可能会批评你没有考虑到数据库压根不使用索引的可能性。所以回答完他的问题之后，你加一段话。</p>
+
+<blockquote>
+<p>我刚才的分析都是基于一般情况，但是如果说数据库还有别的索引，或者查询条件过滤效果不好导致数据库压根不使用索引的情况，那就是另外一个问题了。</p>
+</blockquote>
+
+<p>这个“免责声明”也能够将面试官引导到后面的进阶亮点“为什么数据库不使用索引”中。</p>
+
+<p>如果面试官问到了这些问题，那么你可以将话题引导到索引下。</p>
+
+<ul>
+<li>你有没有做过性能优化？</li>
+<li>你是否了解 B 树、B+ 树？</li>
+<li>你知道聚簇索引、覆盖索引吗？</li>
+<li>数据库一定会使用索引吗？</li>
+<li>使用索引性能一定好吗？这个问题你要综合考虑索引本身的开销，以及数据库压根不用索引的情况。</li>
+</ul>
+
+<h2 id="基本思路">基本思路</h2>
+
+<p>如果你在简历、自我介绍或者项目介绍任何一个地方提及了自己懂索引原理、索引设计和优化技巧，那么面试官肯定就会问你索引有关的东西。</p>
+
+<p>如果面试官问索引问得非常细，例如“什么是覆盖索引”这种，只需要按照前置知识里面的内容回答就可以。</p>
+
+<p>如果面试官问得比较笼统，你就可以用这里我给你的这个介绍索引的话术，你可以根据自己的需要选择回答全部或者只使用一部分。这个话术由 <strong>B+树、索引分类、最左匹配原则</strong> 三个部分组成。</p>
+
+<blockquote>
+<p>从数据结构上来说，在 MySQL 里面索引主要是 B+ 树索引。它的查询性能更好，适合范围查询，也适合放在内存里。</p>
+
+<p>MySQL 的索引又可以从不同的角度进一步划分。比如说根据叶子节点是否包含数据分成聚簇索引和非聚簇索引，还有包含某个查询的所有列的覆盖索引等等。数据库使用索引遵循最左匹配原则。但是最终数据库会不会用索引，也是一个比较难说的事情，跟查询有关，也跟数据量有关。在实践中，是否使用索引以及使用什么索引，都要以 EXPLAIN 为准。</p>
+</blockquote>
+
+<p>在这样一个话术中，我设计了几个可以引导的点，面试官是比较有可能进一步追问的。</p>
+
+<ol>
+<li>为什么 MySQL 用了 B+ 树，而没有用 B 树？在这个问题的基础上，面试官可能会进一步问，二叉树、红黑树和跳表之类的数据结构用作索引是否合适。</li>
+<li>回表以及和回表密切相关的覆盖索引。从这一个问题又可以进一步引申到索引优化和 SQL 优化上。这些索引的内容我们下节课会学习。</li>
+<li>数据库不使用索引的几种可能。</li>
+</ol>
+
+<p>这些问题我们来一一解决。</p>
+
+<h2 id="亮点1-mysql-为什么使用-b-树">亮点1：MySQL 为什么使用 B+ 树？</h2>
+
+<p>回答这个问题，你就不能仅仅局限在 B+ 树和 B 树上，你要连带着二叉树、红黑树、跳表一起讨论。总结起来，在用作索引的时候，其他数据结构都有一些难以容忍的缺陷。</p>
+
+<ul>
+<li>与B+ 树相比，平衡二叉树、红黑树在同等数据量下， <strong>高度更高，性能更差</strong>，而且它们会频繁执行再平衡过程，来保证树形结构平衡。</li>
+</ul>
+
+<p><img src="/images/interviews/672553/98e3c18b24a864cd47c500553d01e9b3.png" alt="图片" /></p>
+
+<ul>
+<li>与B+ 树相比，跳表在极端情况下会退化为链表， <strong>平衡性差</strong>，而数据库查询需要一个可预期的查询时间，并且跳表需要更多的内存。</li>
+<li>与B+ 树相比，B 树的数据存储在全部节点中， <strong>对范围查询不友好。</strong> 非叶子节点存储了数据， <strong>导致内存中难以放下全部非叶子节点</strong>。如果内存放不下非叶子节点，那么就意味着查询非叶子节点的时候都需要磁盘 IO。</li>
+</ul>
+
+<p><img src="/images/interviews/672553/4aae0280d5c58035e387e9027577e92b.png" alt="图片" /></p>
+
+<p>因此一个数据结构是否适合数据库索引，取决于这种数据结构的增删改查性能。并且在关系型数据库里面，还额外要求对范围查询友好，减少内存消耗。</p>
+
+<h2 id="亮点2-为什么数据库不使用索引">亮点2：为什么数据库不使用索引？</h2>
+
+<p>实际上，数据库在一些特殊的情况下可能并不会使用任何索引。例如在前面的索引 <code>&lt;A, B, C&gt;</code> 的例子中，假设 A 的所有值都是正数，然后查询条件 <code>WHERE A &gt; -1</code>，那么这个时候数据库会觉得还不如直接全表扫描，那么虽然有一个索引看起来能用，但是最终并不会用。</p>
+
+<p>我也在面试准备那部分提醒过你，要小心面试官挖坑让你掉下去。总结起来，数据库可能不使用索引的原因有以下几种：</p>
+
+<ul>
+<li>使用了 <code>!=</code>、 <code>LIKE</code> 之类的查询。</li>
+<li>字段区分度不大。比如说你的 status 列只有 0 和 1 两个值，那么数据库也有可能不用。</li>
+<li>使用了特殊表达式，包括数学运算和函数调用。</li>
+<li>数据量太小，或者 MySQL 觉得全表扫描反而更快的时候。</li>
+</ul>
+
+<p>我稍微强调一下，这里说的是“ <strong>可能</strong> 不使用索引”，不是说一定不使用索引。比如说 LIKE 查询，如果只是 LIKE abc% 这种前缀查询，那么还是可能用索引的。</p>
+
+<p>你还可以进一步解释 FORCE INDEX（强迫使用索引）、USE INDEX（使用索引）或者 IGNORE INDEX（忽略索引）之类的 SQL 提示，关键词是 <strong>取决于数据库。</strong></p>
+
+<blockquote>
+<p>虽然很多数据库都支持类似于 FORCE INDEX 、USE INDEX 和 IGNORE INDEX 之类的特性，但是使用这一类功能的时候，要千万注意数据库是怎么支持的。有些数据库是根本不管这些提示，有些则是特定情况下不管。当然最佳实践还是不要用这些东西，逼不得已的时候比如说要优化性能了再考虑使用。</p>
+</blockquote>
+
+<p>然后你可以以一种比较轻松的语气来引导到下一个亮点。</p>
+
+<blockquote>
+<p>有一种说法是含有 NULL 的列上的索引会失效，不过这个说法并不准确，实际上 MySQL 还是会尽可能用索引的。</p>
+</blockquote>
+
+<p>之所以要让语气比较轻松，是害怕对面的面试官就抱有这种错误的观点。你语气轻松比较不容易激起逆反心理。</p>
+
+<h2 id="亮点3-索引与-null">亮点3：索引与 NULL</h2>
+
+<p>我们通常用 NULL 来表达“不知道”“不存在”“不合法”等语义。而数据库通常也会针对 NULL 来做一些特殊的处理。</p>
+
+<p>MySQL 的索引对 NULL 的支持稍微有点与众不同。首先 MySQL 本身会尽可能使用索引，即便索引的某个列里面有零值，并且 IS NULL 和 IS NOT NULL 都可以使用索引。</p>
+
+<p>其次 MySQL 的唯一索引允许有多行的值都是 NULL。也就是说你可以有很多行唯一索引的列的值都是 NULL。但是不管怎么说，使用 NULL 都是一个比较差的实践。</p>
+
+<h2 id="面试思路总结">面试思路总结</h2>
+
+<p>这一节课我们主要学习了索引的基本原理。你需要重点掌握索引的数据结构、B+ 树原理、索引分类、回表，以及索引在查询中的运行原理。</p>
+
+<p>此外如果想要在面试中刷出亮点，你需要从下面几个方向去努力。</p>
+
+<ul>
+<li>MySQL 为什么使用 B+ 树？你要综合对比不同的数据结构的特性。</li>
+<li>为什么数据库不使用索引？</li>
+<li>索引与 NULL 的特殊之处。</li>
+</ul>
+
+<p>我在前面还提到了一个有趣的面试场景。即面试官会问你某个具体场景的问题，但是不会告诉你细节和约束。比如说给你一个查询语句，让你判断会不会走索引。</p>
+
+<p>虽然我不太喜欢这种面试套路，但是不得不说很多面试官就喜欢这样搞。他们的出发点是希望考察候选人思维是否缜密，能不能考虑到各种异常情况、边缘场景。</p>
+
+<p>但是很多时候面试官出题根本没有考虑到候选人的技术背景。比如说你本职是做支付相关的，而他出的题是订单相关的。那么在这种专业不对口的情况下，你基本上不可能答好。这也是我认为这种面试套路实际上并不太能考察出候选人真实水平的核心原因。</p>
+
+<p>应付这种面试套路也很简单，你只需要保持警惕。当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。</p>
+
+<p>如果面试官不告诉你，让你考虑。或者你自己不打算问，那么你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。</p>
+
+<p><img src="/images/interviews/672553/cc086d6a776dfe5d72f7bfc94d70eyyb.jpg" alt="" /></p>
+
+<h1 id="思考题">思考题</h1>
+
+<ul>
+<li>你有没有遇到过索引设计不合理引发的线上故障？如果有，当时你是怎么定位问题、怎么解决问题的？</li>
+<li>你有没有因为 NULL 而出现过奇奇怪怪的问题？</li>
+</ul>
+
+<p>欢迎你把你的经历和体会分享到评论区，和我一起交流讨论，也欢迎你把这节课分享给需要的朋友，邀他一起学习，我们下节课再见！</p>
+
+        </div>
+
+        
+
+
+        
+
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/interviews/01%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0AP%E5%92%8CCP%E4%BD%A0%E9%80%89%E5%93%AA%E4%B8%AA/">01｜服务注册与发现：AP和CP，你选哪个？</a></li>
+        
+        <li><a href="/interviews/02%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%B0%83%E7%94%A8%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%BD%B1%E5%93%8D%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84/">02｜负载均衡：调用结果、缓存机制是怎么影响负载均衡的？</a></li>
+        
+        <li><a href="/interviews/03%E7%86%94%E6%96%AD%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E/">03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？</a></li>
+        
+        <li><a href="/interviews/04%E9%99%8D%E7%BA%A7%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89/">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？</a></li>
+        
+        <li><a href="/interviews/05%E9%99%90%E6%B5%81%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%E5%B0%B1%E9%97%AE%E4%BD%A0%E9%98%88%E5%80%BC%E6%80%8E%E4%B9%88%E7%AE%97/">05｜限流：别说算法了，就问你“阈值”怎么算？</a></li>
+        
+    </ul>
+</div>
+
+
+        <div class="post-meta meta-tags">
+            
+            <ul class="clearfix">
+                
+                <li><a href='/tags/go%E9%9D%A2%E8%AF%95' target="_blank">go面试</a></li>
+                
+            </ul>
+            
+        </div>
+    </article>
+    
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "yourdiscussshortname" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    
+    
+    <div class="post bg-white">
+      <script src="https://utteranc.es/client.js"
+            repo= "https://github.com/hmx224/myHugo.git"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+    
+    
+
+</div>
+
+                    <footer id="footer">
+    <div>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+
+        | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
+        
+    </div>
+    <br />
+    <div>
+        <div class="github-badge">
+            <a href="https://gohugo.io/" target="_black" rel="nofollow"><span class="badge-subject">Powered by</span><span class="badge-value bg-blue">Hugo</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://www.ifanatic.cn/" target="_black"><span class="badge-subject">Design by</span><span class="badge-value bg-brightgreen">爱狂热</span></a>
+        </div>
+        <div class="github-badge">
+            <a href="https://github.com/flysnow-org/maupassant-hugo" target="_black"><span class="badge-subject">Theme</span><span class="badge-value bg-yellowgreen">Maupassant</span></a>
+        </div>
+    </div>
+</footer>
+
+
+    
+    <script type="text/javascript">
+        window.MathJax = {
+            tex2jax: {
+                inlineMath: [['$', '$']],
+                processEscapes: true
+                }
+            };
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src='/js/totop.js?v=0.0.0' async=""></script>
+
+
+
+    <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+                </div>
+
+                <div id="secondary">
+    <section class="widget">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">Latest articles</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
+    </li>
+    
+    <li>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
+<ul class="widget-list">
+    
+    <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
+<div class="tagcloud">
+    
+    <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
+    
+    <a href="http://hmx224.github.io/tags/php/">php</a>
+    
+</div>
+    </section>
+
+    
+<section class="widget">
+    <h3 class="widget-title">Links</h3>
+    <ul class="widget-list">
+        
+        <li>
+            <a target="_blank" href="https://www.ifanatic.cn/" title="爱狂热的博客">爱狂热的博客</a>
+        </li>
+        
+        <li>
+            <a target="_blank" href="http://www.humengxu.com" title="胡梦旭博客">胡梦旭博客</a>
+        </li>
+        
+    </ul>
+</section>
+
+
+    <section class="widget">
+        <h3 class="widget-title">Meta</h3>
+        <ul class="widget-list">
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
+        </ul>
+    </section>
+</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

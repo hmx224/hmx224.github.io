@@ -23,7 +23,10 @@
         
     <meta name="author" content="爱狂热">
     <meta property="og:url" content="http://hmx224.github.io/post/supervisorInfo/">
-    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
@@ -36,6 +39,7 @@
     
     
 </head>
+
 
 <body>
     <header id="header" class="clearfix">
@@ -51,7 +55,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="http://hmx224.github.io/">首页</a>
+                    <a class="current" href="http://hmx224.github.io/">Home</a>
                     
                     <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
                     
@@ -140,27 +144,28 @@
     }
 </style>
 <div class="post-toc" style="position: absolute; top: 188px;">
-    <h2 class="post-toc-title">文章目录</h2>
+    <h2 class="post-toc-title">Table of Contents</h2>
     <div class="post-toc-content">
         <nav id="TableOfContents">
-  <ul>
-    <li><a href="#一supervisor简介">一、supervisor简介</a></li>
-    <li><a href="#二supervisor安装">二、supervisor安装</a></li>
-    <li><a href="#三supervisor使用">三、supervisor使用</a></li>
-    <li><a href="#四配置文件说明">四、配置文件说明</a>
-      <ul>
-        <li><a href="#supervisorconf配置文件说明">supervisor.conf配置文件说明：</a></li>
-        <li><a href="#子进程配置示例">子进程配置示例：</a></li>
-      </ul>
-    </li>
-    <li><a href="#五supervisor命令说明">五、supervisor命令说明</a>
-      <ul>
-        <li><a href="#注意事项">注意事项</a></li>
-        <li><a href="#常见问题">常见问题</a></li>
-        <li><a href="#更多信息请移步supervisor官网httpsupervisordorg">更多信息请移步Supervisor官网：http://supervisord.org</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li>
+<ul>
+<li><a href="#一-supervisor简介">一、supervisor简介</a></li>
+<li><a href="#二-supervisor安装">二、supervisor安装</a></li>
+<li><a href="#三-supervisor使用">三、supervisor使用</a></li>
+<li><a href="#四-配置文件说明">四、配置文件说明</a>
+<ul>
+<li><a href="#supervisor-conf配置文件说明">supervisor.conf配置文件说明：</a></li>
+<li><a href="#子进程配置示例">子进程配置示例：</a></li>
+</ul></li>
+<li><a href="#五-supervisor命令说明">五、supervisor命令说明</a>
+<ul>
+<li><a href="#注意事项">注意事项</a></li>
+<li><a href="#常见问题">常见问题</a></li>
+<li><a href="#更多信息请移步supervisor官网-http-supervisord-org">更多信息请移步Supervisor官网：<a href="http://supervisord.org">http://supervisord.org</a></a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
     </div>
 </div>
@@ -199,29 +204,39 @@
         <header>
             <h1 class="post-title">SupervisorInfo</h1>
         </header>
-        <date class="post-meta meta-date">
-            2020年11月25日
-        </date>
         
+  <time datetime="2020-11-25T09:56:39Z" class="post-meta meta-date dt-published">
+    2020-11-25
+  </time>
+
+
+
         
         <div class="post-meta">
-            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                    阅读</span></span>
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
         </div>
         
         
         <div class="clear" style="display: none">
             <div class="toc-article">
-                <div class="toc-title">文章目录</div>
+                <div class="toc-title">Table of Contents</div>
             </div>
         </div>
         
         <div class="post-content">
-            <h2 id="一supervisor简介">一、supervisor简介</h2>
+            
+
+<h2 id="一-supervisor简介">一、supervisor简介</h2>
+
 <p>Supervisor是用Python开发的一套通用的进程管理程序，能将一个普通的命令行进程变为后台daemon，并监控进程状态，异常退出时能自动重启。它是通过fork/exec的方式把这些被管理的进程当作supervisor的子进程来启动，这样只要在supervisor的配置文件中，把要管理的进程的可执行文件的路径写进去即可。也实现当子进程挂掉的时候，父进程可以准确获取子进程挂掉的信息的，可以选择是否自己启动和报警。supervisor还提供了一个功能，可以为supervisord或者每个子进程，设置一个非root的user，这个user就可以管理它对应的进程。</p>
+
 <p>注：本文以centos7为例，supervisor版本3.4.0。</p>
-<h2 id="二supervisor安装">二、supervisor安装</h2>
-<pre><code class="language-cgo" data-lang="cgo">配置好yum源后，可以直接安装
+
+<h2 id="二-supervisor安装">二、supervisor安装</h2>
+
+<pre><code class="language-cgo">配置好yum源后，可以直接安装
 yum install supervisor
 
 Debian/Ubuntu可通过apt安装
@@ -232,13 +247,20 @@ pip install supervisor
 
 easy_install安装
 easy_install supervisor
-</code></pre><h2 id="三supervisor使用">三、supervisor使用</h2>
+</code></pre>
+
+<h2 id="三-supervisor使用">三、supervisor使用</h2>
+
 <p>supervisor配置文件：/etc/supervisord.conf
 注：supervisor的配置文件默认是不全的，不过在大部分默认的情况下，上面说的基本功能已经满足。</p>
+
 <p>子进程配置文件路径：/etc/supervisord.d/
 注：默认子进程配置文件为ini格式，可在supervisor主配置文件中修改。</p>
-<h2 id="四配置文件说明">四、配置文件说明</h2>
-<h3 id="supervisorconf配置文件说明">supervisor.conf配置文件说明：</h3>
+
+<h2 id="四-配置文件说明">四、配置文件说明</h2>
+
+<h3 id="supervisor-conf配置文件说明">supervisor.conf配置文件说明：</h3>
+
 <pre><code>
 [unix_http_server]
 file=/tmp/supervisor.sock   ;UNIX socket 文件，supervisorctl 会使用
@@ -313,7 +335,10 @@ redirect_stderr = true
 stdout_logfile_maxbytes = 20MB
 #stdout日志文件备份数
 stdout_logfile_backups = 20
-</code></pre><h3 id="子进程配置示例">子进程配置示例：</h3>
+</code></pre>
+
+<h3 id="子进程配置示例">子进程配置示例：</h3>
+
 <pre><code>#说明同上
 [program:test] 
 directory=/opt/bin 
@@ -323,7 +348,10 @@ autorestart=false
 stderr_logfile=/tmp/test_stderr.log 
 stdout_logfile=/tmp/test_stdout.log 
 #user = test  
-</code></pre><h2 id="五supervisor命令说明">五、supervisor命令说明</h2>
+</code></pre>
+
+<h2 id="五-supervisor命令说明">五、supervisor命令说明</h2>
+
 <pre><code>常用命令
 supervisorctl status        //查看所有进程的状态
 supervisorctl stop es       //停止es
@@ -331,32 +359,43 @@ supervisorctl start es      //启动es
 supervisorctl restart       //重启es
 supervisorctl update        //配置文件修改后使用该命令加载新的配置
 supervisorctl reload        //重新启动配置中的所有程序
-</code></pre><p>注：把es换成all可以管理配置中的所有进程。直接输入supervisorctl进入supervisorctl的shell交互界面，此时上面的命令不带supervisorctl可直接使用。</p>
+</code></pre>
+
+<p>注：把es换成all可以管理配置中的所有进程。直接输入supervisorctl进入supervisorctl的shell交互界面，此时上面的命令不带supervisorctl可直接使用。</p>
+
 <h3 id="注意事项">注意事项</h3>
+
 <p>使用supervisor进程管理命令之前先启动supervisord，否则程序报错。
 使用命令supervisord -c /etc/supervisord.conf启动。
 若是centos7：</p>
+
 <pre><code>systemctl start supervisord.service     //启动supervisor并加载默认配置文件
 systemctl enable supervisord.service    //将supervisor加入开机启动项
-</code></pre><h3 id="常见问题">常见问题</h3>
+</code></pre>
+
+<h3 id="常见问题">常见问题</h3>
+
 <ul>
-<li>
-<p>unix:///var/run/supervisor.sock no such file</p>
+<li><p>unix:///var/run/supervisor.sock no such file</p>
+
 <p>问题描述：安装好supervisor没有开启服务直接使用supervisorctl报的错</p>
-<p>解决办法：supervisord -c /etc/supervisord.conf</p>
-</li>
-<li>
-<p>command中指定的进程已经起来，但supervisor还不断重启</p>
+
+<p>解决办法：supervisord -c /etc/supervisord.conf</p></li>
+
+<li><p>command中指定的进程已经起来，但supervisor还不断重启</p>
+
 <p>问题描述：command中启动方式为后台启动，导致识别不到pid，然后不断重启，这里使用的是elasticsearch，command指定的是$path/bin/elasticsearch -d</p>
-<p>解决办法：supervisor无法检测后台启动进程的pid，而supervisor本身就是后台启动守护进程，因此不用担心这个</p>
-</li>
-<li>
-<p>启动了多个supervisord服务，导致无法正常关闭服务</p>
+
+<p>解决办法：supervisor无法检测后台启动进程的pid，而supervisor本身就是后台启动守护进程，因此不用担心这个</p></li>
+
+<li><p>启动了多个supervisord服务，导致无法正常关闭服务</p>
+
 <p>问题描述：在运行supervisord -c /etc/supervisord.conf之前，直接运行过supervisord -c /etc/supervisord.d/xx.conf导致有些进程被多个superviord管理，无法正常关闭进程。</p>
-<p>解决办法：使用ps -fe | grep supervisord查看所有启动过的supervisord服务，kill相关的进程。</p>
-</li>
+
+<p>解决办法：使用ps -fe | grep supervisord查看所有启动过的supervisord服务，kill相关的进程。</p></li>
 </ul>
-<h3 id="更多信息请移步supervisor官网httpsupervisordorg">更多信息请移步Supervisor官网：http://supervisord.org</h3>
+
+<h3 id="更多信息请移步supervisor官网-http-supervisord-org">更多信息请移步Supervisor官网：<a href="http://supervisord.org">http://supervisord.org</a></h3>
 
         </div>
 
@@ -385,7 +424,7 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
 
         <div class="post-meta meta-tags">
             
-            没有标签
+            No tags
             
         </div>
     </article>
@@ -423,11 +462,14 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
       </script>
     </div>
     
+    
+    
+
 </div>
 
                     <footer id="footer">
     <div>
-        &copy; 2017 - 2022 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
 
         | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
         
@@ -472,48 +514,48 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='http://hmx224.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
-    
+
     <section class="widget">
-        <h3 class="widget-title">最近文章</h3>
+        <h3 class="widget-title">Latest articles</h3>
 <ul class="widget-list">
     
     <li>
-        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/resume/" title="Resume">Resume</a>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode">Qrcode</a>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
     </li>
     
 </ul>
@@ -522,10 +564,12 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
     
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
 <ul class="widget-list">
     
     <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
     
     <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
     
@@ -533,10 +577,12 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
     </section>
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
 <div class="tagcloud">
     
     <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
     
     <a href="http://hmx224.github.io/tags/php/">php</a>
     
@@ -545,7 +591,7 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
 
     
 <section class="widget">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <ul class="widget-list">
         
         <li>
@@ -561,9 +607,9 @@ systemctl enable supervisord.service    //将supervisor加入开机启动项
 
 
     <section class="widget">
-        <h3 class="widget-title">其它</h3>
+        <h3 class="widget-title">Meta</h3>
         <ul class="widget-list">
-            <li><a href="http://hmx224.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
         </ul>
     </section>
 </div>

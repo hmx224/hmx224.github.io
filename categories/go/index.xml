@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>go on 爱狂热博客</title>
@@ -6,7 +6,11 @@
     <description>Recent content in go on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Dec 2020 14:14:21 +0800</lastBuildDate><atom:link href="http://hmx224.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Dec 2020 14:14:21 +0800</lastBuildDate>
+    
+	<atom:link href="http://hmx224.github.io/categories/go/index.xml" rel="self" type="application/rss+xml" />
+    
+    
     <item>
       <title>github中资料汇集</title>
       <link>http://hmx224.github.io/go/blog-golang/</link>

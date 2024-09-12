@@ -23,7 +23,10 @@
         
     <meta name="author" content="爱狂热">
     <meta property="og:url" content="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/">
-    <link rel="shortcut icon" href='/favicon.ico'  type="image/x-icon">
+    <link rel="shortcut icon" href='/favicon.ico' type="image/x-icon">
+    <link rel="icon" href='/favicon.png' type="image/png">
+    <link rel="alternate icon" href='/favicon.png' type="image/svg+xml">
+    
 
     <link rel="stylesheet" href='/css/normalize.css'>
     <link rel="stylesheet" href='/css/style.css'>
@@ -36,6 +39,7 @@
     
     
 </head>
+
 
 <body>
     <header id="header" class="clearfix">
@@ -51,7 +55,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="http://hmx224.github.io/">首页</a>
+                    <a class="current" href="http://hmx224.github.io/">Home</a>
                     
                     <a  href="http://hmx224.github.io/go/" title="Golang">Golang</a>
                     
@@ -140,51 +144,50 @@
     }
 </style>
 <div class="post-toc" style="position: absolute; top: 188px;">
-    <h2 class="post-toc-title">文章目录</h2>
+    <h2 class="post-toc-title">Table of Contents</h2>
     <div class="post-toc-content">
         <nav id="TableOfContents">
-  <ul>
-    <li><a href="#环境要求">环境要求</a></li>
-    <li><a href="#安装">安装</a></li>
-    <li><a href="#features">Features</a>
-      <ul>
-        <li><a href="#文章方面">文章方面</a></li>
-        <li><a href="#评论系统">评论系统</a></li>
-        <li><a href="#block-ip">Block IP</a></li>
-        <li><a href="#分类-多标签">分类, 多标签</a></li>
-        <li><a href="#后台管理">后台管理</a></li>
-        <li><a href="#图片管理">图片管理</a></li>
-        <li><a href="#赞赏功能">赞赏功能</a></li>
-      </ul>
-    </li>
-    <li><a href="#写作">写作</a>
-      <ul>
-        <li><a href="#快捷键">快捷键</a></li>
-        <li><a href="#上传图片">上传图片</a></li>
-        <li><a href="#提示信息">提示信息</a></li>
-        <li><a href="#markdown-extra">Markdown Extra</a></li>
-        <li><a href="#数学公式">数学公式</a></li>
-      </ul>
-    </li>
-    <li><a href="#图床file-storage">图床（File Storage）</a>
-      <ul>
-        <li><a href="#本地">本地</a></li>
-        <li><a href="#七牛云">七牛云</a></li>
-        <li><a href="#amazon-s3">Amazon S3</a></li>
-        <li><a href="#dropbox">Dropbox</a></li>
-        <li><a href="#其他图床">其他图床</a></li>
-      </ul>
-    </li>
-    <li><a href="#缓存">缓存</a></li>
-    <li><a href="#个性化">个性化</a>
-      <ul>
-        <li><a href="#首页">首页</a></li>
-        <li><a href="#header-图片">Header 图片</a></li>
-        <li><a href="#个人信息">个人信息</a></li>
-        <li><a href="#其他">其他</a></li>
-      </ul>
-    </li>
-  </ul>
+<ul>
+<li><a href="#文档地址">文档地址</a>
+<ul>
+<li><a href="#环境要求">环境要求</a></li>
+<li><a href="#安装">安装</a></li>
+<li><a href="#features">Features</a>
+<ul>
+<li><a href="#文章方面">文章方面</a></li>
+<li><a href="#评论系统">评论系统</a></li>
+<li><a href="#block-ip">Block IP</a></li>
+<li><a href="#分类-多标签">分类, 多标签</a></li>
+<li><a href="#后台管理">后台管理</a></li>
+<li><a href="#图片管理">图片管理</a></li>
+<li><a href="#赞赏功能">赞赏功能</a></li>
+</ul></li>
+<li><a href="#写作">写作</a>
+<ul>
+<li><a href="#快捷键">快捷键</a></li>
+<li><a href="#上传图片">上传图片</a></li>
+<li><a href="#提示信息">提示信息</a></li>
+<li><a href="#markdown-extra">Markdown Extra</a></li>
+<li><a href="#数学公式">数学公式</a></li>
+</ul></li>
+<li><a href="#图床-file-storage">图床（File Storage）</a>
+<ul>
+<li><a href="#本地">本地</a></li>
+<li><a href="#七牛云">七牛云</a></li>
+<li><a href="#amazon-s3">Amazon S3</a></li>
+<li><a href="#dropbox">Dropbox</a></li>
+<li><a href="#其他图床">其他图床</a></li>
+</ul></li>
+<li><a href="#缓存">缓存</a></li>
+<li><a href="#个性化">个性化</a>
+<ul>
+<li><a href="#首页">首页</a></li>
+<li><a href="#header-图片">Header 图片</a></li>
+<li><a href="#个人信息">个人信息</a></li>
+<li><a href="#其他">其他</a></li>
+</ul></li>
+</ul></li>
+</ul>
 </nav>
     </div>
 </div>
@@ -223,34 +226,45 @@
         <header>
             <h1 class="post-title">Laravel55博客项目说明xblog</h1>
         </header>
-        <date class="post-meta meta-date">
-            2020年12月6日
-        </date>
         
+  <time datetime="2020-12-06T07:25:27Z" class="post-meta meta-date dt-published">
+    2020-12-06
+  </time>
+
+
+
         
         <div class="post-meta">
-            <span id="busuanzi_container_page_pv">|<span id="busuanzi_value_page_pv"></span><span>
-                    阅读</span></span>
+            <span id="busuanzi_container_page_pv">&nbsp;|
+                <span id="busuanzi_value_page_pv"></span> <span>reads</span>
+            </span>
         </div>
         
         
         <div class="clear" style="display: none">
             <div class="toc-article">
-                <div class="toc-title">文章目录</div>
+                <div class="toc-title">Table of Contents</div>
             </div>
         </div>
         
         <div class="post-content">
-            <p>[toc]</p>
+            
+
+<p>[toc]</p>
+
 <h1 id="文档地址">文档地址</h1>
+
 <blockquote>
 <p><a href="https://xblog.lufficc.com/blog/how-to-install-my-blog">https://xblog.lufficc.com/blog/how-to-install-my-blog</a></p>
 </blockquote>
+
 <h2 id="环境要求">环境要求</h2>
+
 <p>安装npm install过程会存在问题，以下的版本可以运行成功
 npm版本 6.14.4
 node版本 v10.21.0
 composer 2.0.7</p>
+
 <pre><code>{
   &quot;private&quot;: true,
   &quot;scripts&quot;: {
@@ -286,93 +300,144 @@ composer 2.0.7</p>
     &quot;npm&quot;: &quot;^6.1.0&quot;
   }
 }
-</code></pre><pre><code>PHP &gt;= 7.0.0
+</code></pre>
+
+<pre><code>PHP &gt;= 7.0.0
 OpenSSL PHP Extension
 PDO PHP Extension
 Mbstring PHP Extension
 Tokenizer PHP Extension
 XML PHP Extension
 同时，还需要安装好 Composer 和 Node.js® 。
-</code></pre><h2 id="安装">安装</h2>
+</code></pre>
+
+<h2 id="安装">安装</h2>
+
 <p>从 GitHub 下载：</p>
+
 <pre><code>git clone https://github.com/lufficc/Xblog.git blog --depth 1
 cd blog
-</code></pre><p>安装：</p>
+</code></pre>
+
+<p>安装：</p>
+
 <pre><code>composer install
 cp .env.example .env
 php artisan key:generate
-</code></pre><p>在.env文件中填好数据库连接，例如：</p>
+</code></pre>
+
+<p>在.env文件中填好数据库连接，例如：</p>
+
 <pre><code>DB_CONNECTION=&quot;mysql&quot;
 DB_HOST=&quot;127.0.0.1&quot;
 DB_PORT=3306
 DB_DATABASE=blog
 DB_USERNAME=root
 DB_PASSWORD=123456
-</code></pre><p>运行数据库迁移：</p>
+</code></pre>
+
+<p>运行数据库迁移：</p>
+
 <pre><code>php artisan migrate
-</code></pre><p>安装前端框架：</p>
+</code></pre>
+
+<p>安装前端框架：</p>
+
 <pre><code>npm install
-</code></pre><p>编译前端：</p>
+</code></pre>
+
+<p>编译前端：</p>
+
 <pre><code>npm run dev # 开发模式, 不会压缩 js 和 css, 因此速度很快.
 npm run prod # 生产模式, 会压缩 js 和 css.
-</code></pre><p>至此，全部安装完毕，你可以启动服务器来访问 http://127.0.0.1:8000：</p>
+</code></pre>
+
+<p>至此，全部安装完毕，你可以启动服务器来访问 <a href="http://127.0.0.1:8000：">http://127.0.0.1:8000：</a></p>
+
 <pre><code>php artisan serve
-</code></pre><p>默认情况下，用户 id 为 1 的为管理员，因此首先进入 http://127.0.0.1:8000/register 注册一个用户作为管理员（只有管理员可以写作、进入后台）。</p>
+</code></pre>
+
+<p>默认情况下，用户 id 为 1 的为管理员，因此首先进入 <a href="http://127.0.0.1:8000/register">http://127.0.0.1:8000/register</a> 注册一个用户作为管理员（只有管理员可以写作、进入后台）。</p>
+
 <p>为了不让网站看起来空荡荡的，你可以生产一些假数据：</p>
+
 <pre><code>php artisan db:seed
-</code></pre><p>到这一步，网站大概看起来就是这个样子了（没有其他任何个性化设置）：
+</code></pre>
 
-        <img class="mx-auto" alt="首页" src="/images/laravel55%e5%8d%9a%e5%ae%a2%e9%a1%b9%e7%9b%ae%e8%af%b4%e6%98%8exblog/1.png" />   
-    </p>
+<p>到这一步，网站大概看起来就是这个样子了（没有其他任何个性化设置）：
+<img src="/images/laravel55博客项目说明xblog/1.png" alt="首页" /></p>
+
 <h2 id="features">Features</h2>
+
 <h3 id="文章方面">文章方面</h3>
+
 <p>支持 Markdown, 编辑器支持粘贴板、拖拽上传图片，全屏写作模式, 实时预览, 快捷键, 自动保存。
+<img src="/images/laravel55博客项目说明xblog/2.png" alt="编辑器" /></p>
 
-        <img class="mx-auto" alt="编辑器" src="/images/laravel55%e5%8d%9a%e5%ae%a2%e9%a1%b9%e7%9b%ae%e8%af%b4%e6%98%8exblog/2.png" />   
-    </p>
 <p>文章的多状态管理(发布,撤回,软删除,永久删除,恢复,草稿)
+<img src="/images/laravel55博客项目说明xblog/3.png" alt="文章的多状态管理" /></p>
 
-        <img class="mx-auto" alt="文章的多状态管理" src="/images/laravel55%e5%8d%9a%e5%ae%a2%e9%a1%b9%e7%9b%ae%e8%af%b4%e6%98%8exblog/3.png" />   
-    </p>
 <p>单篇文章支持修改评论类型（原生、Disqus），支持关闭、禁止或不显示评论，支持关闭或者显示目录（TOC）。
+<img src="/images/laravel55博客项目说明xblog/4.png" alt="文章个性化" /></p>
 
-        <img class="mx-auto" alt="文章个性化" src="/images/laravel55%e5%8d%9a%e5%ae%a2%e9%a1%b9%e7%9b%ae%e8%af%b4%e6%98%8exblog/4.png" />   
-    </p>
 <h3 id="评论系统">评论系统</h3>
+
 <p>支持原生自带、Disqus评论系统。支持全站关闭评论， 文章(或者页面)关闭评论，为某一篇文章(或者页面)关闭评论，强制开启评论。
 原生自带评论登录未登录均可评论，但是需要管理员审核后才会显示在前端界面。</p>
+
 <p>自带多层级评论系统</p>
+
 <p>以及评论管理系统：
 评论管理系统
 评论管理系统</p>
+
 <p>评论邮件提醒功能：
 邮件提醒
 邮件提醒</p>
+
 <h3 id="block-ip">Block IP</h3>
+
 <p>会记录访问你博客用户的 IP，可以禁止某一 IP 访问你的博客。</p>
+
 <p>Block IP</p>
+
 <h3 id="分类-多标签">分类, 多标签</h3>
+
 <p>每个文章须有一个分类，可以有0个或多个标签。</p>
+
 <p>分类
 分类
 标签
 标签</p>
+
 <h3 id="后台管理">后台管理</h3>
+
 <p>后台界面。</p>
+
 <p>后台管理
 后台管理</p>
+
 <h3 id="图片管理">图片管理</h3>
+
 <p>图片集中管理、上传。</p>
+
 <p>图片管理
 图片管理</p>
+
 <h3 id="赞赏功能">赞赏功能</h3>
+
 <p>赞赏功能，可关闭，赞赏语可配置。</p>
+
 <h2 id="写作">写作</h2>
+
 <p>Xblog 采用 Markdown 格式来存储文章。Markdown 简洁、高效，很容易上手。</p>
+
 <h3 id="快捷键">快捷键</h3>
+
 <p>编辑器采用 sparksuite/simplemde-markdown-editor ，支持 SimpleMDE 支持的所有快捷键，同时文章会自动保存在本地，
 防止关闭网页导致内容丢失。</p>
-<pre><code class="language-cgo" data-lang="cgo">快捷键	动作
+
+<pre><code class="language-cgo">快捷键	动作
 Cmd-'	&quot;toggleBlockquote&quot;
 Cmd-B	&quot;toggleBold&quot;
 Cmd-E	&quot;cleanBlock&quot;
@@ -387,9 +452,13 @@ Cmd-Alt-L	&quot;toggleOrderedList&quot;
 Shift-Cmd-H	&quot;toggleHeadingBigger&quot;
 F9	&quot;toggleSideBySide&quot;
 F11	&quot;toggleFullScreen&quot;
-</code></pre><h3 id="上传图片">上传图片</h3>
+</code></pre>
+
+<h3 id="上传图片">上传图片</h3>
+
 <p>扩展了 SimpleMDE，你可直接拖拽图片到编辑器或者直接将粘贴板的图片粘贴到编辑器，编辑器可以自动上传图片，
 并将图片链接以 Markdown 的方式插入到当前光标位置。</p>
+
 <pre><code>![filename](image_url)
 图题
 你可以给图片添加 figure 类让其显示题图，因为采用了 Markdown Extra ，因此在图片链接后面添加{.figure}即可，效果如下图所示。
@@ -467,8 +536,12 @@ alt
 &lt;/div&gt;
 五列画廊
 同时，这些画廊全都是响应式的，在移动设备上会显示为单列。如果 caption 为空的话，画廊图题会设置为所有图片的 alt 中不为空的第一个。
-</code></pre><h3 id="提示信息">提示信息</h3>
+</code></pre>
+
+<h3 id="提示信息">提示信息</h3>
+
 <p>点击编辑器的提示按钮，来插入提示。</p>
+
 <pre><code>提示按钮
 
 &lt;div markdown=&quot;1&quot; class=&quot;alert alert-info&quot;&gt;
@@ -500,8 +573,12 @@ NOTE: 我不是海贼迷，不要点击这里看漫画。
 NOTE: 我是海贼迷，点击这里看漫画。
 
 NOTE: 我是海贼迷，点击这里看漫画。
-</code></pre><h3 id="markdown-extra">Markdown Extra</h3>
+</code></pre>
+
+<h3 id="markdown-extra">Markdown Extra</h3>
+
 <p>Xblog 支持 php Markdown Extra，例如：</p>
+
 <pre><code>Markdown Inside HTML Blocks
 &lt;div markdown=&quot;1&quot;&gt;
 &lt;div markdown=&quot;1&quot;&gt; This is *true* **markdown** text. &lt;/div&gt; 
@@ -520,16 +597,27 @@ The HTML specification is maintained by the W3C.
 The HTML specification is maintained by the W3C.
 
 更多效果可以查看 php Markdown Extra。
-</code></pre><h3 id="数学公式">数学公式</h3>
+</code></pre>
+
+<h3 id="数学公式">数学公式</h3>
+
 <p>数学公式采用 MathJax，使用 $ 包裹行内元素，$$ 包裹块元素即可，例如：</p>
+
 <pre><code>When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
 $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-</code></pre><p>When a≠0, there are two solutions to (ax^2 + bx + c = 0) and they are
+</code></pre>
+
+<p>When a≠0, there are two solutions to (ax^2 + bx + c = 0) and they are
 x=−b±b2−4ac−−−−−−−√2a.</p>
-<h2 id="图床file-storage">图床（File Storage）</h2>
+
+<h2 id="图床-file-storage">图床（File Storage）</h2>
+
 <p>Xblog 默认支持本地、七牛云、Amazon S3、Dropbox 等图床。并且图片与图床独立，你可以随便随时修改图床配置，而不影响图片（文件）的删除等功能，修改 .env 的 DISK 属性只会影响当前上传图片（文件）的位置，因为图片（文件）信息也存储了图床信息到数据库。</p>
+
 <h3 id="本地">本地</h3>
+
 <p>使用本地图床，只需要将修改.env中 的 DISK=local 或者 DISK=public 即可。</p>
+
 <pre><code>public
 修改 .env中 的 DISK=public，此时上传文件会存储到 storage/app/public 文件夹，为了使前端可见，需要创建一个链接，从public/storage 到 storage/app/public，运行
 
@@ -541,51 +629,87 @@ local
 
 ln -s &lt;project_root&gt;/storage/app &lt;project_root&gt;/public/storage
 即可。
-</code></pre><h3 id="七牛云">七牛云</h3>
+</code></pre>
+
+<h3 id="七牛云">七牛云</h3>
+
 <p>修改 .env 中 的 DISK=qiniu，同时填写七牛云相关信息即可。</p>
+
 <pre><code>DISK=qiniu
 QINIU_AK=
 QINIU_SK=
 QINIU_BUCKET=
 QINIU_DOMAIN= # 结尾不带 ‘/’
-</code></pre><h3 id="amazon-s3">Amazon S3</h3>
+</code></pre>
+
+<h3 id="amazon-s3">Amazon S3</h3>
+
 <p>首先需要安装依赖，composer require league/flysystem-aws-s3-v3 ~1.0，然后修改 .env 中 的 DISK=s3，同时填写 Amazon S3 相关信息即可。</p>
+
 <pre><code>DISK=s3
 S3_KEY=
 S3_SECRET=
 S3_REGION=
 S3_BUCKET=
-</code></pre><h3 id="dropbox">Dropbox</h3>
+</code></pre>
+
+<h3 id="dropbox">Dropbox</h3>
+
 <p>首先需要安装依赖，composer require spatie/flysystem-dropbox，然后将App\Providers\DropboxServiceProvider::class 添加到 config/app.php 的providers数组，最后修改 .env 中 的 DISK=dropbox，同时填写 Dropbox 相关信息即可。如何生成 access token？看这里。</p>
+
 <pre><code>DISK=dropbox
 DROPBOX_ACCESS_TOKEN=
-</code></pre><h3 id="其他图床">其他图床</h3>
+</code></pre>
+
+<h3 id="其他图床">其他图床</h3>
+
 <p>参考官方文档 <a href="https://laravel.com/docs/5.5/filesystem">File Storage</a>，然后在 .env 中填写相关信息即可，无需其他多余改动。</p>
+
 <h2 id="缓存">缓存</h2>
+
 <p>Xblog 支持使用 Redis 来加速你的博客，默认是没有使用缓存的。如果想使用，首先安装 Redis:</p>
+
 <pre><code>sudo apt-get install redis-server
-</code></pre><p>然后在 .env 中设置 CACHE_ENABLE=&lsquo;true&rsquo; 即可。</p>
+</code></pre>
+
+<p>然后在 .env 中设置 CACHE_ENABLE=&lsquo;true&rsquo; 即可。</p>
+
 <h2 id="个性化">个性化</h2>
+
 <h3 id="首页">首页</h3>
+
 <p>首页动态墙纸，在 Settings &gt; 图片 &gt; Home背景图片里面填写，每行为一个图片链接。然后首页会随机循环播放这些图片。
 Logo 在 Settings &gt; 网站 &gt; Logo 设置，可以为纯文本或者 HTML。例如 Bootstrap Logo 的 SVG:</p>
+
 <pre><code>&lt;svg class=&quot;d-block&quot; width=&quot;36&quot; height=&quot;36&quot; viewBox=&quot;0 0 612 612&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; focusable=&quot;false&quot;&gt;
    &lt;title&gt;Bootstrap&lt;/title&gt;
    &lt;path fill=&quot;currentColor&quot; d=&quot;M510 8a94.3 94.3 0 0 1 94 94v408a94.3 94.3 0 0 1-94 94H102a94.3 94.3 0 0 1-94-94V102a94.3 94.3 0 0 1 94-94h408m0-8H102C45.9 0 0 45.9 0 102v408c0 56.1 45.9 102 102 102h408c56.1 0 102-45.9 102-102V102C612 45.9 566.1 0 510 0z&quot;&gt;&lt;/path&gt;
    &lt;path fill=&quot;currentColor&quot; d=&quot;M196.77 471.5V154.43h124.15c54.27 0 91 31.64 91 79.1 0 33-24.17 63.72-54.71 69.21v1.76c43.07 5.49 70.75 35.82 70.75 78 0 55.81-40 89-107.45 89zm39.55-180.4h63.28c46.8 0 72.29-18.68 72.29-53 0-31.42-21.53-48.78-60-48.78h-75.57zm78.22 145.46c47.68 0 72.73-19.34 72.73-56s-25.93-55.37-76.46-55.37h-74.49v111.4z&quot;&gt;&lt;/path&gt;
 &lt;/svg&gt;
-</code></pre><p>其效果为：</p>
+</code></pre>
+
+<p>其效果为：</p>
+
 <h3 id="header-图片">Header 图片</h3>
+
 <p>在 Settings &gt; 网站 &gt; Header背景图片 设置，可以设置一个固定图片地址，也可以设置为动态更新的，如何必应搜索每日壁纸保持同步，或者定期随机从 Picsum 选择一张图片。</p>
+
 <p>你如果使用了动态更新，需要在服务器添加配置，运行 crontab -e ,然后添加</p>
+
 <pre><code>* * * * * php /path-to-your-project/artisan schedule:run &gt;&gt; /dev/null 2&gt;&amp;1
-</code></pre><p>即可，详见 <a href="https://laravel.com/docs/5.5/scheduling">Task Scheduling</a> 官方文档。</p>
+</code></pre>
+
+<p>即可，详见 <a href="https://laravel.com/docs/5.5/scheduling">Task Scheduling</a> 官方文档。</p>
+
 <p>Header 展示
 Header 展示
 设置 Header 图片
 设置 Header 图片</p>
+
 <h3 id="个人信息">个人信息</h3>
+
 <p>在 Settings &gt; 个人信息 设置你的头像、用户名、社交链接等信息，会显示在首页和博客右边栏。同时，其他信息 栏可以为 HTML，其最终会拼接到博客右边栏（博客右边栏实际为 Bootstrap 的一个 card，因此自定义 HTML 最好用 card-body 类包裹，来获取相同 pad。），如设置为 DigitalOcean 的邀请链接：</p>
+
 <pre><code>&lt;div class=&quot;card-body border-top&quot;&gt; 
 &lt;div class=&quot;media&quot;&gt;
 &lt;a  class=&quot;align-self-center d-flex mr-3&quot; href=&quot;https://m.do.co/c/fd4deae8d4f4&quot; target=&quot;_blank&quot;&gt;
@@ -596,12 +720,19 @@ Header 展示
   &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</code></pre><p>其效果为：</p>
+</code></pre>
+
+<p>其效果为：</p>
+
 <h3 id="其他">其他</h3>
+
 <p>还有很多其他个性化设置，如每页数量、热门文章数量、备案号、赞赏描述等等，就不一一详细介绍了，在后台很容易就看到啦。</p>
+
 <pre><code>&lt;p&gt;这是原理1。&amp;#160;&lt;a href=&quot;#fnref1:1&quot; rev=&quot;footnote&quot; class=&quot;footnote-backref&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
 
-</code></pre><p>写的不错，帮助到了您，赞助一下主机费~</p>
+</code></pre>
+
+<p>写的不错，帮助到了您，赞助一下主机费~</p>
 
         </div>
 
@@ -630,7 +761,7 @@ Header 展示
 
         <div class="post-meta meta-tags">
             
-            没有标签
+            No tags
             
         </div>
     </article>
@@ -668,11 +799,14 @@ Header 展示
       </script>
     </div>
     
+    
+    
+
 </div>
 
                     <footer id="footer">
     <div>
-        &copy; 2017 - 2022 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
+        &copy; 2017 - 2024 <a href="http://hmx224.github.io/">爱狂热博客 By 爱狂热</a>
 
         | 版权所有 - <a href="https://beian.miit.gov.cn/" target="_blank">京ICP备16009734号-2 </a>
         
@@ -717,48 +851,48 @@ Header 展示
 
                 <div id="secondary">
     <section class="widget">
-        <form id="search" action='http://hmx224.github.io/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='http://hmx224.github.io/search' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
       <input type="text" name="q" maxlength="20" placeholder="Search">
       <input type="hidden" name="sitesearch" value="http://hmx224.github.io/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
-    
+
     <section class="widget">
-        <h3 class="widget-title">最近文章</h3>
+        <h3 class="widget-title">Latest articles</h3>
 <ul class="widget-list">
     
     <li>
-        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog">Laravel55博客项目说明xblog</a>
+        <a href="http://hmx224.github.io/post/laravel55%E5%8D%9A%E5%AE%A2%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8Exblog/" title="Laravel55博客项目说明xblog" target="_blank">Laravel55博客项目说明xblog</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI">Centos中安装GUI</a>
+        <a href="http://hmx224.github.io/post/centos%E4%B8%AD%E5%AE%89%E8%A3%85GUI/" title="Centos中安装GUI" target="_blank">Centos中安装GUI</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程">Linux的启动流程</a>
+        <a href="http://hmx224.github.io/post/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="Linux的启动流程" target="_blank">Linux的启动流程</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd">Linux服务管理程序systemd</a>
+        <a href="http://hmx224.github.io/post/linux%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E7%A8%8B%E5%BA%8Fsystemd/" title="Linux服务管理程序systemd" target="_blank">Linux服务管理程序systemd</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo">SupervisorInfo</a>
+        <a href="http://hmx224.github.io/post/supervisorInfo/" title="SupervisorInfo" target="_blank">SupervisorInfo</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/resume/" title="Resume">Resume</a>
+        <a href="http://hmx224.github.io/post/resume/" title="Resume" target="_blank">Resume</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode">Qrcode</a>
+        <a href="http://hmx224.github.io/post/qrcode/" title="Qrcode" target="_blank">Qrcode</a>
     </li>
     
     <li>
-        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录">记录早期爱狂热blog简介记录</a>
+        <a href="http://hmx224.github.io/post/ifanatic-blog-introduce/" title="记录早期爱狂热blog简介记录" target="_blank">记录早期爱狂热blog简介记录</a>
     </li>
     
 </ul>
@@ -767,10 +901,12 @@ Header 展示
     
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/categories/'>分类</a></h3>
+        <h3 class="widget-title"><a href='/categories/'>categories</a></h3>
 <ul class="widget-list">
     
     <li><a href="http://hmx224.github.io/categories/go/">go (1)</a></li>
+    
+    <li><a href="http://hmx224.github.io/categories/go%E9%9D%A2%E8%AF%95/">go面试 (51)</a></li>
     
     <li><a href="http://hmx224.github.io/categories/%E5%B7%A5%E5%85%B7/">工具 (1)</a></li>
     
@@ -778,10 +914,12 @@ Header 展示
     </section>
 
     <section class="widget">
-        <h3 class="widget-title"><a href='/tags/'>标签</a></h3>
+        <h3 class="widget-title"><a href='/tags/'>tags</a></h3>
 <div class="tagcloud">
     
     <a href="http://hmx224.github.io/tags/go/">go</a>
+    
+    <a href="http://hmx224.github.io/tags/go%E9%9D%A2%E8%AF%95/">go面试</a>
     
     <a href="http://hmx224.github.io/tags/php/">php</a>
     
@@ -790,7 +928,7 @@ Header 展示
 
     
 <section class="widget">
-    <h3 class="widget-title">友情链接</h3>
+    <h3 class="widget-title">Links</h3>
     <ul class="widget-list">
         
         <li>
@@ -806,9 +944,9 @@ Header 展示
 
 
     <section class="widget">
-        <h3 class="widget-title">其它</h3>
+        <h3 class="widget-title">Meta</h3>
         <ul class="widget-list">
-            <li><a href="http://hmx224.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="http://hmx224.github.io/index.xml">RSS</a></li>
         </ul>
     </section>
 </div>

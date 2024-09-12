@@ -2,113 +2,64 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9796cac7-61da-47b3-8a8c-4c43be2e7e7c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/404.html" afterPath="$PROJECT_DIR$/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/about/index.html" afterPath="$PROJECT_DIR$/about/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/archives/index.html" afterPath="$PROJECT_DIR$/archives/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/go/index.html" afterPath="$PROJECT_DIR$/categories/go/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/go/index.xml" afterPath="$PROJECT_DIR$/categories/go/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/index.html" afterPath="$PROJECT_DIR$/categories/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/index.xml" afterPath="$PROJECT_DIR$/categories/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/工具/index.html" afterPath="$PROJECT_DIR$/categories/工具/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/工具/index.xml" afterPath="$PROJECT_DIR$/categories/工具/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/go/blog-golang/index.html" afterPath="$PROJECT_DIR$/go/blog-golang/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/go/index.html" afterPath="$PROJECT_DIR$/go/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/go/index.xml" afterPath="$PROJECT_DIR$/go/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.xml" afterPath="$PROJECT_DIR$/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interviews/first/index.html" afterPath="$PROJECT_DIR$/interviews/first/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interviews/index.html" afterPath="$PROJECT_DIR$/interviews/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interviews/index.xml" afterPath="$PROJECT_DIR$/interviews/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interviews/phpInterview2018/index.html" afterPath="$PROJECT_DIR$/interviews/phpInterview2018/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/interviews/tcpip/index.html" afterPath="$PROJECT_DIR$/interviews/tcpip/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/first/index.html" afterPath="$PROJECT_DIR$/php/first/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/index.html" afterPath="$PROJECT_DIR$/php/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/index.xml" afterPath="$PROJECT_DIR$/php/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/laravel使用/index.html" afterPath="$PROJECT_DIR$/php/laravel使用/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/php/laravel核心概念/index.html" afterPath="$PROJECT_DIR$/php/laravel核心概念/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/Linux的启动流程/index.html" afterPath="$PROJECT_DIR$/post/Linux的启动流程/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/centos中安装GUI/index.html" afterPath="$PROJECT_DIR$/post/centos中安装GUI/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/ifanatic-blog-introduce/index.html" afterPath="$PROJECT_DIR$/post/ifanatic-blog-introduce/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/index.html" afterPath="$PROJECT_DIR$/post/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/index.xml" afterPath="$PROJECT_DIR$/post/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/laravel55博客项目说明xblog/index.html" afterPath="$PROJECT_DIR$/post/laravel55博客项目说明xblog/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/linux服务管理程序systemd/index.html" afterPath="$PROJECT_DIR$/post/linux服务管理程序systemd/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/qrcode/index.html" afterPath="$PROJECT_DIR$/post/qrcode/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/resume/index.html" afterPath="$PROJECT_DIR$/post/resume/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/post/supervisorInfo/index.html" afterPath="$PROJECT_DIR$/post/supervisorInfo/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/search/index.html" afterPath="$PROJECT_DIR$/search/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sitemap.xml" afterPath="$PROJECT_DIR$/sitemap.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/go/index.html" afterPath="$PROJECT_DIR$/tags/go/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/go/index.xml" afterPath="$PROJECT_DIR$/tags/go/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/index.html" afterPath="$PROJECT_DIR$/tags/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/index.xml" afterPath="$PROJECT_DIR$/tags/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/php/index.html" afterPath="$PROJECT_DIR$/tags/php/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tags/php/index.xml" afterPath="$PROJECT_DIR$/tags/php/index.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/first/index.html" afterPath="$PROJECT_DIR$/tools/first/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/index.html" afterPath="$PROJECT_DIR$/tools/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools/index.xml" afterPath="$PROJECT_DIR$/tools/index.xml" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/404.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/about/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/archives/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/archives/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/categories/go/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/go/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/categories/go/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/categories/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/categories/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/工具/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/categories/工具/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/categories/工具/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/categories/工具/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/blog-golang/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/go/blog-golang/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/go/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/go/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interviews/first/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/first/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interviews/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interviews/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interviews/phpInterview2018/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/phpInterview2018/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/interviews/tcpip/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/tcpip/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/first/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/first/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/php/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/laravel使用/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/laravel使用/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/php/laravel核心概念/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/laravel核心概念/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/Linux的启动流程/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/Linux的启动流程/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/centos中安装GUI/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/centos中安装GUI/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/ifanatic-blog-introduce/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/ifanatic-blog-introduce/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/post/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/laravel55博客项目说明xblog/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/laravel55博客项目说明xblog/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/linux服务管理程序systemd/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/linux服务管理程序systemd/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/qrcode/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/qrcode/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/resume/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/resume/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post/supervisorInfo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/supervisorInfo/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/search/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/search/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tags/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tags/go/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tags/go/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tags/go/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tags/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tags/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tags/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tags/php/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tags/php/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tags/php/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tags/php/index.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/first/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tools/first/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tools/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tools/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tools/index.xml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
-  </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="CNAME" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CNAME">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="42">
-                <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="first.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/first.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="0">
-                <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                <folding />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/about/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -125,81 +76,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/hmx224.github.io/index.html" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/index.html" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
-    <option name="x" value="698" />
-    <option name="y" value="200" />
-    <option name="width" value="1918" />
-    <option name="height" value="1165" />
-  </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hmx224.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hmx224.github.io" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hmx224.github.io" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hmx224.github.io" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="about" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-    </panes>
+  <component name="ProjectId" id="2luQmBpID3wrknOvtGjg3Ls7TiC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="N:\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="nodejs_interpreter_path" value="N:/nodejs/node" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -208,18 +102,6 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="N:\workspace\github\hmx224.github.io" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="js.build_tools.gulp">
@@ -231,9 +113,6 @@
       <envs />
       <method v="2" />
     </configuration>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -264,6 +143,7 @@
       <workItem from="1599916367023" duration="976000" />
       <workItem from="1602509646788" duration="451000" />
       <workItem from="1645265473881" duration="519000" />
+      <workItem from="1726027639969" duration="4492000" />
     </task>
     <task id="LOCAL-00001" summary="增加说明">
       <created>1596968049480</created>
@@ -282,9 +162,6 @@
     <option name="localTasksCounter" value="3" />
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28758000" />
-  </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
       <is-autoscroll-to-source value="true" />
@@ -294,172 +171,30 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="698" y="200" width="1918" height="1165" extended-state="0" />
-    <editor active="false" />
-    <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34142396" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14341463" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="2" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="增加说明" />
     <MESSAGE value="优化标签" />
     <option name="LAST_COMMIT_MESSAGE" value="优化标签" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CNAME">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="42">
-            <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CNAME">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="42">
-            <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.html" />
-    <entry file="file://$PROJECT_DIR$/hmx224.github.io/index.html" />
-    <entry file="file://$PROJECT_DIR$/click.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="8" lean-forward="false" selection-start-line="6" selection-start-column="8" selection-end-line="39" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="115" column="12" lean-forward="false" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CNAME">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="42">
-            <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/first.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/about/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+  <component name="WindowStateProjectService">
+    <state x="1751" y="477" key="FileChooserDialogImpl" timestamp="1726032637555">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1751" y="477" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1726032637555" />
   </component>
 </project>
