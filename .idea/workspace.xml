@@ -1,54 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9796cac7-61da-47b3-8a8c-4c43be2e7e7c" name="Default" comment="">
+    <list default="true" id="9796cac7-61da-47b3-8a8c-4c43be2e7e7c" name="Default" comment="add go backend_interview jike">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/about/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/about/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/archives/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/archives/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/categories/go/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/go/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/categories/go/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/categories/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/categories/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/工具/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/categories/工具/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/categories/工具/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/categories/工具/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/blog-golang/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/go/blog-golang/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/go/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/go/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interviews/first/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/first/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interviews/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interviews/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interviews/phpInterview2018/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/phpInterview2018/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interviews/tcpip/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/interviews/tcpip/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/first/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/first/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/php/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/laravel使用/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/laravel使用/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/laravel核心概念/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/php/laravel核心概念/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/Linux的启动流程/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/Linux的启动流程/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/centos中安装GUI/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/centos中安装GUI/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/ifanatic-blog-introduce/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/ifanatic-blog-introduce/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/post/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/laravel55博客项目说明xblog/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/laravel55博客项目说明xblog/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/linux服务管理程序systemd/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/linux服务管理程序systemd/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/qrcode/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/qrcode/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/resume/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/resume/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post/supervisorInfo/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/post/supervisorInfo/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/search/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sitemap.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sitemap.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tags/go/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tags/go/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tags/go/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tags/go/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tags/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tags/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tags/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tags/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tags/php/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tags/php/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tags/php/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tags/php/index.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/first/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tools/first/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/tools/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tools/index.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tools/index.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,10 +50,12 @@
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\workspace\php_workspace\hmx224.github.io" />
       <recent name="N:\workspace\github\hmx224.github.io" />
     </key>
   </component>
@@ -143,7 +99,7 @@
       <workItem from="1599916367023" duration="976000" />
       <workItem from="1602509646788" duration="451000" />
       <workItem from="1645265473881" duration="519000" />
-      <workItem from="1726027639969" duration="4492000" />
+      <workItem from="1726027639969" duration="5053000" />
     </task>
     <task id="LOCAL-00001" summary="增加说明">
       <created>1596968049480</created>
@@ -159,7 +115,14 @@
       <option name="project" value="LOCAL" />
       <updated>1597671223820</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add go backend_interview jike">
+      <created>1726109821699</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726109821699</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -189,9 +152,18 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="增加说明" />
     <MESSAGE value="优化标签" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化标签" />
+    <MESSAGE value="add go backend_interview jike" />
+    <option name="LAST_COMMIT_MESSAGE" value="add go backend_interview jike" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="195" y="309" width="1872" height="866" key="CommitChangelistDialog2" timestamp="1726109808050">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="195" y="309" width="1872" height="866" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1726109808050" />
+    <state x="496" y="106" key="DiffContextDialog" timestamp="1726109698589">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="496" y="106" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1726109698589" />
     <state x="1751" y="477" key="FileChooserDialogImpl" timestamp="1726032637555">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

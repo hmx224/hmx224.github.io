@@ -6,10 +6,19 @@
     <description>Recent content in php on 爱狂热博客</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Nov 2020 09:15:46 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 08 Dec 2020 21:48:16 +0800</lastBuildDate>
     
 	<atom:link href="http://hmx224.github.io/tags/php/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>深入理解php底层：php生命周期</title>
+      <link>http://hmx224.github.io/post/php/</link>
+      <pubDate>Tue, 08 Dec 2020 21:48:16 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/post/php/</guid>
+      <description>深入理解php底层：php生命周期 1、PHP的运行模式： PHP两种运行模式是WEB模式、CLI模式。无论哪种模式，PHP工作原理都是一样的，作为一种SAPI运行。 1、当我们在终端敲入php这个命令的时候，它使用的是CLI。 它就像一个web服</description>
+    </item>
     
     <item>
       <title>记录早期爱狂热blog简介记录</title>
@@ -17,7 +26,7 @@
       <pubDate>Sun, 22 Nov 2020 09:15:46 +0800</pubDate>
       
       <guid>http://hmx224.github.io/post/ifanatic-blog-introduce/</guid>
-      <description>知识图谱引导 记录起来,加油，奋进，努力！ 工具 pycharm 2018.03，有效期到：2100年,主要是注意流程点击这里 pycharm 破解流程,点击这里 phpstorm 2016.3.2,可使用百度云中的下载使用 goland 2019.01/2018.03(这个版本可以用),百度云下载使用 php校验身份证号,点击这里 html代码压缩</description>
+      <description>知识图谱引导 记录起来,加油，奋进，努力！ 工具 pycharm 2018.03，有效期到：2100年,主要是注意流程点击这里 pycharm 破解流程,点击这里 phpstorm 2016.3.2,可使用百度云中的下载使用 goland 2019.01/2018.03(这个版本可以用),百度云下载使用 ph</description>
     </item>
     
   </channel>

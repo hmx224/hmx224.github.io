@@ -21,11 +21,38 @@
     </item>
     
     <item>
-      <title>go</title>
-      <link>http://hmx224.github.io/categories/go/</link>
+      <title>Go</title>
+      <link>http://hmx224.github.io/categories/Go/</link>
       <pubDate>Fri, 18 Dec 2020 14:14:21 +0800</pubDate>
       
-      <guid>http://hmx224.github.io/categories/go/</guid>
+      <guid>http://hmx224.github.io/categories/Go/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Laravel</title>
+      <link>http://hmx224.github.io/categories/Laravel/</link>
+      <pubDate>Tue, 08 Dec 2020 22:21:56 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/categories/Laravel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>http://hmx224.github.io/categories/Linux/</link>
+      <pubDate>Sun, 29 Nov 2020 21:51:13 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/categories/Linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>QR</title>
+      <link>http://hmx224.github.io/categories/QR/</link>
+      <pubDate>Mon, 23 Nov 2020 14:27:30 +0800</pubDate>
+      
+      <guid>http://hmx224.github.io/categories/QR/</guid>
       <description></description>
     </item>
     
