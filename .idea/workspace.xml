@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9796cac7-61da-47b3-8a8c-4c43be2e7e7c" name="Default" comment="add go backend_interview jike">
+    <list default="true" id="9796cac7-61da-47b3-8a8c-4c43be2e7e7c" name="Default" comment="upd struct content">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,6 +27,7 @@
       <find>load-more</find>
     </findStrings>
   </component>
+  <component name="GOROOT" url="file://$USER_HOME$/.g/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -37,7 +38,11 @@
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="go.import.settings.migrated" value="true" />
+    <property name="go.sdk.automatically.set" value="true" />
     <property name="js-jscs-nodeInterpreter" value="N:\nodejs\node.exe" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -70,6 +75,7 @@
       <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -100,6 +106,8 @@
       <workItem from="1602509646788" duration="451000" />
       <workItem from="1645265473881" duration="519000" />
       <workItem from="1726027639969" duration="5053000" />
+      <workItem from="1726116821258" duration="925000" />
+      <workItem from="1728539421317" duration="1812000" />
     </task>
     <task id="LOCAL-00001" summary="增加说明">
       <created>1596968049480</created>
@@ -122,7 +130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1726109821699</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="upd struct content">
+      <created>1726117174662</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726117174662</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -135,7 +150,7 @@
     </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -153,20 +168,8 @@
     <MESSAGE value="增加说明" />
     <MESSAGE value="优化标签" />
     <MESSAGE value="add go backend_interview jike" />
-    <option name="LAST_COMMIT_MESSAGE" value="add go backend_interview jike" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="195" y="309" width="1872" height="866" key="CommitChangelistDialog2" timestamp="1726109808050">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="195" y="309" width="1872" height="866" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1726109808050" />
-    <state x="496" y="106" key="DiffContextDialog" timestamp="1726109698589">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="496" y="106" key="DiffContextDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1726109698589" />
-    <state x="1751" y="477" key="FileChooserDialogImpl" timestamp="1726032637555">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="1751" y="477" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1726032637555" />
+    <MESSAGE value="upd struct content" />
+    <MESSAGE value="upd interviews pic" />
+    <option name="LAST_COMMIT_MESSAGE" value="upd interviews pic" />
   </component>
 </project>
